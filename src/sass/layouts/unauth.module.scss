@@ -1,0 +1,13 @@
+@use "../utils" as *;
+.main{
+  min-height: 100vh;
+  text-align: center;
+  h1{
+    margin: .5em 0;
+    font-size: 6rem;
+  }
+  p{
+    margin: 1em 0;
+    font-size: 2rem;
+  }
+}

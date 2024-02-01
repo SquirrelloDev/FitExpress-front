@@ -1,0 +1,18 @@
+.welcome{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  max-height: 100vh;
+  &__carousel{
+
+  }
+  &__buttons{
+    margin: 0 1.25em .5em;
+    display: flex;
+    flex-direction: column;
+    button{
+      margin: .5em 0;
+    }
+  }
+}

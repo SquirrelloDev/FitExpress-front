@@ -1,0 +1,32 @@
+@use '../utils' as *;
+.btn{
+  padding: .75em 1.5em;
+  background-color: $cta;
+  border-radius: 8px;
+  font-family: $family-tet;
+  font-size: calc($normal + .4rem);
+  color: $text-color-primary;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color .3s;
+  &--outline{
+    background: none;
+    border: 1px solid $cta;
+    transition: background-color .3s, color .3s;
+    color: $cta;
+  }
+  &:hover{
+    background-color: rgb(80,215,116);
+  }
+  &--outline:hover{
+    background-color: $cta;
+    color: $text-color-primary;
+  }
+  &:disabled{
+    background-color: $border;
+    cursor: not-allowed;
+  }
+  &:disabled:hover{
+    background-color: $border;
+  }
+}
