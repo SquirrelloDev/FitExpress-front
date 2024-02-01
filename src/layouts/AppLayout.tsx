@@ -12,7 +12,7 @@ export function AppLayout({minPermLevel}:AppLayoutProps) {
 	const {isAuthorized, isLoggedIn} = useUserRole(minPermLevel)
 	useEffect(() => {
 		if(!isLoggedIn){
-			navigate(appRoutes.login);
+			navigate(appRoutes.welcomePage);
 		}
 		else if(isLoggedIn && !isAuthorized){
 			navigate(appRoutes.notAuthorized)

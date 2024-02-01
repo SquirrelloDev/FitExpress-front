@@ -1,17 +1,31 @@
-.welcome{
+@use '../utils' as *;
+.welcome {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   min-height: 100vh;
-  max-height: 100vh;
-  &__carousel{
 
+  &__carousel {
+    &__wrapper {
+      margin-top: 1em;
+    }
+    &__item {
+      margin: 0 1em;
+      &__image {
+        width: 200px;
+        height: 200px;
+      }
+      &__text {
+        text-align: center;
+      }
+    }
   }
-  &__buttons{
-    margin: 0 1.25em .5em;
+
+  &__buttons {
+    margin: 1.5em 1.25em .5em;
     display: flex;
     flex-direction: column;
-    button{
+    button {
       margin: .5em 0;
     }
   }
