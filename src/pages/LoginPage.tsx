@@ -10,7 +10,7 @@ import {Link} from "react-router-dom";
 import {appRoutes} from "../utils/routes";
 
 function LoginPage() {
-	const handleSuccessfulLogin = useSuccessfulLogin();
+	const handleSuccessfulLogin = useSuccessfulLogin(appRoutes.home);
 	const methods = useForm({
 		mode: 'onTouched',
 		resolver: zodResolver(LoginFormSchema)

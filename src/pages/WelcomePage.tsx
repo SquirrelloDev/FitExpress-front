@@ -4,7 +4,6 @@ import clsx from "clsx";
 import {useNavigate} from "react-router-dom";
 import {appRoutes} from "../utils/routes";
 import {Carousel} from "@mantine/carousel";
-import {Tabs} from "@mantine/core";
 import '@mantine/carousel/styles.css';
 
 export function WelcomePage() {

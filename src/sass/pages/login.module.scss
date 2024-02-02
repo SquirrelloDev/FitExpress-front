@@ -16,7 +16,7 @@
   &__form {
     display: flex;
     flex-direction: column;
-
+    padding: 1em;
     button {
       margin-top: 1em;
     }
@@ -24,6 +24,7 @@
 
   &__footer {
     font-size: calc($normal - .2rem);
+    margin: 1em 0;
     &-link {
       color: $cta;
       text-decoration: underline;
