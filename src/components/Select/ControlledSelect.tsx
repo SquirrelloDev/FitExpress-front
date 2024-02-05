@@ -49,6 +49,7 @@ function ControlledSelect<T extends FieldValues>({
               }
               onChange(val.value)
             }}
+            placeholder={"Wybierz..."}
             styles={{
                 control: (base) => ({
                     ...base,

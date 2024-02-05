@@ -11,12 +11,10 @@
     }
     &__item {
       margin: 0 1em;
+      text-align: center;
       &__image {
         width: 200px;
         height: 200px;
-      }
-      &__text {
-        text-align: center;
       }
     }
   }

@@ -39,10 +39,12 @@ export class FitExpressClient {
 }
 export const apiRoutes = {
     LOGIN: 'http://localhost:3001/users/login/',
+    REGISTER: 'http://localhost:3001/users',
     GET_USERS: (page: string, pageSize: string) => `http://localhost:3001/users?page=${page}&pageSize=${pageSize}`,
     GET_USER: (id: string) => `http://localhost:3001/users/${id}`,
     ADD_USER: `http://localhost:3001/users`,
     EDIT_USER: (id: string) => `http://localhost:3001/users/${id}`,
+    UPDATE_HEALTH: `http://localhost:3001/users/hcard`,
     DELETE_USER: (id: string) => `http://localhost:3001/users/${id}`,
 //     MEALS
     GET_MEALS: (page: string, pageSize: string) => `http://localhost:3001/meals?page=${page}&pageSize=${pageSize}`,

@@ -1,0 +1,79 @@
+@use "../utils" as *;
+.input{
+  margin: .5em 0 .75em 0;
+  padding: .75em .5em;
+  width: 100%;
+  background: none;
+  border: 1px solid #404040;
+  border-radius: 8px;
+  color: $text-color-primary;
+  font-family: $family-tet;
+  font-size: 2rem;
+  &__wrapper{
+    position: relative;
+  }
+  &__label{
+    position: relative;
+  }
+}
+.checkbox{
+  background-color: #fff;
+  appearance: none;
+  margin: 0;
+  display: grid;
+  place-content: center;
+  border: 1px solid #404040;
+  border-radius: 4px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  &::before{
+    content: url("../../assets/icon-check.svg");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 4px;
+    transform: scale(0);
+    transition: transform .1s;
+    box-shadow: inset 2em 1em $cta;
+  }
+  &:checked::before{
+    transform: scale(1);
+  }
+  &__wrapper{
+    display: grid;
+    grid-template-columns: 1em auto;
+    gap: .5em;
+    margin: .5em 0;
+  }
+  &__label{
+    margin-left: .5em;
+    font-size: $normal;
+  }
+}
+.text-area{
+  margin: 1em 0;
+  padding: 1em .5em;
+  background: none;
+  width: 100%;
+  min-height: 150px;
+  border: 1px solid #404040;
+  border-radius: 8px;
+  color: $text-color-primary;
+  font-family: $family-tet;
+  font-size: 2rem;
+  resize: none;
+  &__wrapper{
+    position: relative;
+  }
+  &__label{
+    position: absolute;
+    top: 0;
+  }
+}
+.error{
+  margin-bottom: 1em;
+  color: $cta-red;
+}

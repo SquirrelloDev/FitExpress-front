@@ -1,0 +1,34 @@
+@use "../utils" as *;
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+
+  &__header {
+    margin: 1em 0;
+    text-align: center;
+    font-size: 5rem;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    button {
+      margin-top: 1em;
+    }
+  }
+
+  &__footer {
+    font-size: calc($normal - .2rem);
+    margin: 1em 0;
+    &-link {
+      color: $cta;
+      text-decoration: underline;
+    }
+
+  }
+}

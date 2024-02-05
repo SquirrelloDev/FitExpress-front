@@ -16,13 +16,17 @@ import {queryClient} from "./utils/api";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import {MantineProvider} from "@mantine/core";
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
+import HealthCardPage from "./pages/HealthCard/HealthCardPage";
+import HealthCardSummary from "./pages/HealthCard/HealthCardSummary";
 
 const router = createBrowserRouter([
     {
         path: appRoutes.home,
         element: <AppLayout minPermLevel={UserRole.loggedIn}/>,
         children: [
-            {element: <HomePage/>, index: true}
+            {element: <HomePage/>, index: true},
+
         ]
     },
     {
@@ -34,6 +38,8 @@ const router = createBrowserRouter([
             {path: appRoutes.welcomePage, element: <WelcomePage/>},
             {path: appRoutes.login, element: <LoginPage/>},
             {path: appRoutes.register, element: <RegisterPage/>},
+            {path: appRoutes.healthCard, element: <HealthCardPage />},
+            {path: appRoutes.healthCardSummary, element: <HealthCardSummary />},
             {path: appRoutes.notAuthorized, element: <Unauthorized/>},
             {path: "*", element: <NotFound/>}
         ]
@@ -43,6 +49,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools/>
             <MantineProvider>
             <RouterProvider router={router}/>
             </MantineProvider>
