@@ -4,6 +4,7 @@ import {UserRole} from "../utils/userRoles";
 import {appRoutes} from "../utils/routes";
 import {useEffect} from "react";
 import useUserRole from "../hooks/useUserRole";
+import layoutStyles from '../sass/layouts/main.module.scss'
 interface AppLayoutProps {
 	minPermLevel: UserRole
 }
@@ -19,7 +20,7 @@ export function AppLayout({minPermLevel}:AppLayoutProps) {
 		}
 	}, [isAuthorized, isLoggedIn, navigate]);
 	return (
-		<main>
+		<main className={layoutStyles.app}>
 			<Outlet/>
 			<Navigation/>
 		</main>
