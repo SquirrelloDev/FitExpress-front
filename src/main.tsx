@@ -18,6 +18,7 @@ import RegisterPage from "./pages/RegisterPage";
 import {MantineProvider} from "@mantine/core";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import HealthCardPage from "./pages/HealthCard/HealthCardPage";
+import HealthCardSummary from "./pages/HealthCard/HealthCardSummary";
 
 const router = createBrowserRouter([
     {
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
             {path: appRoutes.login, element: <LoginPage/>},
             {path: appRoutes.register, element: <RegisterPage/>},
             {path: appRoutes.healthCard, element: <HealthCardPage />},
+            {path: appRoutes.healthCardSummary, element: <HealthCardSummary />},
             {path: appRoutes.notAuthorized, element: <Unauthorized/>},
             {path: "*", element: <NotFound/>}
         ]

@@ -1,0 +1,82 @@
+@use "../utils" as *;
+
+.summary-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+
+  &__header {
+    align-self: flex-start;
+  }
+
+  &__section {
+    padding: 1em;
+
+    &__item {
+      padding: 1em;
+      margin: 1em 0;
+      border: 1px solid $border;
+      border-radius: 8px;
+
+      &__weight {
+        &__grid {
+          display: flex;
+          justify-content: space-around;
+
+          &__item {
+            margin-top: 1em;
+            text-align: center;
+
+            p:first-child {
+              font-weight: $bold;
+              font-size: $bigger;
+            }
+          }
+        }
+      }
+
+      &__calories, &__water {
+        p:first-of-type {
+          color: $cta;
+          font-weight: $bold;
+        }
+      }
+
+      &__bmi {
+        &__text {
+          text-align: center;
+          font-size: $bigger;
+          font-weight: $bold;
+
+          &--blue {
+            color: $bright-blue;
+          }
+
+          &--green {
+            color: $cta;
+          }
+
+          &--yellow {
+            color: $yellow;
+          }
+
+          &--orange {
+            color: $orange;
+          }
+
+          &--red {
+            color: $cta-red
+          }
+        }
+      }
+    }
+  }
+
+  &__footer {
+    margin: .5em 0;
+    text-align: center;
+    span {
+      color: $cta
+    }
+  }
+}
