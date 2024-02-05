@@ -7,6 +7,7 @@ import {useOneUserListQuery} from "../../queries/user/listing";
 import useBMICategory from "../../hooks/useBMICategory";
 import {useNavigate} from "react-router-dom";
 import {appRoutes} from "../../utils/routes";
+import {TailSpin} from "react-loader-spinner";
 
 function HealthCardSummary() {
     const userData = useAuthStore((state) => state.userData);
@@ -14,7 +15,7 @@ function HealthCardSummary() {
     const {data, isLoading} = useOneUserListQuery({id: userData.id, token: userData.token});
     const {currentCategory, plannedCategory} = useBMICategory(data?.user.health_data.bmi, data?.user.health_data.bmi_planned)
     if(isLoading) return (
-        <p>Czekaj...</p>
+        <TailSpin visible={true}/>
     )
     return (
         <div className={classes['summary-wrapper']}>
