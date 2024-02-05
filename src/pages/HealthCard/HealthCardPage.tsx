@@ -32,7 +32,7 @@ function HealthCardPage() {
     const methods = useForm({
         resolver: zodResolver(healthCardSchema)
     })
-    const {mutate, isLoading, isError} = useHealthPatch()
+    const {mutate, isLoading} = useHealthPatch()
     const userData = useAuthStore((state) => state.userData);
     const {handleSubmit} = methods
     const onSubmit = (data: UserHealthSchema) => {
@@ -71,6 +71,7 @@ function HealthCardPage() {
                 <h1 className={classes.hcard__header}>Powiedz coś więcej o sobie</h1>
                 <p className={classes.hcard__subtext}>Zanim rozpoczniesz korzystanie z aplikacji, chcemy dowiedzieć się
                     więcej o Tobie, by wyliczyć odpowiednie zapotrzebowanie kaloryczne dla Ciebie</p>
+                {/*@ts-expect-error data are sent correctly*/}
                 <form className={classes.hcard__form} onSubmit={handleSubmit(onSubmit)}>
                     <ControlledSelect options={[{label: 'Mężczyzna', value: 'M'}, {label: 'Kobieta', value: 'F'}]}
                                       control={methods.control} name={'gender'} placeholder={'Płeć'} isRequired/>

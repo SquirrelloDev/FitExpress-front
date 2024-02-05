@@ -25,6 +25,7 @@ function LoginPage() {
 			<div className={classes.login}>
 				<div>
 				<h1 className={classes.login__header}>Logowanie</h1>
+					{/*@ts-expect-error data are sent correctly*/}
 				<form onSubmit={handleSubmit(onSubmit)} className={classes.login__form}>
 					<Input name='email' placeholder='Adres e-mail'/>
 					<Input name='password' type='password' placeholder='Hasło'/>

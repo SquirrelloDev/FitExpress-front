@@ -6,8 +6,8 @@ function useBMICategory(bmiCurrent?: number, bmiPlanned?: number) {
         {name: 'Otyłość I st.', min: 30, max: 34.99, color: 'orange'},
         {name: 'Otyłość II st.', min: 35, max: 39.99, color: 'red'}
     ];
-    const currentCategory = categories.find(category => (bmiCurrent > category.min && bmiCurrent < category.max))
-    const plannedCategory = categories.find(category => (bmiPlanned > category.min && bmiPlanned < category.max))
+    const currentCategory = categories.find(category => (bmiCurrent! > category.min && bmiCurrent! < category.max))
+    const plannedCategory = categories.find(category => (bmiPlanned! > category.min && bmiPlanned! < category.max))
     return {currentCategory, plannedCategory}
 }
 export default useBMICategory;

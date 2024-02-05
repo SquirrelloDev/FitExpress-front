@@ -3,7 +3,7 @@ import errorMessages from "../../utils/errorMessages";
 import {HealthData} from "../../types/dbtypes/HealthData";
 import {AxiosError} from "axios";
 import {MutationFunction, useMutation} from "@tanstack/react-query";
-import {apiRoutes, FitExpressClient, queryClient} from "../../utils/api";
+import {apiRoutes, FitExpressClient} from "../../utils/api";
 import {useNavigate} from "react-router-dom";
 import toast from "react-hot-toast";
 import {appRoutes} from "../../utils/routes";

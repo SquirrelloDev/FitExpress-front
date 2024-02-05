@@ -16,7 +16,7 @@ function HealthCardRadio<T extends FieldValues>({name, control}:HealthCardRadioP
                     <h3>Mój cel</h3>
                     <div className={classes['hcard-radio__group']}>
                         <label htmlFor={'burn'} className={clsx(classes['hcard-radio__group__radio-item'], activeRadio === 1 && classes['hcard-radio__group__radio-item--active'])}>
-                            <input type='radio' id='burn' name='hcard-radio' onBlur={onBlur} onClick={(val) => {
+                            <input type='radio' id='burn' name='hcard-radio' onBlur={onBlur} onClick={() => {
                                 onChange('burn');
                                 setActiveRadio(1)
                             }
@@ -24,7 +24,7 @@ function HealthCardRadio<T extends FieldValues>({name, control}:HealthCardRadioP
                             🔥 Chcę schudnąć</label>
 
                         <label htmlFor={'balance'} className={clsx(classes['hcard-radio__group__radio-item'], activeRadio === 2 && classes['hcard-radio__group__radio-item--active'])}>
-                            <input type='radio' id='balance' name='hcard-radio' onBlur={onBlur} onClick={(val) => {
+                            <input type='radio' id='balance' name='hcard-radio' onBlur={onBlur} onClick={() => {
                                 onChange('balance');
                                 setActiveRadio(2)
                             }

@@ -55,15 +55,15 @@ function HealthCardSummary() {
                 <div className={clsx(classes['summary-wrapper__section__item'], classes['summary-wrapper__section__item__bmi'])}>
                     <h4>Aktualne BMI</h4>
                     <div>
-                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${currentCategory.color}`])}>{data?.user.health_data.bmi}</p>
-                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${currentCategory.color}`])}>{currentCategory.name}</p>
+                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${currentCategory!.color}`])}>{data?.user.health_data.bmi}</p>
+                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${currentCategory!.color}`])}>{currentCategory!.name}</p>
                     </div>
                 </div>
                 <div className={clsx(classes['summary-wrapper__section__item'], classes['summary-wrapper__section__item__bmi'])}>
                     <h4>Spodziewane BMI</h4>
                     <div>
-                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${plannedCategory.color}`])}>{data?.user.health_data.bmi_planned}</p>
-                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${plannedCategory.color}`])}>{plannedCategory.name}</p>
+                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${plannedCategory!.color}`])}>{data?.user.health_data.bmi_planned}</p>
+                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${plannedCategory!.color}`])}>{plannedCategory!.name}</p>
                     </div>
                 </div>
             </div>

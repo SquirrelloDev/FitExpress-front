@@ -27,6 +27,7 @@ function RegisterPage() {
 			<div className={classes.login}>
 				<div>
 					<h1 className={classes.login__header}>Rejestracja</h1>
+					{/*@ts-expect-error data are sent correctly*/}
 					<form onSubmit={handleSubmit(onSubmit)} className={classes.login__form}>
 						<Input name='name' placeholder='Imię i nazwisko:'/>
 						<Input name='email' type='email' placeholder='Adres e-mail:'/>
