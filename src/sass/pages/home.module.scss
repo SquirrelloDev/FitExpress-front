@@ -50,6 +50,7 @@
     display: grid;
     grid-template-columns: repeat(2,1fr);
     grid-template-rows: repeat(3, 1fr);
+    align-items: center;
     &__title{
       grid-area: 1 / 1 / 2 / 2;
     }
@@ -66,19 +67,45 @@
     }
     &__bar{
       width: 100%;
-      height: 20px;
+      height: 10px;
       grid-area: 3 / 1 / 4 / 3;
+      position: relative;
+      z-index: -1;
       background-color: $text-color-secondary;
       border-radius: 15px;
+      margin: 1em 0;
       &__fill{
-
+        position: relative;
+        z-index: 0;
+        width: 50%;
+        height: 10px;
+        background-color: $desaturated-cta;
+        border-radius: 15px;
       }
       &__dot{
-
+        position: absolute;
+        left: 0;
+        z-index: 1;
+        top: 50%;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-color: $cta;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p{
+          text-align: center;
+          font-size: calc($normal - .3rem);
+        }
       }
     }
     a{
       grid-area: 4 / 1 / 5 / 3
     }
   }
+}
+@keyframes pulsation {
+
 }
