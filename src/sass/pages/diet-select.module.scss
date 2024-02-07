@@ -1,3 +1,4 @@
+@use '../utils' as *;
 .page-wrapper{
   padding: 1em;
   &__back{
@@ -19,6 +20,32 @@
     padding: 1em;
     h2{
       margin-bottom: .5em;
+    }
+  }
+  &__diet{
+    position: relative;
+    padding: .5em;
+    width: 100%;
+    &__header, &__desc{
+      inline-size: 200px;
+      overflow-wrap: break-word;
+    }
+    &__image{
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      width: 90px;
+      height: 100%;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+      object-fit: cover;
+      &--blank{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $text-color-secondary;
+      }
     }
   }
 }
