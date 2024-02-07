@@ -46,6 +46,19 @@
       margin-top: 1em;
     }
   }
+  &__calendar{
+    & > p {
+      margin-bottom: .25em;
+    }
+    &__row{
+      display: flex;
+      justify-content: space-around;
+      padding: .5em;
+    }
+    &__item{
+      padding: 1.5em;
+    }
+  }
   &__progress{
     display: grid;
     grid-template-columns: repeat(2,1fr);

@@ -8,42 +8,58 @@ import btnStyles from '../../sass/components/button.module.scss'
 import clsx from "clsx";
 import {calcDays, percents} from "../../utils/calcDays";
 import {IconCheck} from "@tabler/icons-react";
-interface StandardLayoutProps{
+import HomeCalendar from "../../components/HomeCalendar/HomeCalendar";
+
+interface StandardLayoutProps {
     orderData: Order[]
 }
-function StandardLayout({orderData}:StandardLayoutProps) {
+
+function StandardLayout({orderData}: StandardLayoutProps) {
+    const currentDate = new Date();
     const intlDate = new Intl.DateTimeFormat("pl-PL", {
         year: "numeric",
         month: "long",
         day: "numeric"
-    }).format(new Date())
+    }).format(currentDate)
     return (
         <>
             <h4>Dzisiaj {intlDate}</h4>
             <section>
-                <Tabs defaultValue={orderData[0].name} classNames={{root: classes.standard__tabs, list: classes.standard__tabs__list, tab: classes.standard__tabs__tab, panel: classes.standard__tabs__pannel}}>
+                <Tabs defaultValue={orderData[0].name} classNames={{
+                    root: classes.standard__tabs,
+                    list: classes.standard__tabs__list,
+                    tab: classes.standard__tabs__tab,
+                    panel: classes.standard__tabs__pannel
+                }}>
                     <Tabs.List grow>
-                    {orderData.map(item => <Tabs.Tab value={item.name} key={item._id}>{item.name}</Tabs.Tab>)}
+                        {orderData.map(item => <Tabs.Tab value={item.name} key={item._id}>{item.name}</Tabs.Tab>)}
                     </Tabs.List>
                     {orderData.map(item => {
                         const orderMaxDays = calcDays(new Date(item.sub_date.from), new Date(item.sub_date.to))
                         const currentOrderDay = calcDays(new Date(item.sub_date.from), new Date())
                         const percentValue = percents(orderMaxDays, currentOrderDay)
                         return (
-                        <Tabs.Panel key={item._id} value={item.name}>
-                            <Card>
-                                <div className={classes.standard__progress}>
-                                    <p>Postępy diety</p>
-                                    <div className={classes.standard__progress__pill}><p>{new Date().toLocaleDateString()}</p></div>
-                                    <p>{currentOrderDay >= orderMaxDays ? 'Ukończono!' : `${currentOrderDay}/${orderMaxDays} dni`} </p>
-                                    <div className={classes.standard__progress__bar}>
-                                        <div className={classes.standard__progress__bar__fill} style={{width: percentValue >= 100 ? '100%' : `${percentValue}%`}}></div>
-                                        <div className={classes.standard__progress__bar__dot} style={{left: percentValue >= 100 ? '96%' : `${percentValue}%`}}><p>{percentValue >= 100 ? <IconCheck /> : `${percentValue}%`}</p></div>
+                            <Tabs.Panel key={item._id} value={item.name}>
+                               <HomeCalendar item={item} currentDate={currentDate} />
+                                <Card>
+                                    <div className={classes.standard__progress}>
+                                        <p>Postępy diety</p>
+                                        <div className={classes.standard__progress__pill}>
+                                            <p>{currentDate.toLocaleDateString()}</p></div>
+                                        <p>{currentOrderDay >= orderMaxDays ? 'Ukończono!' : `${currentOrderDay}/${orderMaxDays} dni`} </p>
+                                        <div className={classes.standard__progress__bar}>
+                                            <div className={classes.standard__progress__bar__fill}
+                                                 style={{width: percentValue >= 100 ? '100%' : `${percentValue}%`}}></div>
+                                            <div className={classes.standard__progress__bar__dot}
+                                                 style={{left: percentValue >= 100 ? '98%' : `${percentValue}%`}}>
+                                                <p>{percentValue >= 100 ? <IconCheck/> : `${percentValue}%`}</p></div>
+                                        </div>
+                                        <Link to={appRoutes.dietManagement}
+                                              className={clsx(btnStyles.btn, btnStyles['btn--link'])}>Zarządzaj
+                                            dietą</Link>
                                     </div>
-                                    <Link to={appRoutes.dietManagement} className={clsx(btnStyles.btn, btnStyles['btn--link'])}>Zarządzaj dietą</Link>
-                                </div>
-                            </Card>
-                        </Tabs.Panel>)
+                                </Card>
+                            </Tabs.Panel>)
                     })}
                 </Tabs>
             </section>
