@@ -12,8 +12,8 @@ function HomePage() {
 		<div className={classes.home}>
 			<h1>Cześć {userData.name.split(' ')[0]}</h1>
 			{isLoading && <Skeleton />}
-			{!isLoading && data?.orders.length > 0 && <StandardLayout orderData={data!.orders}/>}
-			{!isLoading && data?.orders.length === 0 && <NoOrders/>}
+			{!isLoading && data!.orders.length > 0 && <StandardLayout orderData={data!.orders}/>}
+			{!isLoading && data!.orders.length === 0 && <NoOrders/>}
 		</div>
 	)
 }

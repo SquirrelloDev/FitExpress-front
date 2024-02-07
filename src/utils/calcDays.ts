@@ -1,5 +1,5 @@
 export function calcDays(startDate: Date, endDate: Date){
-    const timeDiff = endDate - startDate;
+    const timeDiff = endDate.getTime() - startDate.getTime();
     const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
     return days
 }

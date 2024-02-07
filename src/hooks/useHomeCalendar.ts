@@ -12,7 +12,7 @@ function useHomeCalendar(currentDate: Date) {
     for (let i = 0; i < 7; i++) {
         const day = new Date(currentDate);
         day.setDate(currentDate.getDate() + i);
-        const dayOfWeek = shortWeekDays.find(el => el.value === day.getDay()).label
+        const dayOfWeek = shortWeekDays.find(el => el.value === day.getDay())!.label
         days.push({date: day.toISOString().slice(8, 10), name: dayOfWeek})
 
     }
