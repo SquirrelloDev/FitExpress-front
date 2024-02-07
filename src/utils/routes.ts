@@ -10,6 +10,8 @@ export const appRoutes = {
     notAuthorized: '/forbidden',
     // diet screen
     diets: '/diets',
+    fixedDiets: 'fixed',
+    flexiDiets: 'flexi',
     dietDetails: 'diets/:diet',
     dietMenu: 'diets/:diet/menu',
     mealDeatils: '/meal/:id',

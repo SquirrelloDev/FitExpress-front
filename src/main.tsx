@@ -19,6 +19,9 @@ import {MantineProvider} from "@mantine/core";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import HealthCardPage from "./pages/HealthCard/HealthCardPage";
 import HealthCardSummary from "./pages/HealthCard/HealthCardSummary";
+import DietSelect from "./pages/Diet/DietSelect";
+import FixedSelect from "./pages/Diet/FixedSelect";
+import FlexiSelect from "./pages/Diet/FlexiSelect";
 
 const router = createBrowserRouter([
     {
@@ -26,7 +29,15 @@ const router = createBrowserRouter([
         element: <AppLayout minPermLevel={UserRole.loggedIn}/>,
         children: [
             {element: <HomePage/>, index: true},
-
+        ]
+    },
+    {
+        path: appRoutes.diets,
+        element: <AppLayout minPermLevel={UserRole.loggedIn} />,
+        children: [
+            {element: <DietSelect />, index: true},
+            {path: appRoutes.fixedDiets, element: <FixedSelect />},
+            {path: appRoutes.flexiDiets, element: <FlexiSelect />},
         ]
     },
     {

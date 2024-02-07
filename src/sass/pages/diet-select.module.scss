@@ -1,0 +1,24 @@
+.page-wrapper{
+  padding: 1em;
+  &__back{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: .5em;
+    background: none;
+    border: 1px solid transparent;
+  }
+  &__header{
+    text-align: center;
+  }
+  &__sub-header{
+    margin: .5em 0;
+    text-align: center;
+  }
+  &__box{
+    padding: 1em;
+    h2{
+      margin-bottom: .5em;
+    }
+  }
+}
