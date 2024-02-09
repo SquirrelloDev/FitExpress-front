@@ -17,8 +17,11 @@ type OneAuthParams = {
     token: string,
     id: string
 }
+type DietTypeParams = AuthParams & {
+    dietType: string
+}
 const userPartialKey = 'DietsList'
-type DietsListKey = [typeof userPartialKey, AuthParams]
+type DietsListKey = [typeof userPartialKey, DietTypeParams]
 
 interface DietsResponse {
     diets: Diet[]
@@ -33,8 +36,8 @@ interface OneDietResponse {
 }
 
 const listDiets: QueryFunction<DietsResponse, DietsListKey> = async ({signal, queryKey}) => {
-    const [, {token, pageSize, pageIndex}] = queryKey
-    const res = await FitExpressClient.getInstance().get<DietsResponse>(apiRoutes.GET_DIETS(String(pageIndex + 1), String(pageSize)), {
+    const [, {token, pageSize, pageIndex, dietType}] = queryKey
+    const res = await FitExpressClient.getInstance().get<DietsResponse>(apiRoutes.GET_DIETS(String(pageIndex + 1), String(pageSize), dietType), {
         signal,
         headers: {
             'Content-Type': 'application/json',
@@ -54,7 +57,7 @@ const listOneDiet: QueryFunction<OneDietResponse, OneDietListKey> = async ({sign
     return {diet: res.data as unknown} as OneDietResponse
 }
 
-function useDietsListQuery(params: AuthParams) {
+function useDietsListQuery(params: DietTypeParams) {
     const queryKey = ['DietsList', params] as DietsListKey
     const {data, error, isLoading, isSuccess, isError} = useQuery({
             queryKey, queryFn: listDiets, keepPreviousData: true

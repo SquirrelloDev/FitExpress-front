@@ -22,6 +22,7 @@ import HealthCardSummary from "./pages/HealthCard/HealthCardSummary";
 import DietSelect from "./pages/Diet/DietSelect";
 import FixedSelect from "./pages/Diet/FixedSelect";
 import FlexiSelect from "./pages/Diet/FlexiSelect";
+import DietDetails from "./pages/Diet/DietDetails";
 
 const router = createBrowserRouter([
     {
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
             {element: <DietSelect />, index: true},
             {path: appRoutes.fixedDiets, element: <FixedSelect />},
             {path: appRoutes.flexiDiets, element: <FlexiSelect />},
+            {path: appRoutes.dietDetails, element: <DietDetails />},
         ]
     },
     {

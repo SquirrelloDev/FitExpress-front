@@ -11,14 +11,14 @@ import clsx from "clsx";
 function FixedSelect() {
     const navigate = useNavigate()
     const userData = useAuthStore((state) => state.userData)
-    const {data, isLoading} = useDietsListQuery({token: userData.token, pageIndex: 0, pageSize: 0})
+    const {data, isLoading} = useDietsListQuery({token: userData.token, pageIndex: 0, pageSize: 0, dietType: 'Fixed'})
     return (
         <div className={classes['page-wrapper']}>
             <button onClick={() => navigate(-1)} className={classes['page-wrapper__back']}><IconChevronLeft
                 color={'#fff'} size={30}/></button>
             <h1 className={classes['page-wrapper__header']}>Diety Fixed</h1>
             <p className={classes['page-wrapper__sub-header']}>Która dieta jest dla Ciebie?</p>
-            {isLoading && <Skeleton/>}
+            {isLoading && <Skeleton height={80} radius='xl'/>}
             {!isLoading && data?.diets.map(diet => (
                 <Card key={diet._id} clearPadding>
                     <div onClick={() => navigate(appRoutes.diets + `/${diet._id}`)}

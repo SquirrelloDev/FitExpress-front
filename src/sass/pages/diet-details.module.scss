@@ -1,0 +1,138 @@
+@use "../utils" as *;
+.details{
+  position: relative;
+  padding-bottom: 65px;
+  &__back{
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1em .25em;
+    background: none;
+    border: 1px solid transparent;
+  }
+  &__image-box{
+    position: relative;
+    &__image{
+      width: 100%;
+      height: calc(100vh - 65px);
+      object-fit: cover;
+      &--blank{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+      }
+    }
+    &__info{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2em;
+      background: rgb(0,0,0);
+      background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(19,19,19,.8) 75%, rgba(219,219,219,0) 100%);
+      h1,p{
+        text-align: center;
+      }
+      &__chevron{
+        animation: cta-chevron 5s linear infinite;
+      }
+    }
+  }
+  &__progress{
+    margin: 1em 0;
+    &__root{
+      margin: .5em 0;
+    }
+    h3{
+      font-family: $family-sec;
+      span{
+        color: $cta;
+      }
+    }
+    &__section{
+      background-color: $cta;
+    }
+  }
+  &__info{
+    padding: 1.25em;
+    display: flex;
+    flex-direction: column;
+    h2:first-of-type{
+      text-align: center;
+    }
+    &__menu-btn{
+      margin: 1em 0;
+    }
+    &__basic{
+      list-style-type: none;
+      li{
+        margin: .5em 0;
+        display: flex;
+        &::before{
+          content: url("../../assets/circle-check-filled.svg");
+          margin-right: .25em;
+        }
+      }
+    }
+    &__macros{
+      &__items{
+        display: flex;
+        justify-content: space-between;
+        &__item{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 80px;
+        }
+      }
+    }
+    &__tags{
+      h3{
+        font-family: $family-sec;
+      }
+      &__grid{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 20px;
+      }
+    }
+    &__exclusions{
+        list-style-type: none;
+        li{
+          margin: .5em 0;
+          display: flex;
+          &::before{
+            content: url("../../assets/x.svg");
+            margin-right: .25em;
+          }
+        }
+    }
+    &__description{
+      margin: 1em 0;
+    }
+    &__prices{
+      display: flex;
+      justify-content: space-between;
+      font-size: $big;
+    }
+  }
+}
+@keyframes cta-chevron {
+  0%{
+    transform: translateY(0);
+  }
+  5%{
+    transform: translateY(50%);
+  }
+  10%{
+    transform: translateX(0);
+  }
+}

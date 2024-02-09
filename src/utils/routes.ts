@@ -12,8 +12,8 @@ export const appRoutes = {
     diets: '/diets',
     fixedDiets: 'fixed',
     flexiDiets: 'flexi',
-    dietDetails: 'diets/:diet',
-    dietMenu: 'diets/:diet/menu',
+    dietDetails: ':diet',
+    dietMenu: ':diet/menu',
     mealDeatils: '/meal/:id',
     // cart screen
     cart: '/cart',
