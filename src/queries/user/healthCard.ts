@@ -4,9 +4,7 @@ import {HealthData} from "../../types/dbtypes/HealthData";
 import {AxiosError} from "axios";
 import {MutationFunction, useMutation} from "@tanstack/react-query";
 import {apiRoutes, FitExpressClient} from "../../utils/api";
-import {useNavigate} from "react-router-dom";
 import toast from "react-hot-toast";
-import {appRoutes} from "../../utils/routes";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 export const dateErrorMap: z.ZodErrorMap = (error) => {
@@ -50,15 +48,26 @@ const updateHealthCard: MutationFunction<HealthResponse, PatchHealthData> = asyn
     }
     return {message: res.message}
 }
-function useHealthPatch() {
-    const navigate = useNavigate();
-    const {mutate, isError, isLoading, isSuccess, error} = useMutation<HealthResponse, HealthError, PatchHealthData>(['Health-Patch'], updateHealthCard, {onSuccess: () => {
-            navigate(appRoutes.healthCardSummary);
-        },
-        onError: (error) => {
-            toast.error(error.message)
-        }}
+export type SuccessPrefsMutation<T> = (
+    data: HealthResponse,
+    variables: T
+) => unknown
+
+function useHealthPatch(onSuccess?: SuccessPrefsMutation<PatchHealthData>) {
+    const {
+        mutate,
+        isError,
+        isLoading,
+        isSuccess,
+        error
+    } = useMutation<HealthResponse, HealthError, PatchHealthData>(['Health-Patch'], updateHealthCard, {
+            onSuccess: onSuccess,
+            onError: (error) => {
+                toast.error(error.message)
+            }
+        }
     )
     return {mutate, isError, isLoading, isSuccess, error}
 }
+
 export default useHealthPatch

@@ -7,18 +7,14 @@ import useAuthStore from "../../stores/authStore";
 import {useOneDietListQuery} from "../../queries/diets/listing";
 import Card from "../../components/Card/Card";
 import MacroItems from "../../components/MacroItem/MacroItems";
-import {useEffect} from "react";
-import {Progress, RingProgress} from "@mantine/core";
 import MealCount from "../../components/MealCount";
+import CaloriesPriceTags from "../../components/CaloriesPriceTags/CaloriesPriceTags";
 
 function DietDetails() {
     const navigate = useNavigate()
     const params = useParams();
     const userData = useAuthStore((state) => state.userData)
     const {data, isLoading} = useOneDietListQuery({id: params.diet!, token: userData.token})
-    useEffect(() => {
-        console.log(data?.diet.macros)
-    }, [data])
     return (
         <div className={classes.details}>
             <button onClick={() => navigate(-1)} className={classes.details__back}><IconChevronLeft
@@ -72,14 +68,7 @@ function DietDetails() {
                 </div>
                 <div>
                     <h3>Dostępne kaloryczności</h3>
-                    {!isLoading && Object.keys(data?.diet.prices).map(price => (
-                        <Card key={price}>
-                            <div className={classes.details__info__prices}>
-                                <p>{price}</p>
-                                <p>{data?.diet.prices[price]} zł</p>
-                            </div>
-                        </Card>
-                    ))}
+                    {!isLoading && <CaloriesPriceTags prices={data!.diet.prices}/>}
                 </div>
                 <button className={btnStyles.btn}>Zamów dietę od {data?.diet.prices.kcal1500}zł/dzień</button>
             </div>

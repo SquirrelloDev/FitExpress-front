@@ -4,9 +4,8 @@ import {getFlexiCount} from "../utils/dietsCalc";
 import {percents} from "../utils/calcDays";
 interface MealCountProps {
 	dietName: string,
-	mealCount: number
 }
-function MealCount({dietName, mealCount}:MealCountProps) {
+function MealCount({dietName}:MealCountProps) {
 	const allMeals = 30;
 	const selectedDietMealsCount = getFlexiCount(dietName)
 	const percentage = percents(allMeals, selectedDietMealsCount);

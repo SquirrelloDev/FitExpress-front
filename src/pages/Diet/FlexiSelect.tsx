@@ -1,5 +1,5 @@
 import classes from "../../sass/pages/diet-select.module.scss";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {IconChevronLeft} from "@tabler/icons-react";
 import Card from "../../components/Card/Card";
 import {appRoutes} from "../../utils/routes";

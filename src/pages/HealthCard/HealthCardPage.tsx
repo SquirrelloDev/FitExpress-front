@@ -12,6 +12,7 @@ import {DevTool} from "@hookform/devtools";
 import useAuthStore from "../../stores/authStore";
 import {calculateAge, calculateBMI, calculateDemands} from "../../utils/calculateUserData";
 import {TailSpin} from "react-loader-spinner";
+import useUserPrefs from "../../hooks/useUserPrefs";
 
 const palActive: SelectOption[] = [
     {label: 'Brak treningów / jeden lekki', value: 1.2},
@@ -31,7 +32,8 @@ const palPassive: SelectOption[] = [
 function HealthCardPage() {
     const methods = useForm({
         resolver: zodResolver(healthCardSchema)
-    })
+    });
+    const assignHealthPrefs = useUserPrefs();
     const {mutate, isLoading} = useHealthPatch()
     const userData = useAuthStore((state) => state.userData);
     const {handleSubmit} = methods
@@ -63,7 +65,8 @@ function HealthCardPage() {
                 bmi_planned: plannedBMI,
             }
         }
-        mutate(healthData)
+        mutate(healthData);
+        assignHealthPrefs({cals: caloricDemand, user_goal: data.user_goal})
     }
     return (
         <FormProvider {...methods}>

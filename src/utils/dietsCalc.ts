@@ -1,4 +1,4 @@
- export const getFlexiCount = (flexiDiet: string): number => {
+ export const getFlexiCount = (flexiDiet: string) => {
   switch (flexiDiet){
       case 'Basic':
           return 15;

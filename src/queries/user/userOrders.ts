@@ -1,7 +1,7 @@
 import {QueryFunction, useQuery} from "@tanstack/react-query";
 import {Order} from "../../types/dbtypes/Order";
 import {apiRoutes, FitExpressClient} from "../../utils/api";
-type OneAuthParams = {
+export type OneAuthParams = {
     token: string,
     id: string
 }
