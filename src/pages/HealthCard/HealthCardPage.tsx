@@ -33,7 +33,7 @@ function HealthCardPage() {
     const methods = useForm({
         resolver: zodResolver(healthCardSchema)
     });
-    const assignHealthPrefs = useUserPrefs();
+    const {assignHealthStore} = useUserPrefs();
     const {mutate, isLoading} = useHealthPatch()
     const userData = useAuthStore((state) => state.userData);
     const {handleSubmit} = methods
@@ -66,7 +66,7 @@ function HealthCardPage() {
             }
         }
         mutate(healthData);
-        assignHealthPrefs({cals: caloricDemand, user_goal: data.user_goal})
+        assignHealthStore({calories: caloricDemand, user_goal: data.user_goal})
     }
     return (
         <FormProvider {...methods}>

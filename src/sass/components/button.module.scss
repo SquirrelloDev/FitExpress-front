@@ -34,4 +34,15 @@
   &:disabled:hover{
     background-color: $border;
   }
+  &--dark{
+    background: none;
+    border: 1px solid $border;
+    &:disabled{
+      background: none;
+      color: $border
+    }
+    &:disabled:hover{
+      background: none;
+    }
+  }
 }

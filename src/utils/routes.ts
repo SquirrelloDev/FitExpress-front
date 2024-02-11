@@ -13,8 +13,10 @@ export const appRoutes = {
     fixedDiets: 'fixed',
     flexiDiets: 'flexi',
     dietDetails: ':diet',
-    dietMenu: ':diet/menu',
-    mealDeatils: '/meal/:id',
+    dietMenu: 'menu',
+
+    meal: '/meal',
+    mealDetails: ':id',
     // cart screen
     cart: '/cart',
     cartPayment: '/cart/payment',

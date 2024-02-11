@@ -23,6 +23,8 @@ import DietSelect from "./pages/Diet/DietSelect";
 import FixedSelect from "./pages/Diet/FixedSelect";
 import FlexiSelect from "./pages/Diet/FlexiSelect";
 import DietDetails from "./pages/Diet/DietDetails";
+import DietMenu from "./pages/Diet/DietMenu";
+import MealPage from "./pages/MealPage";
 
 const router = createBrowserRouter([
     {
@@ -39,7 +41,17 @@ const router = createBrowserRouter([
             {element: <DietSelect />, index: true},
             {path: appRoutes.fixedDiets, element: <FixedSelect />},
             {path: appRoutes.flexiDiets, element: <FlexiSelect />},
-            {path: appRoutes.dietDetails, element: <DietDetails />},
+            {path: appRoutes.dietDetails, children: [
+                    {element: <DietDetails />, index: true},
+                    {path: appRoutes.dietMenu, element: <DietMenu/>}
+                ]},
+        ]
+    },
+    {
+        path: appRoutes.meal,
+        element: <AppLayout minPermLevel={UserRole.loggedIn} />,
+        children: [
+            {element: <MealPage />, path: appRoutes.mealDetails}
         ]
     },
     {

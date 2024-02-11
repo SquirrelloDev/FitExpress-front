@@ -9,6 +9,7 @@ import Card from "../../components/Card/Card";
 import MacroItems from "../../components/MacroItem/MacroItems";
 import MealCount from "../../components/MealCount";
 import CaloriesPriceTags from "../../components/CaloriesPriceTags/CaloriesPriceTags";
+import {appRoutes} from "../../utils/routes";
 
 function DietDetails() {
     const navigate = useNavigate()
@@ -29,8 +30,8 @@ function DietDetails() {
             </div>
             <div className={classes.details__info}>
                 <h2>Szczegóły diety</h2>
-                <button className={clsx(btnStyles.btn, btnStyles['btn--outline'], classes['details__info__menu-btn'])}>Zobacz menu</button>
-                {data?.diet.diet_type === 'Flexi' && <MealCount mealCount={15} dietName={data.diet.name}/>}
+                <button onClick={() => {navigate(appRoutes.dietMenu + `?type=${data?.diet.diet_type}`)}} className={clsx(btnStyles.btn, btnStyles['btn--outline'], classes['details__info__menu-btn'])}>Zobacz menu</button>
+                {data?.diet.diet_type === 'Flexi' && <MealCount dietName={data.diet.name}/>}
                 <h2>Podstawowe informacje</h2>
                 <ul className={classes.details__info__basic}>
                     {data?.diet.basic_info.map(info => <li key={info}>{info}</li>)}

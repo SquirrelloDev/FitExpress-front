@@ -12,7 +12,7 @@ function CaloriesPriceTags({prices}: CaloriesPriceTagsProps) {
     const helperBadges = assignHelperBadges(availableCalories)
     console.log(helperBadges)
     return (
-        availableCalories.map((cal, idx) => {
+        availableCalories.map((cal) => {
             const badge = helperBadges.find(badge => badge.value === cal)?.name;
 
             return (
