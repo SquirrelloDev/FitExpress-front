@@ -10,9 +10,13 @@ export const appRoutes = {
     notAuthorized: '/forbidden',
     // diet screen
     diets: '/diets',
-    dietDetails: 'diets/:diet',
-    dietMenu: 'diets/:diet/menu',
-    mealDeatils: '/meal/:id',
+    fixedDiets: 'fixed',
+    flexiDiets: 'flexi',
+    dietDetails: ':diet',
+    dietMenu: 'menu',
+
+    meal: '/meal',
+    mealDetails: ':id',
     // cart screen
     cart: '/cart',
     cartPayment: '/cart/payment',
