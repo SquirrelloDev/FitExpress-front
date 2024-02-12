@@ -49,7 +49,7 @@ function DietDetails() {
                         <h3>Jakiego typu potrawy znajdziesz</h3>
                         <div className={classes.details__info__tags__grid}>
                             {data.diet.tags_id.map(tag => (
-                                <Card>
+                                <Card key={tag._id}>
                                     <h4>{tag.name}</h4>
                                     <p>{tag.description}</p>
                                 </Card>
