@@ -1,0 +1,29 @@
+@use "../utils" as *;
+.success{
+  padding: 1em;
+  min-height: calc(100vh - 65px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  &__circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+    width: 100%;
+    max-width: 100px;
+    height: 100px;
+    background-color: $cta;
+    border-radius: 50%;
+  }
+  &__text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    h3, p{
+      margin-bottom: .5em;
+    }
+  }
+}

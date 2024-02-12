@@ -10,11 +10,13 @@ import MacroItems from "../../components/MacroItem/MacroItems";
 import MealCount from "../../components/MealCount";
 import CaloriesPriceTags from "../../components/CaloriesPriceTags/CaloriesPriceTags";
 import {appRoutes} from "../../utils/routes";
+import useCartStore from "../../stores/cartStore";
 
 function DietDetails() {
     const navigate = useNavigate()
     const params = useParams();
     const userData = useAuthStore((state) => state.userData)
+    const addItem = useCartStore((state) => state.addItem);
     const {data, isLoading} = useOneDietListQuery({id: params.diet!, token: userData.token})
     return (
         <div className={classes.details}>
@@ -71,7 +73,11 @@ function DietDetails() {
                     <h3>Dostępne kaloryczności</h3>
                     {!isLoading && <CaloriesPriceTags prices={data!.diet.prices}/>}
                 </div>
-                <button className={btnStyles.btn}>Zamów dietę od {data?.diet.prices.kcal1500}zł/dzień</button>
+                <button className={btnStyles.btn} onClick={() => {
+                    addItem(data!.diet._id)
+                    navigate(appRoutes.cart)
+                }
+                }>Zamów dietę od {data?.diet.prices.kcal1500}zł/dzień</button>
             </div>
         </div>
     )

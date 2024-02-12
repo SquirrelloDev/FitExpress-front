@@ -25,6 +25,8 @@ import FlexiSelect from "./pages/Diet/FlexiSelect";
 import DietDetails from "./pages/Diet/DietDetails";
 import DietMenu from "./pages/Diet/DietMenu";
 import MealPage from "./pages/MealPage";
+import CartPage from "./pages/Cart/CartPage";
+import PaymentSuccess from "./pages/Cart/PaymentSuccess";
 
 const router = createBrowserRouter([
     {
@@ -52,6 +54,14 @@ const router = createBrowserRouter([
         element: <AppLayout minPermLevel={UserRole.loggedIn} />,
         children: [
             {element: <MealPage />, path: appRoutes.mealDetails}
+        ]
+    },
+    {
+        path: appRoutes.cart,
+        element: <AppLayout minPermLevel={UserRole.loggedIn} />,
+        children: [
+            {element: <CartPage />, index: true},
+            {path: appRoutes.cartPaymentSuccess ,element: <PaymentSuccess />}
         ]
     },
     {
