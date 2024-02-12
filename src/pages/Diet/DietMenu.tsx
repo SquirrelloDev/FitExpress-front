@@ -18,7 +18,7 @@ function DietMenu() {
     const [searchParams] = useSearchParams()
     const userData = useAuthStore((state) => state.userData);
     const [page, setPage] = useState<number>(0)
-    const [dayData, setDayData] = useState<DayParams>({token: userData.token, date: parseIntoMidnight(new Date())})
+    const [dayData, setDayData] = useState<DayParams>({token: userData.token, date: parseIntoMidnight(new Date('2024-02-11'))})
     const {
         data: flexiData,
         isLoading: isFlexiLoading,
@@ -60,6 +60,17 @@ function DietMenu() {
             refetchFlexi()
         }
     }
+    const displayDate = () =>{
+        if(searchParams.get('type') === 'Fixed' && !isFixedLoading){
+            return new Date(fixedData!.day.date).toLocaleDateString()
+        }
+        else if(searchParams.get('type') === 'Flexi' && !isFlexiLoading){
+            return new Date(flexiData!.day.date).toLocaleDateString()
+        }
+        else{
+            return 'Wczytywanie...'
+        }
+    }
     return (
         <div className={classes.menu}>
             <button onClick={() => navigate(-1)} className={classes.menu__back}><IconChevronLeft
@@ -67,7 +78,7 @@ function DietMenu() {
             <h2>Podgląd menu</h2>
             <div className={classes.menu__controls}>
                 <button disabled={page === 0} onClick={previousDay} className={clsx(btnStyles.btn, btnStyles['btn--dark'], classes.menu__controls__btns)}><IconArrowLeft/></button>
-                <h3>{fixedData?.day.date ? new Date(fixedData.day.date).toLocaleDateString() : new Date(flexiData!.day.date).toLocaleDateString()}</h3>
+                <h3>{displayDate()}</h3>
                 <button disabled={page === 6} onClick={nextDay} className={clsx(btnStyles.btn, btnStyles['btn--dark'], classes.menu__controls__btns)}><IconArrowRight/></button>
             </div>
             {(!isFixedLoading && searchParams.get('type') === 'Fixed') && (
