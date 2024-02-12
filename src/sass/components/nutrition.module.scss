@@ -1,0 +1,33 @@
+@use "../utils" as *;
+.nutrition{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: .5em 0;
+  width: 60px;
+  border-radius: 30px;
+  background-color: $light-green;
+  &__value{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $desaturated-cta;
+    padding: .5em;
+    border-radius: 50%;
+    color: $page-bg;
+    width: 40px;
+    height: 40px;
+    //font-size: calc($normal - .2rem);
+    text-align: center;
+  }
+  &__text-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: .75em;
+    text-align: center;
+    p:last-child{
+      color: $text-color-tetiary;
+    }
+  }
+}
