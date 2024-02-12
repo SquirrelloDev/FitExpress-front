@@ -3,7 +3,7 @@ import classes from "../../sass/pages/diet-details.module.scss";
 import useUserPrefs from "../../hooks/useUserPrefs";
 
 interface CaloriesPriceTagsProps {
-    prices: { kcal1500: number, kcal1800: number, kcal2000: number, kcal2200: number, kcal2500: number, kcal2800: number }
+    prices: Record<string, number>
 }
 
 function CaloriesPriceTags({prices}: CaloriesPriceTagsProps) {
@@ -22,7 +22,7 @@ function CaloriesPriceTags({prices}: CaloriesPriceTagsProps) {
                     {badge && <p className={classes.details__info__prices__badge}>{badge}</p>}
                     <p>{cal} kcal</p>
                     </div>
-                    <p>{prices[`kcal${cal}`] as keyof { kcal1500: number; kcal1800: number; kcal2000: number; kcal2200: number; kcal2500: number; kcal2800: number; }} zł</p>
+                    <p>{prices[`kcal${cal}`] as keyof Record<number, number>} zł</p>
                 </div>
             </Card>
                 )

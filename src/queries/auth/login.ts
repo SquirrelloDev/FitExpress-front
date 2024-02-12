@@ -4,6 +4,7 @@ import {AxiosError, isAxiosError} from "axios";
 import {apiRoutes, FitExpressClient} from "../../utils/api";
 import {z} from "zod";
 import errorMessages from "../../utils/errorMessages";
+import {UserPrefs} from "../../types/userPrefs";
 
 export const LoginFormSchema = z.object({
     email: z.string().min(1, errorMessages.required).max(60, 'max 60').email(errorMessages.invalidMail),
@@ -11,7 +12,7 @@ export const LoginFormSchema = z.object({
 })
 export type LoginFormDataSchema = z.infer<typeof LoginFormSchema>
 type LoginResponse = {
-    data: UserData
+    data: UserData & UserPrefs
 }
 export type LoginErrorType = AxiosError<{
     errors: { general: string }
