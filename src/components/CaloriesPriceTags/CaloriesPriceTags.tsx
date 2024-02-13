@@ -10,7 +10,6 @@ function CaloriesPriceTags({prices}: CaloriesPriceTagsProps) {
     const {assignHelperBadges} = useUserPrefs();
     const availableCalories = Object.keys(prices).map(cal => Number(cal.slice(4)));
     const helperBadges = assignHelperBadges(availableCalories)
-    console.log(helperBadges)
     return (
         availableCalories.map((cal) => {
             const badge = helperBadges.find(badge => badge.value === cal)?.name;
