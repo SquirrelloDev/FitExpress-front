@@ -31,7 +31,7 @@ function CartSubDate<T extends FieldValues>({name, control}: CartSubDateProps<T>
 			} : null
 			} calendarStartDay={1}/>
 			<div>
-				<p>Wybrany okres: {`${new Date(subDate[0]).toLocaleDateString()} - ${subDate[1] !== null ? new Date(subDate[1]).toLocaleDateString() : ''}`}</p>
+				<p>Wybrany okres: {subDate && (`${new Date(subDate[0]).toLocaleDateString()} - ${subDate[1] !== null ? new Date(subDate[1]).toLocaleDateString() : ''}`)}</p>
 				<p>Cena:</p>
 			</div>
 		</>
