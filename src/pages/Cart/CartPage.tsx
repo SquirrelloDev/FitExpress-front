@@ -17,6 +17,8 @@ import CartAddresses from "../../components/Cart/CartAdresses/CartAddresses";
 import CartPromocode from "../../components/Cart/CartPromocode/CartPromocode";
 import {Address} from "../../types/dbtypes/Address";
 import CartTotal from "../../components/Cart/CartTotal/CartTotal";
+import useOrderCreate, {CartSchema, cartSchema, OrderPostData} from "../../queries/orders/create";
+import {zodResolver} from "@hookform/resolvers/zod";
 export interface CartFormValues {
     address: Address
     cart: {
@@ -44,7 +46,7 @@ function CartPage() {
     const {data: userAddresses, isLoading: isAddressesLoading} = useUserAddressListQuery({id: userData.id, token: userData.token})
     const [cartItemsFull, setCartItemsFull] = useState<Diet[]>([])
     const methods = useForm({
-        // resolver: zodResolver(cartSchema)
+        resolver: zodResolver(cartSchema),
         defaultValues: {
             cart: cartItemsFull
         }
@@ -57,8 +59,32 @@ function CartPage() {
             setCartItemsFull(userDiets)
         }
     }, [cartItems, data, isSuccess])
-    const onSubmit = (data) => {
+    const {mutate} = useOrderCreate()
+    const onSubmit = (data: CartSchema) => {
+        console.log("Przeszło");
         console.log(data)
+        const orders:OrderPostData[] = data.cart.map((cartItem, idx) => {
+            return {
+                order: {
+                    name: cartItem.name,
+                    dietId: cartItems[idx],
+                    userId: userData.id,
+                    addressId: data.address,
+                    subDate: {
+                        from: cartItem.date[0],
+                        to: cartItem.date[1]
+                    },
+                    price: 2000,
+                    calories: cartItem.calories,
+                    withWeekends: cartItem.weekends
+                },
+                token: userData.token
+            }
+        })
+        console.log("Orders", orders)
+        orders.forEach(order => {
+            mutate(order)
+        })
     }
     return (
         <FormProvider {...methods}>

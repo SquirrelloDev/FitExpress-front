@@ -35,7 +35,7 @@ function CartAddresses<T extends FieldValues>({addresses, control, name, isAddre
                                        className={clsx(classes['cart-calories-radio__group__radio-item'], activeRadio === idx && classes['cart-calories-radio__group__radio-item--active'])}>
                                     <input type={"radio"} id={address._id} name={name} checked={address.isDefault}
                                            onClick={() => {
-                                               onChange(address)
+                                               onChange(address._id)
                                                setActiveRadio(idx)
                                            }
                                            }
