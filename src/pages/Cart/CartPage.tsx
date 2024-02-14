@@ -8,24 +8,30 @@ import {useEffect, useState} from "react";
 import {Diet} from "../../types/dbtypes/Diet";
 import Card from "../../components/Card/Card";
 import Input from "../../components/Input/Input";
-import {FormProvider, useForm} from "react-hook-form";
-import {appRoutes} from "../../utils/routes";
-import btnStyles from '../../sass/components/button.module.scss'
+import {FormProvider, useFieldArray, useForm} from "react-hook-form";
 import {DevTool} from "@hookform/devtools";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {cartSchema} from "../../queries/orders/create";
 import CartCaloriesRadio from "../../components/Cart/CartCaloriesRadio/CartCaloriesRadio";
 import CartSubDate from "../../components/Cart/CartSubDate/CartSubDate";
-import ControlledDatePicker from "../../components/Datepicker/ControlledDatePicker";
-import ControlledRangedDatePicker from "../../components/Datepicker/ControlledRangedDatePicker";
 import {useUserAddressListQuery} from "../../queries/addresses/listing";
 import CartAddresses from "../../components/Cart/CartAdresses/CartAddresses";
 import CartPromocode from "../../components/Cart/CartPromocode/CartPromocode";
+import {Address} from "../../types/dbtypes/Address";
+import CartTotal from "../../components/Cart/CartTotal/CartTotal";
+export interface CartFormValues {
+    address: Address
+    cart: {
+        calories: number,
+        date: Date[],
+        name: string,
+        weekends: boolean
+    }[]
+}
 function CartPage() {
     const navigate = useNavigate()
     const cartItems = useCartStore((state) => state.cartItems)
     const userData = useAuthStore((state) => state.userData);
     const [cartStep, setCartStep] = useState<number>(0)
+
     const [cartDiscount, setCartDiscount] = useState<number>(0)
 
 
@@ -39,8 +45,12 @@ function CartPage() {
     const [cartItemsFull, setCartItemsFull] = useState<Diet[]>([])
     const methods = useForm({
         // resolver: zodResolver(cartSchema)
+        defaultValues: {
+            cart: cartItemsFull
+        }
     })
     const {handleSubmit, getValues} = methods
+    const {fields} = useFieldArray({name: 'cart', control: methods.control})
     useEffect(() => {
         if (isSuccess) {
             const userDiets = data!.diets.filter((diet) => cartItems.includes(diet._id));
@@ -63,29 +73,30 @@ function CartPage() {
                                 <p>Konfiguracja</p>
                             </div>
                             <h3>Wybrane diety</h3>
-                            {cartItemsFull.map(cartItem => (
-                                <Card>
+                            {cartItemsFull.map((cartItem, index) => (
+                                <Card key={cartItem._id}>
                                     <Card>
                                         <div>
-                                            <img src={'data:;base64,' + cartItem.imageBuffer}
-                                                 alt={`Obrazek diety ${cartItem.name}`}/>
+                                            {cartItem.imageBuffer ? <img src={'data:;base64,' + cartItem.imageBuffer}
+                                                                         alt={`Obrazek diety ${cartItem.name}`}/> : <div> </div>}
                                             <p>{cartItem.name}</p>
                                         </div>
                                     </Card>
                                     <h4>Nadaj swojej diecie wyjątkową nazwę</h4>
-                                    <Input name={`${cartItem._id}-name`} placeholder={'Nazwa'}/>
+                                    <Input name={`cart.${index}.name`} placeholder={'Nazwa'}/>
                                     <h3>Kaloryczność</h3>
                                     <p>Wybierz kaloryczność, która spełnia Twoje potrzeby</p>
-                                    <CartCaloriesRadio name={`${cartItem._id}-calories`} control={methods.control} prices={cartItem.prices} />
+                                    <CartCaloriesRadio name={`cart.${index}`} control={methods.control} prices={cartItem.prices} />
                                     <h3>Okres trwania diety</h3>
-                                    <CartSubDate name={`${cartItem._id}`} control={methods.control}/>
+                                    <CartSubDate name={`cart.${index}`} control={methods.control}/>
                                 </Card>
                             ))}
-                            <div>
-                                <p>Cena za dzień: 46 zł</p>
-                                <p>Razem: 46 zł</p>
-                                <button onClick={() => setCartStep(1)} className={btnStyles.btn}>Adres i płatność</button>
-                            </div>
+
+                            {/*<div>*/}
+                            {/*    <p>Cena za dzień: 46 zł</p>*/}
+                            {/*    <p>Razem: 46 zł</p>*/}
+                            {/*    <button onClick={() => setCartStep(1)} className={btnStyles.btn}>Adres i płatność</button>*/}
+                            {/*</div>*/}
                         </div>
                     )}
                     {cartStep === 1 && (
@@ -96,9 +107,9 @@ function CartPage() {
                                 <p>Adres i płatność</p>
                             </div>
                             <h3>Wybrane diety</h3>
-                            {cartItemsFull.map(cartItem => (
+                            {cartItemsFull.map((cartItem, index) => (
                                 <>
-                                    <Card>
+                                    <Card key={cartItem._id}>
                                         <div>
                                             <Card>
                                                 <div>
@@ -108,25 +119,26 @@ function CartPage() {
                                                 </div>
                                             </Card>
                                             <h4>Nazwa diety</h4>
-                                            <p>{getValues(`${cartItem._id}-name`)}</p>
+                                            <p>{getValues(`cart.${index}.name`)}</p>
                                             <h4>Kaloryczność</h4>
-                                            <p>{`${getValues(`${cartItem._id}-calories`)} kcal`}</p>
+                                            <p>{`${getValues(`cart.${index}.calories`)} kcal`}</p>
                                             <h4>Okres trwania diety</h4>
-                                            <p>{`${new Date(getValues(`${cartItem._id}-date.0`)).toLocaleDateString()} - ${new Date(getValues(`${cartItem._id}-date.1`)).toLocaleDateString()}`}</p>
+                                            <p>{`${new Date(getValues(`cart.${index}.date.0`)).toLocaleDateString()} - ${new Date(getValues(`cart.${index}.date.1`)).toLocaleDateString()}`}</p>
                                         </div>
                                     </Card>
                                 </>
                             ))}
-                            <CartAddresses control={methods.control} name={'addresses'} addresses={userAddresses!.addresses} isAddressesLoading={isAddressesLoading}/>
+                            <CartAddresses control={methods.control} name={'address'} addresses={userAddresses!.addresses} isAddressesLoading={isAddressesLoading}/>
                             <h3>Kod promocyjny</h3>
                            <CartPromocode token={userData.token} setCurrentDiscount={setCartDiscount}/>
-                            <div>
-                                <p>Cena za dzień: 46 zł</p>
-                                <p>Razem: 46 zł</p>
-                                <button type={'submit'}>Zapłać za zamówienie</button>
-                            </div>
+                            {/*<div>*/}
+                            {/*    <p>Cena za dzień: 46 zł</p>*/}
+                            {/*    <p>Razem: 46 zł</p>*/}
+                            {/*    <button type={'submit'}>Zapłać za zamówienie</button>*/}
+                            {/*</div>*/}
                         </>
                     )}
+                    <CartTotal cartStep={cartStep} setCartStep={setCartStep} control={methods.control} discount={cartDiscount} />
                 </form>
 
             </div>

@@ -15,7 +15,7 @@ function CartCaloriesRadio<T extends FieldValues>({name, control, prices}: CartC
     const [activeRadio, setActiveRadio] = useState<number>(-1);
     const availableCalories = Object.keys(prices).map(cal => Number(cal.slice(4)));
 	const helperBadges = assignHelperBadges(availableCalories)
-    const {formState: {errors}} = useFormContext();
+    const {formState: {errors}, setValue} = useFormContext();
     return (
         <Controller control={control} render={
             ({field: {onChange, onBlur}}) => (
@@ -27,6 +27,7 @@ function CartCaloriesRadio<T extends FieldValues>({name, control, prices}: CartC
 								<label htmlFor={`${cal}kcal`} key={`${cal}kcal`} className={clsx(classes['cart-calories-radio__group__radio-item'], activeRadio === idx && classes['cart-calories-radio__group__radio-item--active'])}>
 									<input type={"radio"} id={`${cal}kcal`} name={name} onClick={() => {
 										onChange(cal)
+                                        setValue(`${name}.price`, prices[`kcal${cal}`])
 										setActiveRadio(idx)
 									}
 									}
@@ -48,7 +49,7 @@ function CartCaloriesRadio<T extends FieldValues>({name, control, prices}: CartC
                     )}
                 </div>
             )
-        } name={name as Path<T>}/>
+        } name={`${name}.calories` as Path<T>}/>
     )
 }
 

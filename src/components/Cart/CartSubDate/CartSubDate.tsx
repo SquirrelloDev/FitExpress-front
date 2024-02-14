@@ -13,19 +13,16 @@ function CartSubDate<T extends FieldValues>({name, control}: CartSubDateProps<T>
 		getValues,
 		watch
 	} = useFormContext()
-	const withWeekends = watch(`${name}-weekends`)
-	const subDate = watch(`${name}-date`)
-	useEffect(() => {
-		console.log(subDate)
-	}, [subDate])
+	const withWeekends = watch(`${name}.weekends`)
+	const subDate = watch(`${name}.date`)
 	return (
 		<>
-		<Controller control={control} name={`${name}-weekends` as Path<T>} render={() => (
+		<Controller control={control} name={`${name}.weekends` as Path<T>} render={() => (
 			<div>
-				<Checkbox name={`${name}-weekends`} placeholder={'Czy dieta ma być dostarczana w weekend?'} className={inputStyles.checkbox}/>
+				<Checkbox name={`${name}.weekends`} placeholder={'Czy dieta ma być dostarczana w weekend?'} className={inputStyles.checkbox}/>
 			</div>
 		)}/>
-			<ControlledRangedDatePicker control={control} name={`${name}-date`} inline filterDate={!withWeekends ? (date) => {
+			<ControlledRangedDatePicker control={control} name={`${name}.date`} inline filterDate={!withWeekends ? (date) => {
 				const weekDay = new Date(date).getDay()
 				return weekDay !== 0 && weekDay !== 6
 			} : null
