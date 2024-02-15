@@ -3,8 +3,17 @@ import {useNavigate} from "react-router-dom";
 import {appRoutes} from "../../utils/routes";
 import btnStyles from '../../sass/components/button.module.scss'
 import classes from "../../sass/pages/payment-success.module.scss";
+import useCartStore from "../../stores/cartStore";
+import {useEffect} from "react";
 function PaymentSuccess() {
 	const navigate = useNavigate()
+	const cartItems = useCartStore(state => state.cartItems)
+	const clearCart = useCartStore(state => state.clearCart);
+	useEffect(() => {
+		if(cartItems.length > 0){
+			clearCart()
+		}
+	}, [cartItems.length, clearCart])
 	return (
 		<div className={classes.success}>
 			<div className={classes.success__circle}>

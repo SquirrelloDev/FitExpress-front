@@ -17,7 +17,7 @@ import CartAddresses from "../../components/Cart/CartAdresses/CartAddresses";
 import CartPromocode from "../../components/Cart/CartPromocode/CartPromocode";
 import {Address} from "../../types/dbtypes/Address";
 import CartTotal from "../../components/Cart/CartTotal/CartTotal";
-import useOrderCreate, {CartSchema, cartSchema, OrderPostData} from "../../queries/orders/create";
+import {CartSchema, cartSchema, OrderPostData, usePaymentProcess} from "../../queries/orders/create";
 import {zodResolver} from "@hookform/resolvers/zod";
 export interface CartFormValues {
     address: Address
@@ -59,7 +59,7 @@ function CartPage() {
             setCartItemsFull(userDiets)
         }
     }, [cartItems, data, isSuccess])
-    const {mutate} = useOrderCreate()
+    const {mutate: paymentMutate} = usePaymentProcess()
     const onSubmit = (data: CartSchema) => {
         console.log("Przeszło");
         console.log(data)
@@ -81,10 +81,7 @@ function CartPage() {
                 token: userData.token
             }
         })
-        console.log("Orders", orders)
-        orders.forEach(order => {
-            mutate(order)
-        })
+        paymentMutate(orders)
     }
     return (
         <FormProvider {...methods}>

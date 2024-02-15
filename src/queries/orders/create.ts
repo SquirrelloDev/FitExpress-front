@@ -7,6 +7,7 @@ import {toast} from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
 import {appRoutes} from "../../utils/routes";
 import {addressSchema} from "../addresses/create";
+import {loadStripe} from "@stripe/stripe-js";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 export const dateErrorMap: z.ZodErrorMap = (error) => {
@@ -82,6 +83,23 @@ const createOrder:MutationFunction<OrderResponse, OrderPostData> = async (order)
     }
     return { message: res.message }
 }
+type PaymentResponse = {
+    id: string
+}
+const proccessPayment:MutationFunction = async (order) => {
+    const stripe = await loadStripe('pk_test_51OjkX2IEJEI12bS3vAJpQ4Ftps8jjf5ZrNgZs7o2iqFHJCrdQxUHzUigomsI4h7D7PrEUQ6ymIFq8MGQcoVzeXMD00rOc7T4u0')
+
+    const res = await FitExpressClient.getInstance().post<PaymentResponse>(apiRoutes.CHECKOUT, {
+        orders: order
+    }, {headers: {Authorization: `Bearer ${order[0].token}`}})
+    const result = stripe.redirectToCheckout({
+        sessionId: res.data.id
+    })
+    if((await result).error){
+        console.log((await result).error)
+    }
+}
+
 function useOrderCreate(){
     const navigate = useNavigate();
     const {mutate, isError, isLoading, isSuccess, error} = useMutation<OrderResponse, OrderError, OrderPostData>(['Order-Create'], createOrder, {onSuccess: () => {
@@ -95,5 +113,9 @@ function useOrderCreate(){
     })
     return {mutate, isError, isLoading, isSuccess, error}
 
+}
+export function usePaymentProcess(){
+    const {mutate, isLoading, isSuccess, isError, error} = useMutation(['Payment-checkout'], proccessPayment)
+    return {mutate,isLoading, isSuccess, isError, error}
 }
 export default useOrderCreate

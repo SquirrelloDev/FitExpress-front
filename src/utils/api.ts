@@ -92,6 +92,8 @@ export const apiRoutes = {
     GET_ORDERS_DIET: (id: string) => `http://localhost:3001/orders/diet?dietId=${id}`,
     EDIT_ORDER: (id: string) => `http://localhost:3001/orders/${id}`,
     DELETE_ORDER: (id: string) => `http://localhost:3001/orders/${id}`,
+
+    CHECKOUT: `http://localhost:3001/payments/create-checkout-session`,
 //     ADDRESSES
     GET_ADDRESSES: (page: string, pageSize: string) => `http://localhost:3001/address?page=${page}&pageSize=${pageSize}`,
     ADD_ADDRESS: `http://localhost:3001/address`,

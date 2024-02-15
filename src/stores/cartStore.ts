@@ -5,6 +5,7 @@ interface CartStore {
     addItem: (item: string) => void
     getCount: () => number
     deleteItem: (item: string) => void
+    clearCart: () => void
 }
 const initCart = (): string[] => {
     return []
@@ -23,6 +24,11 @@ const useCartStore = create<CartStore>(persist<CartStore>(
         deleteItem: (item) => {
             set((state)=> {
                 return {cartItems: state.cartItems.filter(cartItem => cartItem !== item)}
+            })
+        },
+        clearCart: () => {
+            set(() => {
+                return {cartItems: initCart()}
             })
         }
     }), {name: 'fit:cart'}
