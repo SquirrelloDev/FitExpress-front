@@ -1,5 +1,5 @@
 import classes from "../../sass/pages/cart.module.scss";
-import {IconChevronLeft} from "@tabler/icons-react";
+import {IconChevronLeft, IconPhotoOff} from "@tabler/icons-react";
 import {useNavigate} from "react-router-dom";
 import useCartStore from "../../stores/cartStore";
 import useDietsListQuery from "../../queries/diets/listing";
@@ -19,6 +19,7 @@ import {Address} from "../../types/dbtypes/Address";
 import CartTotal from "../../components/Cart/CartTotal/CartTotal";
 import {CartSchema, cartSchema, OrderPostData, usePaymentProcess} from "../../queries/orders/create";
 import {zodResolver} from "@hookform/resolvers/zod";
+import clsx from "clsx";
 export interface CartFormValues {
     address: Address
     cart: {
@@ -61,8 +62,6 @@ function CartPage() {
     }, [cartItems, data, isSuccess])
     const {mutate: paymentMutate} = usePaymentProcess()
     const onSubmit = (data: CartSchema) => {
-        console.log("Przeszło");
-        console.log(data)
         const orders:OrderPostData[] = data.cart.map((cartItem, idx) => {
             return {
                 order: {
@@ -92,16 +91,17 @@ function CartPage() {
                         <div>
                             <button onClick={() => navigate(-1)} className={classes.cart__back}><IconChevronLeft
                                 color={'#fff'} size={30}/></button>
-                            <div>
+                            <div className={classes.cart__header}>
                                 <p>Konfiguracja</p>
                             </div>
+                            <div className={classes.cart__wrapper}>
                             <h3>Wybrane diety</h3>
                             {cartItemsFull.map((cartItem, index) => (
                                 <Card key={cartItem._id}>
-                                    <Card>
-                                        <div>
+                                    <Card clearPadding>
+                                        <div className={classes.cart__item__diet}>
                                             {cartItem.imageBuffer ? <img src={'data:;base64,' + cartItem.imageBuffer}
-                                                                         alt={`Obrazek diety ${cartItem.name}`}/> : <div> </div>}
+                                                                         alt={`Obrazek diety ${cartItem.name}`} className={classes.cart__item__diet__img}/> : <div className={clsx(classes.cart__item__diet__img,classes['cart__item__diet__img--blank'])}><IconPhotoOff size={20}/> </div>}
                                             <p>{cartItem.name}</p>
                                         </div>
                                     </Card>
@@ -111,33 +111,29 @@ function CartPage() {
                                     <p>Wybierz kaloryczność, która spełnia Twoje potrzeby</p>
                                     <CartCaloriesRadio name={`cart.${index}`} control={methods.control} prices={cartItem.prices} />
                                     <h3>Okres trwania diety</h3>
-                                    <CartSubDate name={`cart.${index}`} control={methods.control}/>
+                                    <CartSubDate name={`cart.${index}`} control={methods.control} prices={cartItem.prices}/>
                                 </Card>
                             ))}
-
-                            {/*<div>*/}
-                            {/*    <p>Cena za dzień: 46 zł</p>*/}
-                            {/*    <p>Razem: 46 zł</p>*/}
-                            {/*    <button onClick={() => setCartStep(1)} className={btnStyles.btn}>Adres i płatność</button>*/}
-                            {/*</div>*/}
+                            </div>
                         </div>
                     )}
                     {cartStep === 1 && (
                         <>
                             <button onClick={() => setCartStep(0)} className={classes.cart__back}><IconChevronLeft
                                 color={'#fff'} size={30}/></button>
-                            <div>
+                            <div className={classes.cart__header}>
                                 <p>Adres i płatność</p>
                             </div>
+                            <div className={classes.cart__wrapper}>
                             <h3>Wybrane diety</h3>
                             {cartItemsFull.map((cartItem, index) => (
                                 <>
                                     <Card key={cartItem._id}>
                                         <div>
-                                            <Card>
-                                                <div>
-                                                    <img src={'data:;base64,' + cartItem.imageBuffer}
-                                                         alt={`Obrazek diety ${cartItem.name}`}/>
+                                            <Card clearPadding>
+                                                <div className={classes.cart__item__diet}>
+                                                    {cartItem.imageBuffer ? <img src={'data:;base64,' + cartItem.imageBuffer}
+                                                                                 alt={`Obrazek diety ${cartItem.name}`} className={classes.cart__item__diet__img}/> : <div className={clsx(classes.cart__item__diet__img,classes['cart__item__diet__img--blank'])}><IconPhotoOff size={20}/> </div>}
                                                     <p>{cartItem.name}</p>
                                                 </div>
                                             </Card>
@@ -152,13 +148,10 @@ function CartPage() {
                                 </>
                             ))}
                             <CartAddresses control={methods.control} name={'address'} addresses={userAddresses!.addresses} isAddressesLoading={isAddressesLoading}/>
-                            <h3>Kod promocyjny</h3>
+
                            <CartPromocode token={userData.token} setCurrentDiscount={setCartDiscount}/>
-                            {/*<div>*/}
-                            {/*    <p>Cena za dzień: 46 zł</p>*/}
-                            {/*    <p>Razem: 46 zł</p>*/}
-                            {/*    <button type={'submit'}>Zapłać za zamówienie</button>*/}
-                            {/*</div>*/}
+
+                            </div>
                         </>
                     )}
                     <CartTotal cartStep={cartStep} setCartStep={setCartStep} control={methods.control} discount={cartDiscount} />

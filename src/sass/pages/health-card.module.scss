@@ -14,5 +14,7 @@
   }
   &__form{
     padding: .85em;
+    display: flex;
+    flex-direction: column;
   }
 }

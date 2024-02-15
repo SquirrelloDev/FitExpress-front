@@ -45,7 +45,7 @@ export const orderSchema = z.object({
         message: 'Niepoprawny zakres dat'
     })
 export const cartSchema = z.object({
-    address: z.string(),
+    address: z.string().min(1, "Wybierz adres"),
     cart: z.array(z.object({
         name: z.string(),
         calories: z.number(),
@@ -103,12 +103,12 @@ const proccessPayment:MutationFunction = async (order) => {
 function useOrderCreate(){
     const navigate = useNavigate();
     const {mutate, isError, isLoading, isSuccess, error} = useMutation<OrderResponse, OrderError, OrderPostData>(['Order-Create'], createOrder, {onSuccess: () => {
-            // toast.success('Zamówienie dodane!');
-            // queryClient.invalidateQueries(['OrdersList'])
-            // navigate(appRoutes.orders);
+            toast.success('Zamówienie dodane!');
+            queryClient.invalidateQueries(['OrdersList'])
+            navigate(appRoutes.orders);
         },
         onError: (error) => {
-        // toast.error(error.message)
+        toast.error(error.message)
         }
     })
     return {mutate, isError, isLoading, isSuccess, error}

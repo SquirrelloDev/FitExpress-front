@@ -3,7 +3,8 @@ import {useNavigate} from "react-router-dom";
 import {Address} from "../../../types/dbtypes/Address";
 import {Control, Controller, FieldValues, Path, useFormContext} from "react-hook-form";
 import clsx from "clsx";
-import classes from "../../../sass/components/cart-calories-radio.module.scss";
+import cartClasses from "../../../sass/pages/cart.module.scss"
+import btnStyles from '../../../sass/components/button.module.scss'
 import {useState} from "react";
 
 interface CartAddressesProps<T extends FieldValues> {
@@ -23,16 +24,16 @@ function CartAddresses<T extends FieldValues>({addresses, control, name, isAddre
     // const [filteredAddresses, setFilteredAddresses] = useState<Address[]>(addresses.filter(address => address.is_weekend === ));
     return (
         <Controller control={control} name={name as Path<T>} render={({field: {onChange}}) => (
-            <>
+            <div className={cartClasses.cart__addresses}>
                 <h3>Adres</h3>
-                <div>
+                <div className={clsx(cartClasses.cart__addresses__container, cartClasses['snaps-inline'])}>
 					{isAddressesLoading && <p>Pobieranie adresów...</p>}
                     {!isAddressesLoading && (
                         <>
                             {addresses.length === 0 && <p>Brak adresów 😥</p>}
                             {addresses.length > 0 && addresses.map((address, idx) => (
                                 <label htmlFor={address._id} key={address._id}
-                                       className={clsx(classes['cart-calories-radio__group__radio-item'], activeRadio === idx && classes['cart-calories-radio__group__radio-item--active'])}>
+                                       className={clsx(cartClasses['cart__addresses__item'], activeRadio === idx && cartClasses['cart__addresses__item--active'])}>
                                     <input type={"radio"} id={address._id} name={name} checked={address.isDefault}
                                            onClick={() => {
                                                onChange(address._id)
@@ -51,8 +52,11 @@ function CartAddresses<T extends FieldValues>({addresses, control, name, isAddre
                         </>
                     )}
                 </div>
-                <button onClick={() => navigate(appRoutes.addresses)}>Zarządzaj adresami</button>
-            </>
+                {errors[name] &&(
+                    <p className={cartClasses.cart__addresses__error}>{errors[name].message}</p>
+                )}
+                <button onClick={() => navigate(appRoutes.addresses)} className={btnStyles.btn}>Zarządzaj adresami</button>
+            </div>
         )
         }/>
     )
