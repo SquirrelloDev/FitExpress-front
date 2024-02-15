@@ -16,6 +16,7 @@ function NoOrders() {
         <>
             <h3 className={classes['no-orders__main-header']}>Brak aktywnych diet 😥</h3>
             <h4>Dzisiaj {intlDate}</h4>
+            <CartCta isReminder/>
             <CartCta/>
         </>
     )

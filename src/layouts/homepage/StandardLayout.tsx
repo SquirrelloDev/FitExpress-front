@@ -62,6 +62,7 @@ function StandardLayout({orderData}: StandardLayoutProps) {
                                             dietą</Link>
                                     </div>
                                 </Card>
+                                <CartCta isReminder/>
                                 <CartCta/>
                             </Tabs.Panel>)
                     })}
