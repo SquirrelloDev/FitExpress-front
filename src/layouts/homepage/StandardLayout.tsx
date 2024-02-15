@@ -23,7 +23,7 @@ function StandardLayout({orderData}: StandardLayoutProps) {
         month: "long",
         day: "numeric"
     }).format(currentDate)
-
+    const cartItems = useCartStore(state => state.cartItems)
     return (
         <>
             <h4>Dzisiaj {intlDate}</h4>
@@ -62,7 +62,7 @@ function StandardLayout({orderData}: StandardLayoutProps) {
                                             dietą</Link>
                                     </div>
                                 </Card>
-                                <CartCta isReminder/>
+                                {cartItems.length > 0 && <CartCta isReminder/>}
                                 <CartCta/>
                             </Tabs.Panel>)
                     })}
