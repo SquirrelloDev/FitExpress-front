@@ -9,6 +9,8 @@ import clsx from "clsx";
 import {calcDaysBetween, percents} from "../../utils/calcDays";
 import {IconCheck} from "@tabler/icons-react";
 import HomeCalendar from "../../components/HomeCalendar/HomeCalendar";
+import useCartStore from "../../stores/cartStore";
+import CartCta from "../../components/Cart/CartCta/CartCta";
 
 interface StandardLayoutProps {
     orderData: Order[]
@@ -21,6 +23,7 @@ function StandardLayout({orderData}: StandardLayoutProps) {
         month: "long",
         day: "numeric"
     }).format(currentDate)
+
     return (
         <>
             <h4>Dzisiaj {intlDate}</h4>
@@ -59,6 +62,7 @@ function StandardLayout({orderData}: StandardLayoutProps) {
                                             dietą</Link>
                                     </div>
                                 </Card>
+                                <CartCta/>
                             </Tabs.Panel>)
                     })}
                 </Tabs>
