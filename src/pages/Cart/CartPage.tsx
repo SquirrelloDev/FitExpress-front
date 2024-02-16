@@ -1,5 +1,6 @@
 import classes from "../../sass/pages/cart.module.scss";
-import {IconChevronLeft, IconPhotoOff} from "@tabler/icons-react";
+import btnStyles from '../../sass/components/button.module.scss'
+import {IconChevronLeft, IconPhotoOff, IconX} from "@tabler/icons-react";
 import {useNavigate} from "react-router-dom";
 import useCartStore from "../../stores/cartStore";
 import useDietsListQuery from "../../queries/diets/listing";
@@ -20,6 +21,11 @@ import CartTotal from "../../components/Cart/CartTotal/CartTotal";
 import {CartSchema, cartSchema, OrderPostData, usePaymentProcess} from "../../queries/orders/create";
 import {zodResolver} from "@hookform/resolvers/zod";
 import clsx from "clsx";
+import useCartArray from "../../hooks/useCartArray";
+import {getFlexiTier} from "../../utils/dietsCalc";
+import {appRoutes} from "../../utils/routes";
+import {calcDays} from "../../utils/calcDays";
+import {toast} from "react-hot-toast";
 export interface CartFormValues {
     address: Address
     cart: {
@@ -32,6 +38,7 @@ export interface CartFormValues {
 function CartPage() {
     const navigate = useNavigate()
     const cartItems = useCartStore((state) => state.cartItems)
+    const deleteItem = useCartStore((state) => state.deleteItem)
     const userData = useAuthStore((state) => state.userData);
     const [cartStep, setCartStep] = useState<number>(0)
 
@@ -46,36 +53,42 @@ function CartPage() {
     })
     const {data: userAddresses, isLoading: isAddressesLoading} = useUserAddressListQuery({id: userData.id, token: userData.token})
     const [cartItemsFull, setCartItemsFull] = useState<Diet[]>([])
-    const methods = useForm({
+    const methods = useForm<CartFormValues>({
         resolver: zodResolver(cartSchema),
         defaultValues: {
-            cart: cartItemsFull
+            cart: []
         }
     })
-    const {handleSubmit, getValues} = methods
-    const {fields} = useFieldArray({name: 'cart', control: methods.control})
+    const {handleSubmit, getValues, watch} = methods
+    const {replace} = useFieldArray({name: 'cart', control: methods.control})
+    const cart = watch('cart')
+    const filterArr = useCartArray()
     useEffect(() => {
         if (isSuccess) {
-            const userDiets = data!.diets.filter((diet) => cartItems.includes(diet._id));
+            const userDiets = filterArr(data!.diets, cartItems)
+            console.log(cart)
             setCartItemsFull(userDiets)
         }
-    }, [cartItems, data, isSuccess])
+    }, [cartItems, data, filterArr, isSuccess])
     const {mutate: paymentMutate} = usePaymentProcess()
-    const onSubmit = (data: CartSchema) => {
-        const orders:OrderPostData[] = data.cart.map((cartItem, idx) => {
+    const onSubmit = (cartData: CartSchema) => {
+        const orders:OrderPostData[] = cartData.cart.map((cartItem, idx) => {
+            const dietId = cartItems[idx]
+            const tier = getFlexiTier(data!.diets.find(diet => diet._id === dietId).name)
             return {
                 order: {
                     name: cartItem.name,
-                    dietId: cartItems[idx],
+                    dietId: dietId,
                     userId: userData.id,
-                    addressId: data.address,
+                    addressId: cartData.address,
                     subDate: {
                         from: cartItem.date[0],
                         to: cartItem.date[1]
                     },
-                    price: 2000,
+                    price: cartItem.price * calcDays(cartItem.date ? cartItem.date[0] : new Date(), cartItem.date ? cartItem.date[1] : new Date(), cartItem.weekends) * (1 - cartDiscount),
                     calories: cartItem.calories,
-                    withWeekends: cartItem.weekends
+                    withWeekends: cartItem.weekends,
+                    ...(tier && {flexiTier: tier})
                 },
                 token: userData.token
             }
@@ -95,25 +108,38 @@ function CartPage() {
                                 <p>Konfiguracja</p>
                             </div>
                             <div className={classes.cart__wrapper}>
-                            <h3>Wybrane diety</h3>
-                            {cartItemsFull.map((cartItem, index) => (
-                                <Card key={cartItem._id}>
-                                    <Card clearPadding>
-                                        <div className={classes.cart__item__diet}>
-                                            {cartItem.imageBuffer ? <img src={'data:;base64,' + cartItem.imageBuffer}
-                                                                         alt={`Obrazek diety ${cartItem.name}`} className={classes.cart__item__diet__img}/> : <div className={clsx(classes.cart__item__diet__img,classes['cart__item__diet__img--blank'])}><IconPhotoOff size={20}/> </div>}
-                                            <p>{cartItem.name}</p>
-                                        </div>
+                                <h3>Wybrane diety</h3>
+                                {cartItems.length === 0 && (
+                                    <div className={classes['cart__item--blank']}>
+                                        <h3>Coś tu pusto...</h3>
+                                        <p>Pora coś dodać!</p>
+                                    </div>
+                                )}
+                                {cartItemsFull.map((cartItem, index) => (
+                                    <Card key={cartItem._id + index}>
+                                        <h3>Dieta {index + 1}</h3>
+                                        <Card clearPadding>
+                                            <div className={classes.cart__item__diet}>
+                                                {cartItem.imageBuffer ? <img src={'data:;base64,' + cartItem.imageBuffer}
+                                                                             alt={`Obrazek diety ${cartItem.name}`} className={classes.cart__item__diet__img}/> : <div className={clsx(classes.cart__item__diet__img,classes['cart__item__diet__img--blank'])}><IconPhotoOff size={20}/> </div>}
+                                                <p>{cartItem.name}</p>
+                                                <button onClick={() => {
+                                                    deleteItem(index);
+                                                    replace(cart.filter((cartItem, idx) => idx !== index))
+                                                    toast.success('Element usunięty!')
+                                                }} className={classes.cart__item__delete}><IconX/></button>
+                                            </div>
+                                        </Card>
+                                        <h4>Nadaj swojej diecie wyjątkową nazwę</h4>
+                                        <Input name={`cart.${index}.name`} placeholder={'Nazwa'}/>
+                                        <h3>Kaloryczność</h3>
+                                        <p>Wybierz kaloryczność, która spełnia Twoje potrzeby</p>
+                                        <CartCaloriesRadio name={`cart.${index}`} control={methods.control} prices={cartItem.prices} index={index}/>
+                                        <h3>Okres trwania diety</h3>
+                                        <CartSubDate name={`cart.${index}`} control={methods.control} prices={cartItem.prices}/>
                                     </Card>
-                                    <h4>Nadaj swojej diecie wyjątkową nazwę</h4>
-                                    <Input name={`cart.${index}.name`} placeholder={'Nazwa'}/>
-                                    <h3>Kaloryczność</h3>
-                                    <p>Wybierz kaloryczność, która spełnia Twoje potrzeby</p>
-                                    <CartCaloriesRadio name={`cart.${index}`} control={methods.control} prices={cartItem.prices} />
-                                    <h3>Okres trwania diety</h3>
-                                    <CartSubDate name={`cart.${index}`} control={methods.control} prices={cartItem.prices}/>
-                                </Card>
-                            ))}
+                                ))}
+                                <button className={clsx(btnStyles.btn, btnStyles['btn--outline'])} onClick={() => navigate(appRoutes.diets)}>Dodaj {cartItems.length > 0 ? 'kolejną' : 'pierwszą'} dietę</button>
                             </div>
                         </div>
                     )}
@@ -125,31 +151,31 @@ function CartPage() {
                                 <p>Adres i płatność</p>
                             </div>
                             <div className={classes.cart__wrapper}>
-                            <h3>Wybrane diety</h3>
-                            {cartItemsFull.map((cartItem, index) => (
-                                <>
-                                    <Card key={cartItem._id}>
-                                        <div>
-                                            <Card clearPadding>
-                                                <div className={classes.cart__item__diet}>
-                                                    {cartItem.imageBuffer ? <img src={'data:;base64,' + cartItem.imageBuffer}
-                                                                                 alt={`Obrazek diety ${cartItem.name}`} className={classes.cart__item__diet__img}/> : <div className={clsx(classes.cart__item__diet__img,classes['cart__item__diet__img--blank'])}><IconPhotoOff size={20}/> </div>}
-                                                    <p>{cartItem.name}</p>
-                                                </div>
-                                            </Card>
-                                            <h4>Nazwa diety</h4>
-                                            <p>{getValues(`cart.${index}.name`)}</p>
-                                            <h4>Kaloryczność</h4>
-                                            <p>{`${getValues(`cart.${index}.calories`)} kcal`}</p>
-                                            <h4>Okres trwania diety</h4>
-                                            <p>{`${new Date(getValues(`cart.${index}.date.0`)).toLocaleDateString()} - ${new Date(getValues(`cart.${index}.date.1`)).toLocaleDateString()}`}</p>
-                                        </div>
-                                    </Card>
-                                </>
-                            ))}
-                            <CartAddresses control={methods.control} name={'address'} addresses={userAddresses!.addresses} isAddressesLoading={isAddressesLoading}/>
+                                <h3>Wybrane diety</h3>
+                                {cartItemsFull.map((cartItem, index) => (
+                                    <>
+                                        <Card key={cartItem._id + index}>
+                                            <div>
+                                                <Card clearPadding>
+                                                    <div className={classes.cart__item__diet}>
+                                                        {cartItem.imageBuffer ? <img src={'data:;base64,' + cartItem.imageBuffer}
+                                                                                     alt={`Obrazek diety ${cartItem.name}`} className={classes.cart__item__diet__img}/> : <div className={clsx(classes.cart__item__diet__img,classes['cart__item__diet__img--blank'])}><IconPhotoOff size={20}/> </div>}
+                                                        <p>{cartItem.name}</p>
+                                                    </div>
+                                                </Card>
+                                                <h4>Nazwa diety</h4>
+                                                <p>{getValues(`cart.${index}.name`)}</p>
+                                                <h4>Kaloryczność</h4>
+                                                <p>{`${getValues(`cart.${index}.calories`)} kcal`}</p>
+                                                <h4>Okres trwania diety</h4>
+                                                <p>{`${new Date(getValues(`cart.${index}.date.0`)).toLocaleDateString()} - ${new Date(getValues(`cart.${index}.date.1`)).toLocaleDateString()} ${getValues(`cart.${index}.weekends`) ? '+ weekendy' : ''}`}</p>
+                                            </div>
+                                        </Card>
+                                    </>
+                                ))}
+                                <CartAddresses control={methods.control} name={'address'} addresses={userAddresses!.addresses} isAddressesLoading={isAddressesLoading}/>
 
-                           <CartPromocode token={userData.token} setCurrentDiscount={setCartDiscount}/>
+                                <CartPromocode token={userData.token} setCurrentDiscount={setCartDiscount}/>
 
                             </div>
                         </>
@@ -158,7 +184,7 @@ function CartPage() {
                 </form>
 
             </div>
-        <DevTool control={methods.control}/>
+            <DevTool control={methods.control}/>
         </FormProvider>
     )
 }

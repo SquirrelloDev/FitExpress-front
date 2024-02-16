@@ -21,17 +21,19 @@ function CartAddresses<T extends FieldValues>({addresses, control, name, isAddre
         formState: {errors},
         watch
     } = useFormContext()
-    // const [filteredAddresses, setFilteredAddresses] = useState<Address[]>(addresses.filter(address => address.is_weekend === ));
+    const cartItems = watch('cart')
+    const isCartItemWeekend = cartItems.some(cartItem => cartItem.weekends === true)
+    const [filteredAddresses] = useState<Address[]>(isCartItemWeekend ? addresses.filter(address => address.is_weekend === true) : addresses);
     return (
         <Controller control={control} name={name as Path<T>} render={({field: {onChange}}) => (
             <div className={cartClasses.cart__addresses}>
                 <h3>Adres</h3>
-                <div className={clsx(cartClasses.cart__addresses__container, cartClasses['snaps-inline'])}>
+                <div className={clsx(cartClasses.cart__addresses__container, cartClasses['snaps-inline'], filteredAddresses.length === 0 && cartClasses['cart__addresses__container--blank'])}>
 					{isAddressesLoading && <p>Pobieranie adresów...</p>}
                     {!isAddressesLoading && (
                         <>
-                            {addresses.length === 0 && <p>Brak adresów 😥</p>}
-                            {addresses.length > 0 && addresses.map((address, idx) => (
+                            {filteredAddresses.length === 0 && <p>Brak adresów {isCartItemWeekend && 'weekendowych'} 😥</p>}
+                            {filteredAddresses.length > 0 && filteredAddresses.map((address, idx) => (
                                 <label htmlFor={address._id} key={address._id}
                                        className={clsx(cartClasses['cart__addresses__item'], activeRadio === idx && cartClasses['cart__addresses__item--active'])}>
                                     <input type={"radio"} id={address._id} name={name} checked={address.isDefault}

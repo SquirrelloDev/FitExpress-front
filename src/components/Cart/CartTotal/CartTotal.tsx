@@ -46,9 +46,9 @@ function CartTotal({cartStep, setCartStep, discount, control}: CartTotalProps) {
         <div className={classes.cart__total}>
             <div className={classes.cart__total__text}>
                 <p>Cena za dzień: </p>
-                <p>{dailyPrice.toFixed(2)} zł</p>
+                <p>{isNaN(dailyPrice) ? '0.00' : dailyPrice.toFixed(2)} zł</p>
                 <p>Razem: </p>
-                <p>{total.toFixed(2)} zł</p>
+                <p>{isNaN(total) ? '0.00' : total.toFixed(2)} zł</p>
             </div>
             {cartStep === 0 &&
                 <button onClick={() => setCartStep(1)} disabled={!nextStepAvailable} className={btnStyles.btn}>Adres i płatność</button>}

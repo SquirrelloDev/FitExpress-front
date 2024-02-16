@@ -3,6 +3,8 @@
   padding: 0 0 200px;
   &__wrapper{
     padding: 1em;
+    display: flex;
+    flex-direction: column;
   }
   &__back{
     position: fixed;
@@ -28,9 +30,18 @@
     font-family: $family-pri;
   }
   &__item{
+    &--blank{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 2em 0;
+    }
     &__diet{
       position: relative;
       padding: 1em 0 1em 4em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       &__img{
         position: absolute;
         top: 50%;
@@ -49,8 +60,20 @@
         }
       }
     }
+    &__delete{
+      margin-right: 1em;
+      padding: .25em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: none;
+      border: 1px solid transparent;
+      color: $cta-red;
+      cursor: pointer;
+    }
   }
   &__subdate{
+    margin-top: 2.5em;
     &__info{
       margin: 1em 0;
       padding: 1em;
@@ -70,6 +93,10 @@
       overflow-x: auto;
       overflow-behavior-inline: contain;
       margin: 1em 0;
+      &--blank{
+        display: flex;
+        justify-content: center;
+      }
     }
     &__item{
       display: flex;

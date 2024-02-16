@@ -51,7 +51,8 @@ export const cartSchema = z.object({
         calories: z.number(),
         weekends: z.boolean(),
         date: z.array(z.coerce.date()),
-        price: z.number()
+        price: z.number(),
+        flexiTier: z.number().optional()
     }))
 });
 export type CartSchema = z.infer<typeof cartSchema>;
@@ -69,6 +70,7 @@ export type OrderPostData = {
         price: number,
         calories: number,
         withWeekends: boolean,
+        flexiTier?: number
     }
     token: string
 }

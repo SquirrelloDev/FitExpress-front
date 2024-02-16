@@ -4,7 +4,7 @@ interface CartStore {
     cartItems: string[]
     addItem: (item: string) => void
     getCount: () => number
-    deleteItem: (item: string) => void
+    deleteItem: (idx: number) => void
     clearCart: () => void
 }
 const initCart = (): string[] => {
@@ -21,9 +21,9 @@ const useCartStore = create<CartStore>(persist<CartStore>(
         getCount: () => {
             return get().cartItems.length
         },
-        deleteItem: (item) => {
+        deleteItem: (idx) => {
             set((state)=> {
-                return {cartItems: state.cartItems.filter(cartItem => cartItem !== item)}
+                return {cartItems: state.cartItems.filter((cartItem, index) => idx !== index)}
             })
         },
         clearCart: () => {

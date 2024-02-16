@@ -27,6 +27,7 @@ import DietMenu from "./pages/Diet/DietMenu";
 import MealPage from "./pages/MealPage";
 import CartPage from "./pages/Cart/CartPage";
 import PaymentSuccess from "./pages/Cart/PaymentSuccess";
+import {Toaster} from "react-hot-toast";
 
 const router = createBrowserRouter([
     {
@@ -88,6 +89,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <MantineProvider>
             <RouterProvider router={router}/>
             </MantineProvider>
+            <Toaster/>
         </QueryClientProvider>
-    </React.StrictMode>,
+     </React.StrictMode>,
 )

@@ -13,11 +13,16 @@
   &__cta-box{
     display: flex;
     flex-direction: column;
-    p{
+    &__text{
       margin-bottom: 1em;
       font-weight: $bold;
       font-size: $bigger;
       text-align: center;
+      &--reminder{
+        text-align: left;
+        font-weight: 400;
+        font-size: $big;
+      }
     }
     a{
       margin: 0 .75em .5em;
