@@ -66,7 +66,6 @@ function CartPage() {
     useEffect(() => {
         if (isSuccess) {
             const userDiets = filterArr(data!.diets, cartItems)
-            console.log(cart)
             setCartItemsFull(userDiets)
         }
     }, [cartItems, data, filterArr, isSuccess])
