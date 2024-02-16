@@ -1,0 +1,161 @@
+@use '../utils' as *;
+.cart{
+  padding: 0 0 200px;
+  &__wrapper{
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+  }
+  &__back{
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1em .25em;
+    background: none;
+    border: 1px solid transparent;
+  }
+  &__header{
+    padding: .75em 0;
+    background-color: $light-green;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: $big;
+    font-weight: $bold;
+    font-family: $family-pri;
+  }
+  &__item{
+    &--blank{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 2em 0;
+    }
+    &__diet{
+      position: relative;
+      padding: 1em 0 1em 4em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &__img{
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 100%;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        object-fit: cover;
+        &--blank{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: $text-color-secondary;
+        }
+      }
+    }
+    &__delete{
+      margin-right: 1em;
+      padding: .25em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: none;
+      border: 1px solid transparent;
+      color: $cta-red;
+      cursor: pointer;
+    }
+  }
+  &__subdate{
+    margin-top: 2.5em;
+    &__info{
+      margin: 1em 0;
+      padding: 1em;
+      background-color: $dark;
+      border-radius: 8px;
+    }
+  }
+  &__addresses{
+    margin: 1em 0;
+    display: flex;
+    flex-direction: column;
+    &__container{
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 50%;
+      grid-column-gap: 20px;
+      overflow-x: auto;
+      overflow-behavior-inline: contain;
+      margin: 1em 0;
+      &--blank{
+        display: flex;
+        justify-content: center;
+      }
+    }
+    &__item{
+      display: flex;
+      padding: 1em;
+      border: 3px solid $dark;
+      border-radius: 8px;
+      font-family: $family-sec;
+      font-weight: $semi-bold;
+      transition: border-color .2s;
+      cursor: pointer;
+      &--active{
+        border-color: $cta;
+      }
+      input[type='radio']{
+        appearance: none;
+        margin: 0;
+        background-color: $page-bg;
+      }
+    }
+    &__error{
+      margin-bottom: 1em;
+      color: $cta-red;
+    }
+  }
+  &__promo{
+    margin: 1em 0;
+    display: flex;
+    flex-direction: column;
+    &__error{
+      margin-bottom: 1em;
+      color: $cta-red;
+    }
+  }
+  &__total{
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 10;
+    bottom: 64px;
+    left: 0;
+    right: 0;
+    background-color: $dark;
+    border-radius: 15px 15px 0 0;
+    &__text{
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      padding: 0 .5em;
+      margin-bottom: 1em;
+      p:nth-child(2n){
+        justify-self: end;
+        font-weight: $bold;
+      }
+    }
+  }
+}
+.snaps-inline{
+  scroll-snap-type: inline mandatory;
+  & > *{
+    scroll-snap-align: start;
+  }
+}

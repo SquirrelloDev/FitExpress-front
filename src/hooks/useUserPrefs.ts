@@ -21,7 +21,6 @@ function useUserPrefs() {
         const closestValIdx = availableCalories.findIndex(cal => cal === closestVal);
         let firstAdjacent, secondAdjacent;
         let returnVal: {value: number, name: string}[] = [];
-        console.log(userPrefsSlice)
         switch (userPrefsSlice.user_goal){
             case  'burn':
                 firstAdjacent = availableCalories[closestValIdx + 1];

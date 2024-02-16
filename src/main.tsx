@@ -25,6 +25,9 @@ import FlexiSelect from "./pages/Diet/FlexiSelect";
 import DietDetails from "./pages/Diet/DietDetails";
 import DietMenu from "./pages/Diet/DietMenu";
 import MealPage from "./pages/MealPage";
+import CartPage from "./pages/Cart/CartPage";
+import PaymentSuccess from "./pages/Cart/PaymentSuccess";
+import {Toaster} from "react-hot-toast";
 
 const router = createBrowserRouter([
     {
@@ -55,6 +58,14 @@ const router = createBrowserRouter([
         ]
     },
     {
+        path: appRoutes.cart,
+        element: <AppLayout minPermLevel={UserRole.loggedIn} />,
+        children: [
+            {element: <CartPage />, index: true},
+            {path: appRoutes.cartPaymentSuccess ,element: <PaymentSuccess />}
+        ]
+    },
+    {
         path: '/',
         element: <UnauthorizedLayout/>,
         errorElement: <NotFound/>,
@@ -78,6 +89,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <MantineProvider>
             <RouterProvider router={router}/>
             </MantineProvider>
+            <Toaster/>
         </QueryClientProvider>
-    </React.StrictMode>,
+     </React.StrictMode>,
 )

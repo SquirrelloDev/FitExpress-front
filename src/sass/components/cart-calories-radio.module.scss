@@ -1,0 +1,41 @@
+@use '../utils' as *;
+.cart-calories-radio{
+  margin: 1em 0;
+  &__group{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 40px;
+    column-gap: 20px;
+    &__radio-item{
+      display: flex;
+      justify-content: center;
+      position: relative;
+      padding: 1em;
+      border: 3px solid $dark;
+      border-radius: 8px;
+      font-size: calc($normal + .3rem);
+      font-family: $family-sec;
+      font-weight: $semi-bold;
+      transition: border-color .2s;
+      cursor: pointer;
+      text-align: center;
+      &--active{
+        border-color: $cta;
+      }
+      input[type='radio']{
+        appearance: none;
+        margin: 0;
+        background-color: $page-bg;
+      }
+      &__badge{
+        position: absolute;
+        bottom: 0;
+        transform: translateY(50%);
+        font-size: calc($normal - .5rem);
+        background-color: $cta;
+        padding: .1em 1em;
+        border-radius: 30px;
+      }
+    }
+  }
+}

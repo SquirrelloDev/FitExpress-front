@@ -14,7 +14,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       name,
       ...props
     },
-    // ref
+    ref
   ) => {
     const id = useId()
     const {
@@ -31,7 +31,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           </label>
         <input
           id={id}
-          // ref={ref}
+          //@ts-expect-error the ref should be overwritten
+          ref={ref}
           placeholder=" "
           type={type}
           className={className ? className : inputStyles.input}

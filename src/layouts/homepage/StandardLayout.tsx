@@ -6,9 +6,11 @@ import {Link} from "react-router-dom";
 import {appRoutes} from "../../utils/routes";
 import btnStyles from '../../sass/components/button.module.scss'
 import clsx from "clsx";
-import {calcDays, percents} from "../../utils/calcDays";
+import {calcDaysBetween, percents} from "../../utils/calcDays";
 import {IconCheck} from "@tabler/icons-react";
 import HomeCalendar from "../../components/HomeCalendar/HomeCalendar";
+import useCartStore from "../../stores/cartStore";
+import CartCta from "../../components/Cart/CartCta/CartCta";
 
 interface StandardLayoutProps {
     orderData: Order[]
@@ -21,6 +23,7 @@ function StandardLayout({orderData}: StandardLayoutProps) {
         month: "long",
         day: "numeric"
     }).format(currentDate)
+    const cartItems = useCartStore(state => state.cartItems)
     return (
         <>
             <h4>Dzisiaj {intlDate}</h4>
@@ -35,8 +38,8 @@ function StandardLayout({orderData}: StandardLayoutProps) {
                         {orderData.map(item => <Tabs.Tab value={item.name} key={item._id}>{item.name}</Tabs.Tab>)}
                     </Tabs.List>
                     {orderData.map(item => {
-                        const orderMaxDays = calcDays(new Date(item.sub_date.from), new Date(item.sub_date.to))
-                        const currentOrderDay = calcDays(new Date(item.sub_date.from), new Date())
+                        const orderMaxDays = calcDaysBetween(new Date(item.sub_date.from), new Date(item.sub_date.to))
+                        const currentOrderDay = calcDaysBetween(new Date(item.sub_date.from), new Date())
                         const percentValue = percents(orderMaxDays, currentOrderDay)
                         return (
                             <Tabs.Panel key={item._id} value={item.name}>
@@ -59,6 +62,8 @@ function StandardLayout({orderData}: StandardLayoutProps) {
                                             dietą</Link>
                                     </div>
                                 </Card>
+                                {cartItems.length > 0 && <CartCta isReminder/>}
+                                <CartCta/>
                             </Tabs.Panel>)
                     })}
                 </Tabs>

@@ -10,3 +10,15 @@
           return 15;
   }
 }
+export const getFlexiTier = (dietName: string | undefined): number | null  => {
+    switch (dietName){
+        case 'Basic':
+            return 1;
+        case 'Plus':
+            return 2;
+        case 'All-in':
+            return 3;
+        default:
+            return null;
+    }
+}
