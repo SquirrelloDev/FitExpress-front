@@ -13,7 +13,9 @@ import useAuthStore from "../../stores/authStore";
 import {calculateAge, calculateBMI, calculateDemands} from "../../utils/calculateUserData";
 import {TailSpin} from "react-loader-spinner";
 import useUserPrefs from "../../hooks/useUserPrefs";
-
+import {registerLocale} from "react-datepicker";
+import {pl} from "date-fns/locale/pl";
+registerLocale('pl', pl)
 const palActive: SelectOption[] = [
     {label: 'Brak treningów / jeden lekki', value: 1.2},
     {label: 'Pojedyncze treningi', value: 1.4},
@@ -37,6 +39,7 @@ function HealthCardPage() {
     const {mutate, isLoading} = useHealthPatch()
     const userData = useAuthStore((state) => state.userData);
     const {handleSubmit} = methods
+    const maxDate = new Date().setFullYear(new Date().getFullYear() - 18, new Date().getMonth(), new Date().getDate())
     const onSubmit = (data: UserHealthSchema) => {
         const userAge = calculateAge(data.birth_date);
         const {
@@ -84,7 +87,7 @@ function HealthCardPage() {
                     <Input name={'user_weight_planned'} type='number' min={40} max={500}
                            placeholder={'Planowana waga (w kg)'}/>
                     <ControlledDatePicker control={methods.control} name={'birth_date'}
-                                          placeholderText={'Data urodzin'}/>
+                                          placeholderText={'Data urodzin'} locale={'pl'} minDate={new Date('1900-01-01')} maxDate={new Date(maxDate)}/>
                     <ControlledSelect options={palActive} control={methods.control} name={'pal_active'}
                                       placeholder={'Aktywność treningowa w tygodniu'}/>
                     <ControlledSelect options={palPassive} control={methods.control} name={'pal_passive'}
