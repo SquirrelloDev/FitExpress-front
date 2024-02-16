@@ -31,6 +31,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           </label>
         <input
           id={id}
+          //@ts-expect-error the ref should be overwritten
           ref={ref}
           placeholder=" "
           type={type}

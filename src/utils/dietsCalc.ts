@@ -10,7 +10,7 @@
           return 15;
   }
 }
-export const getFlexiTier = (dietName: string): number | null  => {
+export const getFlexiTier = (dietName: string | undefined): number | null  => {
     switch (dietName){
         case 'Basic':
             return 1;

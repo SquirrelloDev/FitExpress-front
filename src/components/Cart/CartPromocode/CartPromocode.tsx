@@ -23,8 +23,8 @@ function CartPromocode({token, setCurrentDiscount}:CartPromocodeProps) {
 		}
 	}, [data, isSuccess, setCurrentDiscount])
 	const applyPromo = () => {
-		if(inputRef.current.value !== ''){
-		setEnteredPromo(inputRef.current.value);
+		if(inputRef.current!.value !== ''){
+		setEnteredPromo(inputRef.current!.value);
 		setBlankErr(false)
 		}
 		else{
@@ -37,7 +37,7 @@ function CartPromocode({token, setCurrentDiscount}:CartPromocodeProps) {
 				<h3>Kod promocyjny</h3>
 				<input type={'text'} ref={inputRef} className={inputStyles.input}/>
 				{blankErr && <p className={classes.cart__promo__error}>Wprowadź kod</p>}
-				{isError && <p className={classes.cart__promo__error}>{error.message}</p>}
+				{isError && <p className={classes.cart__promo__error}>{(error as Error).message}</p>}
 				<button onClick={applyPromo} type={'button'} className={btnStyles.btn}>Zastosuj</button>
 			</div>
 		</>

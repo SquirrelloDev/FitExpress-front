@@ -19,7 +19,7 @@ function CartCaloriesRadio<T extends FieldValues>({name, control, prices, index}
     const {formState: {errors}, setValue} = useFormContext();
     return (
         <Controller control={control} render={
-            ({field: {onChange, onBlur}}) => (
+            ({field: {onChange}}) => (
                 <div className={classes['cart-calories-radio']}>
                     <div className={classes['cart-calories-radio__group']}>
                         {availableCalories.map((cal, idx) => {

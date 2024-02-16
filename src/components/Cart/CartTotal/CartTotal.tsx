@@ -1,9 +1,9 @@
-import {Dispatch, useEffect, useState} from "react";
+import {Dispatch} from "react";
 import {Control, useWatch} from "react-hook-form";
-import {CartFormValues} from "../../../pages/Cart/CartPage";
 import {calcDays} from "../../../utils/calcDays";
 import btnStyles from '../../../sass/components/button.module.scss'
 import classes from "../../../sass/pages/cart.module.scss";
+import {CartFormValues} from "../../../pages/Cart/CartPage";
 
 interface CartTotalProps {
     cartStep: number,
@@ -13,23 +13,15 @@ interface CartTotalProps {
 }
 
 function CartTotal({cartStep, setCartStep, discount, control}: CartTotalProps) {
-    const formValues = useWatch<{
-        calories: number,
-        date: Date[],
-        name: string,
-        weekends: boolean,
-        price: number
-    }[]>({
-        name: 'cart',
-        control
-    })
-    const dailyPrice: number = formValues.reduce((acc, item) => {
-        return acc + (item.price * (1 - discount))
+    // @ts-expect-error watch is an array
+    const formValues = useWatch<{ calories: number, date: Date[], name: string, weekends: boolean, price: number }[]>({name: 'cart', control: control})
+    const dailyPrice: number = formValues!.reduce((acc, item) => {
+        return acc + (item.price! * (1 - discount))
     }, 0)
-    const total: number = formValues.reduce((acc, item) => {
-        return acc + (item.price * calcDays(item.date ? item.date[0] : new Date(), item.date ? item.date[1] : new Date(), item.weekends) * (1 - discount))
+    const total: number = formValues!.reduce((acc, item) => {
+        return acc + (item.price! * calcDays(item.date ? item.date[0] : new Date(), item.date ? item.date[1] : new Date(), item.weekends) as unknown as number * (1 - discount))
     }, 0)
-    const nextStepAvailable = formValues.length > 0 ? formValues.every(item => {
+    const nextStepAvailable = formValues.length > 0 ? formValues?.every(item => {
         let nameValid = false, caloriesValid = false, dateValid = false;
         if(item.name !== ''){
             nameValid = true

@@ -52,7 +52,7 @@ function CartPage() {
         dietType: ''
     })
     const {data: userAddresses, isLoading: isAddressesLoading} = useUserAddressListQuery({id: userData.id, token: userData.token})
-    const [cartItemsFull, setCartItemsFull] = useState<Diet[]>([])
+    const [cartItemsFull, setCartItemsFull] = useState<Diet[] | undefined>([])
     const methods = useForm<CartFormValues>({
         resolver: zodResolver(cartSchema),
         defaultValues: {
@@ -65,7 +65,7 @@ function CartPage() {
     const filterArr = useCartArray()
     useEffect(() => {
         if (isSuccess) {
-            const userDiets = filterArr(data!.diets, cartItems)
+            const userDiets = filterArr(data!.diets, cartItems) as Diet[]
             setCartItemsFull(userDiets)
         }
     }, [cartItems, data, filterArr, isSuccess])
@@ -73,7 +73,7 @@ function CartPage() {
     const onSubmit = (cartData: CartSchema) => {
         const orders:OrderPostData[] = cartData.cart.map((cartItem, idx) => {
             const dietId = cartItems[idx]
-            const tier = getFlexiTier(data!.diets.find(diet => diet._id === dietId).name)
+            const tier = getFlexiTier(data!.diets.find(diet => diet._id === dietId)?.name)
             return {
                 order: {
                     name: cartItem.name,
@@ -84,7 +84,7 @@ function CartPage() {
                         from: cartItem.date[0],
                         to: cartItem.date[1]
                     },
-                    price: cartItem.price * calcDays(cartItem.date ? cartItem.date[0] : new Date(), cartItem.date ? cartItem.date[1] : new Date(), cartItem.weekends) * (1 - cartDiscount),
+                    price: (cartItem.price * calcDays(cartItem.date ? cartItem.date[0] : new Date(), cartItem.date ? cartItem.date[1] : new Date(), cartItem.weekends) as number) * (1 - cartDiscount),
                     calories: cartItem.calories,
                     withWeekends: cartItem.weekends,
                     ...(tier && {flexiTier: tier})
@@ -98,6 +98,7 @@ function CartPage() {
         <FormProvider {...methods}>
             <div className={classes.cart}>
                 {isLoading && <div><h1>Wczytuję koszyk...</h1></div>}
+                {/*@ts-expect-error data are sent correctly*/}
                 <form onSubmit={handleSubmit(onSubmit)}>
                     {!isLoading && cartStep === 0 && isSuccess && (
                         <div>
@@ -114,7 +115,7 @@ function CartPage() {
                                         <p>Pora coś dodać!</p>
                                     </div>
                                 )}
-                                {cartItemsFull.map((cartItem, index) => (
+                                {cartItemsFull?.map((cartItem, index) => (
                                     <Card key={cartItem._id + index}>
                                         <h3>Dieta {index + 1}</h3>
                                         <Card clearPadding>
@@ -124,6 +125,7 @@ function CartPage() {
                                                 <p>{cartItem.name}</p>
                                                 <button onClick={() => {
                                                     deleteItem(index);
+                                                    // @ts-expect-error cartItem isn't used here
                                                     replace(cart.filter((cartItem, idx) => idx !== index))
                                                     toast.success('Element usunięty!')
                                                 }} className={classes.cart__item__delete}><IconX/></button>
@@ -151,7 +153,7 @@ function CartPage() {
                             </div>
                             <div className={classes.cart__wrapper}>
                                 <h3>Wybrane diety</h3>
-                                {cartItemsFull.map((cartItem, index) => (
+                                {cartItemsFull?.map((cartItem, index) => (
                                     <>
                                         <Card key={cartItem._id + index}>
                                             <div>

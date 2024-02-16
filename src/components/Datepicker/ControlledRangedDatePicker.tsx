@@ -22,7 +22,7 @@ function ControlledDatePicker<T extends FieldValues>({
   const {
     formState: { errors },
   } = useFormContext()
-    const [dateRange, setDateRange] = useState<Date | null[]>([null, null])
+    const [dateRange, setDateRange] = useState<Date[] | null[]>([null, null])
     const [startDate, endDate] = dateRange;
   return (
     <Controller
@@ -39,7 +39,7 @@ function ControlledDatePicker<T extends FieldValues>({
             endDate={endDate}
             selectsRange
             onChange={(date) => {
-                setDateRange(date);
+                setDateRange(date as Date[]);
                 onChange(date)
             }}
             dateFormat="dd/MM/yyyy"

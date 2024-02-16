@@ -17,7 +17,7 @@ const getCleanUserData = (): UserData => {
       token: ''
   }
 }
-const useAuthStore = create<AuthStore>(
+const useAuthStore = create(
     persist<AuthStore>(
         (set, get) => ({
             userData: getCleanUserData(),

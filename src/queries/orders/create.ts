@@ -4,9 +4,6 @@ import errorMessages from "../../utils/errorMessages";
 import {AxiosError} from "axios";
 import {apiRoutes, FitExpressClient, queryClient} from "../../utils/api";
 import {toast} from "react-hot-toast";
-import {useNavigate} from "react-router-dom";
-import {appRoutes} from "../../utils/routes";
-import {addressSchema} from "../addresses/create";
 import {loadStripe} from "@stripe/stripe-js";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
@@ -88,26 +85,27 @@ const createOrder:MutationFunction<OrderResponse, OrderPostData> = async (order)
 type PaymentResponse = {
     id: string
 }
-const proccessPayment:MutationFunction = async (order) => {
+const proccessPayment:MutationFunction<PaymentResponse, OrderPostData[]> = async (order) => {
     const stripe = await loadStripe('pk_test_51OjkX2IEJEI12bS3vAJpQ4Ftps8jjf5ZrNgZs7o2iqFHJCrdQxUHzUigomsI4h7D7PrEUQ6ymIFq8MGQcoVzeXMD00rOc7T4u0')
 
     const res = await FitExpressClient.getInstance().post<PaymentResponse>(apiRoutes.CHECKOUT, {
         orders: order
     }, {headers: {Authorization: `Bearer ${order[0].token}`}})
-    const result = stripe.redirectToCheckout({
+    const result = stripe!.redirectToCheckout({
         sessionId: res.data.id
     })
     if((await result).error){
         console.log((await result).error)
     }
+    return res.data
 }
 
 function useOrderCreate(){
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const {mutate, isError, isLoading, isSuccess, error} = useMutation<OrderResponse, OrderError, OrderPostData>(['Order-Create'], createOrder, {onSuccess: () => {
             toast.success('Zamówienie dodane!');
             queryClient.invalidateQueries(['OrdersList'])
-            navigate(appRoutes.orders);
+            // navigate(appRoutes.orders);
         },
         onError: (error) => {
         toast.error(error.message)

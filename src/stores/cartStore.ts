@@ -10,7 +10,7 @@ interface CartStore {
 const initCart = (): string[] => {
     return []
 }
-const useCartStore = create<CartStore>(persist<CartStore>(
+const useCartStore = create(persist<CartStore>(
     (set,get) => ({
         cartItems: initCart(),
         addItem: (item) => {
@@ -23,6 +23,7 @@ const useCartStore = create<CartStore>(persist<CartStore>(
         },
         deleteItem: (idx) => {
             set((state)=> {
+                // @ts-expect-error cartItem isn't used here
                 return {cartItems: state.cartItems.filter((cartItem, index) => idx !== index)}
             })
         },

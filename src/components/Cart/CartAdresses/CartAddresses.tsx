@@ -21,18 +21,25 @@ function CartAddresses<T extends FieldValues>({addresses, control, name, isAddre
         formState: {errors},
         watch
     } = useFormContext()
-    const cartItems = watch('cart')
-    const isCartItemWeekend = cartItems.some(cartItem => cartItem.weekends === true)
+    const cartItems: {
+        calories: number,
+        date: Date[],
+        name: string,
+        weekends: boolean
+    }[] = watch('cart')
+    const isCartItemWeekend = cartItems.some(cartItem => cartItem.weekends)
     const [filteredAddresses] = useState<Address[]>(isCartItemWeekend ? addresses.filter(address => address.is_weekend === true) : addresses);
     return (
         <Controller control={control} name={name as Path<T>} render={({field: {onChange}}) => (
             <div className={cartClasses.cart__addresses}>
                 <h3>Adres</h3>
-                <div className={clsx(cartClasses.cart__addresses__container, cartClasses['snaps-inline'], filteredAddresses.length === 0 && cartClasses['cart__addresses__container--blank'])}>
-					{isAddressesLoading && <p>Pobieranie adresów...</p>}
+                <div
+                    className={clsx(cartClasses.cart__addresses__container, cartClasses['snaps-inline'], filteredAddresses.length === 0 && cartClasses['cart__addresses__container--blank'])}>
+                    {isAddressesLoading && <p>Pobieranie adresów...</p>}
                     {!isAddressesLoading && (
                         <>
-                            {filteredAddresses.length === 0 && <p>Brak adresów {isCartItemWeekend && 'weekendowych'} 😥</p>}
+                            {filteredAddresses.length === 0 &&
+                                <p>Brak adresów {isCartItemWeekend && 'weekendowych'} 😥</p>}
                             {filteredAddresses.length > 0 && filteredAddresses.map((address, idx) => (
                                 <label htmlFor={address._id} key={address._id}
                                        className={clsx(cartClasses['cart__addresses__item'], activeRadio === idx && cartClasses['cart__addresses__item--active'])}>
@@ -54,10 +61,11 @@ function CartAddresses<T extends FieldValues>({addresses, control, name, isAddre
                         </>
                     )}
                 </div>
-                {errors[name] &&(
-                    <p className={cartClasses.cart__addresses__error}>{errors[name].message}</p>
+                {errors[name] && (
+                    <p className={cartClasses.cart__addresses__error}>{errors[name]!.message as string}</p>
                 )}
-                <button onClick={() => navigate(appRoutes.addresses)} className={btnStyles.btn}>Zarządzaj adresami</button>
+                <button onClick={() => navigate(appRoutes.addresses)} className={btnStyles.btn}>Zarządzaj adresami
+                </button>
             </div>
         )
         }/>

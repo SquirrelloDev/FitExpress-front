@@ -1,6 +1,6 @@
 export function calcDays(startDate: Date, endDate: Date, countWeekends = true) {
     if (!endDate) {
-        return 'Wybierz końcową datę'
+        return 0;
     }
     const currentDate = new Date(startDate);
     let days = 0;

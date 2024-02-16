@@ -5,7 +5,7 @@ import ControlledRangedDatePicker from "../../Datepicker/ControlledRangedDatePic
 import {calcDays} from "../../../utils/calcDays";
 import classes from "../../../sass/pages/cart.module.scss";
 import {registerLocale} from "react-datepicker";
-import {pl} from "date-fns/locale/pl";
+import pl from "date-fns/locale/pl";
 
 interface CartSubDateProps<T extends FieldValues> {
     name: string
@@ -14,11 +14,7 @@ interface CartSubDateProps<T extends FieldValues> {
 }
 registerLocale('pl', pl)
 function CartSubDate<T extends FieldValues>({name, control, prices}: CartSubDateProps<T>) {
-    const {
-        formState: {errors},
-        getValues,
-        watch
-    } = useFormContext()
+    const {watch} = useFormContext()
     const withWeekends = watch(`${name}.weekends`)
     const subDate = watch(`${name}.date`)
     const cals = watch(`${name}.calories`)
@@ -36,14 +32,14 @@ function CartSubDate<T extends FieldValues>({name, control, prices}: CartSubDate
                                         filterDate={!withWeekends ? (date) => {
                                             const weekDay = new Date(date).getDay()
                                             return weekDay !== 0 && weekDay !== 6
-                                        } : null
+                                            } : undefined
                                         } calendarStartDay={1} minDate={new Date(minDate)} locale={'pl'}/>
             <div className={classes.cart__subdate__info}>
                 <p>Wybrany
-                    okres: {subDate && (`${new Date(subDate[0]).toLocaleDateString()} - ${subDate[1] !== null ? new Date(subDate[1]).toLocaleDateString() : ''}`)}</p>
+                    okres: {subDate && (`${new Date(subDate[0]).toLocaleDateString()} - ${subDate[1] !== null ? new Date(subDate[1]).toLocaleDateString() as unknown as number : ''}`)}</p>
                 <p>Cena za dzień: {cals ? `${prices[`kcal${cals}`].toFixed(2)} zł` : 'Wybierz kaloryczność'}</p>
                 <p>Cena za wybrany
-                    okres: {subDate ? `${(prices[`kcal${cals}`] * (subDate ? calcDays(subDate[0], subDate[1], withWeekends) : 1)).toFixed(2)} zł` : 'Wybierz okres'}</p>
+                    okres: {subDate ? `${(prices[`kcal${cals}`] * (subDate ? calcDays(subDate[0], subDate[1], withWeekends) : 1) as unknown as number).toFixed(2)} zł` : 'Wybierz okres'}</p>
             </div>
         </div>
     )

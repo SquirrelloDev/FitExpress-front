@@ -14,7 +14,7 @@ import {calculateAge, calculateBMI, calculateDemands} from "../../utils/calculat
 import {TailSpin} from "react-loader-spinner";
 import useUserPrefs from "../../hooks/useUserPrefs";
 import {registerLocale} from "react-datepicker";
-import {pl} from "date-fns/locale/pl";
+import pl from "date-fns/locale/pl";
 registerLocale('pl', pl)
 const palActive: SelectOption[] = [
     {label: 'Brak treningów / jeden lekki', value: 1.2},
