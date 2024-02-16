@@ -26,6 +26,7 @@ import {getFlexiTier} from "../../utils/dietsCalc";
 import {appRoutes} from "../../utils/routes";
 import {calcDays} from "../../utils/calcDays";
 import {toast} from "react-hot-toast";
+
 export interface CartFormValues {
     address: Address
     cart: {
@@ -35,6 +36,7 @@ export interface CartFormValues {
         weekends: boolean
     }[]
 }
+
 function CartPage() {
     const navigate = useNavigate()
     const cartItems = useCartStore((state) => state.cartItems)
@@ -51,7 +53,10 @@ function CartPage() {
         pageIndex: 0,
         dietType: ''
     })
-    const {data: userAddresses, isLoading: isAddressesLoading} = useUserAddressListQuery({id: userData.id, token: userData.token})
+    const {data: userAddresses, isLoading: isAddressesLoading} = useUserAddressListQuery({
+        id: userData.id,
+        token: userData.token
+    })
     const [cartItemsFull, setCartItemsFull] = useState<Diet[] | undefined>([])
     const methods = useForm<CartFormValues>({
         resolver: zodResolver(cartSchema),
@@ -71,7 +76,7 @@ function CartPage() {
     }, [cartItems, data, filterArr, isSuccess])
     const {mutate: paymentMutate} = usePaymentProcess()
     const onSubmit = (cartData: CartSchema) => {
-        const orders:OrderPostData[] = cartData.cart.map((cartItem, idx) => {
+        const orders: OrderPostData[] = cartData.cart.map((cartItem, idx) => {
             const dietId = cartItems[idx]
             const tier = getFlexiTier(data!.diets.find(diet => diet._id === dietId)?.name)
             return {
@@ -120,8 +125,12 @@ function CartPage() {
                                         <h3>Dieta {index + 1}</h3>
                                         <Card clearPadding>
                                             <div className={classes.cart__item__diet}>
-                                                {cartItem.imageBuffer ? <img src={'data:;base64,' + cartItem.imageBuffer}
-                                                                             alt={`Obrazek diety ${cartItem.name}`} className={classes.cart__item__diet__img}/> : <div className={clsx(classes.cart__item__diet__img,classes['cart__item__diet__img--blank'])}><IconPhotoOff size={20}/> </div>}
+                                                {cartItem.imageBuffer ?
+                                                    <img src={'data:;base64,' + cartItem.imageBuffer}
+                                                         alt={`Obrazek diety ${cartItem.name}`}
+                                                         className={classes.cart__item__diet__img}/> : <div
+                                                        className={clsx(classes.cart__item__diet__img, classes['cart__item__diet__img--blank'])}>
+                                                        <IconPhotoOff size={20}/></div>}
                                                 <p>{cartItem.name}</p>
                                                 <button onClick={() => {
                                                     deleteItem(index);
@@ -135,12 +144,16 @@ function CartPage() {
                                         <Input name={`cart.${index}.name`} placeholder={'Nazwa'}/>
                                         <h3>Kaloryczność</h3>
                                         <p>Wybierz kaloryczność, która spełnia Twoje potrzeby</p>
-                                        <CartCaloriesRadio name={`cart.${index}`} control={methods.control} prices={cartItem.prices} index={index}/>
+                                        <CartCaloriesRadio name={`cart.${index}`} control={methods.control}
+                                                           prices={cartItem.prices} index={index}/>
                                         <h3>Okres trwania diety</h3>
-                                        <CartSubDate name={`cart.${index}`} control={methods.control} prices={cartItem.prices}/>
+                                        <CartSubDate name={`cart.${index}`} control={methods.control}
+                                                     prices={cartItem.prices}/>
                                     </Card>
                                 ))}
-                                <button className={clsx(btnStyles.btn, btnStyles['btn--outline'])} onClick={() => navigate(appRoutes.diets)}>Dodaj {cartItems.length > 0 ? 'kolejną' : 'pierwszą'} dietę</button>
+                                <button className={clsx(btnStyles.btn, btnStyles['btn--outline'])}
+                                        onClick={() => navigate(appRoutes.diets)}>Dodaj {cartItems.length > 0 ? 'kolejną' : 'pierwszą'} dietę
+                                </button>
                             </div>
                         </div>
                     )}
@@ -159,8 +172,12 @@ function CartPage() {
                                             <div>
                                                 <Card clearPadding>
                                                     <div className={classes.cart__item__diet}>
-                                                        {cartItem.imageBuffer ? <img src={'data:;base64,' + cartItem.imageBuffer}
-                                                                                     alt={`Obrazek diety ${cartItem.name}`} className={classes.cart__item__diet__img}/> : <div className={clsx(classes.cart__item__diet__img,classes['cart__item__diet__img--blank'])}><IconPhotoOff size={20}/> </div>}
+                                                        {cartItem.imageBuffer ?
+                                                            <img src={'data:;base64,' + cartItem.imageBuffer}
+                                                                 alt={`Obrazek diety ${cartItem.name}`}
+                                                                 className={classes.cart__item__diet__img}/> : <div
+                                                                className={clsx(classes.cart__item__diet__img, classes['cart__item__diet__img--blank'])}>
+                                                                <IconPhotoOff size={20}/></div>}
                                                         <p>{cartItem.name}</p>
                                                     </div>
                                                 </Card>
@@ -174,16 +191,16 @@ function CartPage() {
                                         </Card>
                                     </>
                                 ))}
-                                <CartAddresses control={methods.control} name={'address'} addresses={userAddresses!.addresses} isAddressesLoading={isAddressesLoading}/>
-
+                                <CartAddresses control={methods.control} name={'address'}
+                                               addresses={userAddresses!.addresses}
+                                               isAddressesLoading={isAddressesLoading}/>
                                 <CartPromocode token={userData.token} setCurrentDiscount={setCartDiscount}/>
-
                             </div>
                         </>
                     )}
-                    <CartTotal cartStep={cartStep} setCartStep={setCartStep} control={methods.control} discount={cartDiscount} />
+                    <CartTotal cartStep={cartStep} setCartStep={setCartStep} control={methods.control}
+                               discount={cartDiscount}/>
                 </form>
-
             </div>
             <DevTool control={methods.control}/>
         </FormProvider>
