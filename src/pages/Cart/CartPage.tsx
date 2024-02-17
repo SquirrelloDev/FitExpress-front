@@ -146,7 +146,6 @@ function CartPage() {
                                         <p>Wybierz kaloryczność, która spełnia Twoje potrzeby</p>
                                         <CartCaloriesRadio name={`cart.${index}`} control={methods.control}
                                                            prices={cartItem.prices} index={index}/>
-                                        <h3>Okres trwania diety</h3>
                                         <CartSubDate name={`cart.${index}`} control={methods.control}
                                                      prices={cartItem.prices}/>
                                     </Card>

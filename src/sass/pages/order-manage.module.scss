@@ -1,0 +1,44 @@
+@use '../utils' as *;
+.management{
+  padding: 1.5em 1.5em 65px;
+  &__container{
+    display: flex;
+    flex-direction: column;
+  }
+  &__entry{
+    &__header{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &__btn{
+        padding: .5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: none;
+        border: 1px solid transparent;
+        color: $text-color-primary;
+      }
+    }
+    &__info{
+      margin: .5em 0;
+      p{
+        margin: .15em 0;
+      }
+    }
+    &__divider{
+      margin: .75em 0;
+      background-color: $border;
+      border: 1px solid $border;
+    }
+    &__actions{
+      display: flex;
+      flex-direction: column;
+      &__btn{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
