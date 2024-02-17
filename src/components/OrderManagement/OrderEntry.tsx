@@ -1,9 +1,11 @@
 import Card from "../Card/Card";
-import {IconPencil, IconSquareChevronDown, IconSquareChevronUp} from "@tabler/icons-react";
+import {IconCalendarCog, IconPencil, IconSquareChevronDown, IconSquareChevronUp} from "@tabler/icons-react";
 import {Address} from "../../types/dbtypes/Address";
 import classes from "../../sass/pages/order-manage.module.scss";
 import btnStyles from '../../sass/components/button.module.scss'
 import clsx from "clsx";
+import {useDisclosure} from "@mantine/hooks";
+import BottomActionSheet from "../BottomActionSheet/BottomActionSheet";
 
 interface OrderEntryProps {
     name: string,
@@ -21,8 +23,10 @@ interface OrderEntryProps {
 }
 
 function OrderEntry({name, dietType, dietName, calories, subDate, address, index, openedItem, setOpenedItem}: OrderEntryProps) {
+    const [opened, {open, close}] = useDisclosure(false)
     console.log("Render OrderEntry")
     return (
+        <>
         <Card>
             <div className={classes.management__entry}>
                 <div className={classes.management__entry__header}>
@@ -43,6 +47,7 @@ function OrderEntry({name, dietType, dietName, calories, subDate, address, index
                         </div>
                         <hr className={classes.management__entry__divider}/>
                         <div className={classes.management__entry__actions}>
+                            <button className={clsx(classes.management__entry__header__btn,btnStyles.btn)} onClick={() => open()}><IconCalendarCog/> Zmień terminarz</button>
                             <button className={clsx(btnStyles.btn, btnStyles['btn--outline'], classes.management__entry__actions__btn)}><IconPencil/> Edycja diety</button>
                         </div>
                     </>
@@ -50,6 +55,10 @@ function OrderEntry({name, dietType, dietName, calories, subDate, address, index
                 }
             </div>
         </Card>
+            <BottomActionSheet opened={opened} close={close} withCloseButton={false}>
+                Test
+            </BottomActionSheet>
+        </>
     )
 }
 
