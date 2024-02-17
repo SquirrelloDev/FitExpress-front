@@ -6,6 +6,7 @@ import btnStyles from '../../sass/components/button.module.scss'
 import clsx from "clsx";
 import {useDisclosure} from "@mantine/hooks";
 import BottomActionSheet from "../BottomActionSheet/BottomActionSheet";
+import SubDateForm from "./SubDateForm";
 
 interface OrderEntryProps {
     name: string,
@@ -55,8 +56,8 @@ function OrderEntry({name, dietType, dietName, calories, subDate, address, index
                 }
             </div>
         </Card>
-            <BottomActionSheet opened={opened} close={close} withCloseButton={false}>
-                Test
+            <BottomActionSheet opened={opened} close={close} withCloseButton={false} size={'xl'}>
+               <SubDateForm subDate={subDate}/>
             </BottomActionSheet>
         </>
     )
