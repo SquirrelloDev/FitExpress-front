@@ -7,7 +7,7 @@ export type Order = {
     name: string,
     diet_id: Diet,
     user_id: UserFullData,
-
+    is_active: boolean,
     address_id: Address,
     price: number,
     sub_date: {

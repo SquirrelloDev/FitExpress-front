@@ -23,6 +23,26 @@ const updateOrder:MutationFunction<OrderResponse, OrderPutData> = async (order) 
     }
     return { message: res.message }
 }
+
+export function useOrderActivity(){
+    const {mutate, isLoading, isError, error} = useMutation(['Order-Status'], async ({status, id, token}: {status: boolean, id: string, token:string}) => {
+    const res = await FitExpressClient.getInstance().patch<OrderResponse, OrderError>(apiRoutes.UPDATE_STATUS(id), {
+            status: status
+        }, {headers: {Authorization: `Bearer ${token}`}})
+        if (res.response?.status && res.response.status !== 200){
+            throw new Error('Coś poszło nie tak')
+        }
+        return { message: res.message }
+    }, {onSuccess: () =>{
+            toast.success('Zamówienie zostało deaktywowane!');
+            queryClient.invalidateQueries(['OrdersList'])
+        },
+        onError: (error) => {
+            toast.error(error.message)
+        }
+        })
+    return {mutate, isLoading, isError, error}
+}
 function useOrderEdit(){
     const navigate = useNavigate();
     const {mutate, isError, isLoading, isSuccess, error} = useMutation<OrderResponse, OrderError, OrderPutData>(['Order-Update'], updateOrder, {onSuccess: () => {

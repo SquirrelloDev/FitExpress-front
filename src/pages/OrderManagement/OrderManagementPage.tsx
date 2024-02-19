@@ -22,7 +22,7 @@ function OrderManagementPage() {
 			<h1>Moje diety</h1>
 			<div className={classes.management__container}>
 				{isLoading && <Grid/>}
-				{!isLoading && data?.orders.map((order, idx) => <OrderEntry order={order} index={idx} openedItem={openedItem} setOpenedItem={selectItem} key={order._id}/>)}
+				{!isLoading && data?.orders.map((order, idx) => <OrderEntry token={userData.token} order={order} index={idx} openedItem={openedItem} setOpenedItem={selectItem} key={order._id}/>)}
 			</div>
 		</section>
 	)

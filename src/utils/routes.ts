@@ -25,7 +25,7 @@ export const appRoutes = {
     menu: '/menu',
 //     management screen
     dietManagement: '/manage',
-    dietEdit: 'manage/:dietId',
+    dietEdit: ':dietId',
 //     healthPage
     healthPage: '/health',
     weightHistory: '/health/weight-history',
