@@ -33,7 +33,7 @@ function OrderEntry({order, index, openedItem, setOpenedItem, token}: OrderEntry
             <Card>
                 <div className={classes.management__entry} onClick={() => setOpenedItem(index)}>
                     <div className={classes.management__entry__header}>
-                        <h3 className={clsx(order.is_active && classes['management__entry__header__text--disabled'])}>{order.name}</h3>
+                        <h3 className={clsx(!order.is_active && classes['management__entry__header__text--disabled'])}>{order.name}</h3>
                         {openedItem === index ? <IconSquareChevronUp/> : <IconSquareChevronDown/>}
                     </div>
                     {openedItem === index && (
@@ -68,7 +68,7 @@ function OrderEntry({order, index, openedItem, setOpenedItem, token}: OrderEntry
                     }
                 </div>
                 {modalOpen && <Modal><ViewDelete id={order._id} closeModal={setModalOpen}
-                                                 deleteMutation={updateOrderStatus}/></Modal>}
+                                                 deleteMutation={updateOrderStatus} isDeleting={isLoading}/></Modal>}
             </Card>
         </>
     )

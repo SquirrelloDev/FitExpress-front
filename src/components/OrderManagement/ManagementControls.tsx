@@ -10,7 +10,7 @@ interface ManagementControlProps {
 function ManagementControl({filterFunction}: ManagementControlProps) {
     return (
         <div>
-            <h3>Filtrowanie</h3>
+            <h4>Filtrowanie</h4>
             <div>
                 <Select options={[{label: 'Wszystkie', value: 'all'}, {
                     label: 'Aktywne',
