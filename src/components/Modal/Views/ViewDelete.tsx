@@ -1,7 +1,9 @@
 import {IconX} from "@tabler/icons-react";
 import classes from "../../../sass/components/deleteModalView.module.scss";
+import btnStyles from '../../../sass/components/button.module.scss'
 import {Dispatch, SetStateAction} from "react";
 import {ModalType} from "../../../types/table/modalType";
+import clsx from "clsx";
 
 interface ViewDeleteProps {
 	closeModal: Dispatch<SetStateAction<boolean>>
@@ -14,7 +16,7 @@ function ViewDelete({closeModal, deleteMutation}:ViewDeleteProps) {
 	return (
 		<div className={classes.view}>
 			<div className={classes.view__title}>
-				<h1>Zrezygnować z diety?</h1>
+				<h2>Zrezygnować z diety?</h2>
 				<button onClick={() => closeModal(false)}><IconX /></button>
 			</div>
 			<div className={classes.view__info}>
@@ -22,8 +24,8 @@ function ViewDelete({closeModal, deleteMutation}:ViewDeleteProps) {
 				<p>Otrzymasz zwrot pieniędzy na konto bankowe w ciągu 3 dni od rezygnacji z planu.</p>
 			</div>
 				<div className={classes.view__buttons}>
-					<button onClick={deleteFn}>Zrezygnuj</button>
-					<button onClick={() => closeModal(false)}>Anuluj</button>
+					<button className={clsx(btnStyles.btn,btnStyles['btn--outline'], btnStyles['btn--outline--danger'])} onClick={deleteFn}>Zrezygnuj</button>
+					<button className={clsx(btnStyles.btn)} onClick={() => closeModal(false)}>Anuluj</button>
 				</div>
 		</div>
 	)

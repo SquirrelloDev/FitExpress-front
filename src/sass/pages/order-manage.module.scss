@@ -6,10 +6,16 @@
     flex-direction: column;
   }
   &__entry{
+    padding: .5em;
     &__header{
       display: flex;
       justify-content: space-between;
       align-items: center;
+      &__text{
+        &--disabled{
+          color: $text-color-secondary
+        }
+      }
       &__btn{
         padding: .5em;
         display: flex;
@@ -38,6 +44,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin: .5em 0;
       }
     }
   }

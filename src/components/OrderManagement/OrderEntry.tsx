@@ -1,5 +1,5 @@
 import Card from "../Card/Card";
-import {IconPencil, IconSquareChevronDown, IconSquareChevronUp} from "@tabler/icons-react";
+import {IconPencil, IconSquareChevronDown, IconSquareChevronUp, IconTrash} from "@tabler/icons-react";
 import classes from "../../sass/pages/order-manage.module.scss";
 import btnStyles from '../../sass/components/button.module.scss'
 import clsx from "clsx";
@@ -31,12 +31,10 @@ function OrderEntry({order, index, openedItem, setOpenedItem, token}: OrderEntry
     return (
         <>
             <Card>
-                <div className={classes.management__entry}>
+                <div className={classes.management__entry} onClick={() => setOpenedItem(index)}>
                     <div className={classes.management__entry__header}>
-                        <h3>{order.name}</h3>
-                        <button className={classes.management__entry__header__btn}
-                                onClick={() => setOpenedItem(index)}>{openedItem === index ? <IconSquareChevronUp/> :
-                            <IconSquareChevronDown/>}</button>
+                        <h3 className={clsx(order.is_active && classes['management__entry__header__text--disabled'])}>{order.name}</h3>
+                        {openedItem === index ? <IconSquareChevronUp/> : <IconSquareChevronDown/>}
                     </div>
                     {openedItem === index && (
                         <>
@@ -58,7 +56,10 @@ function OrderEntry({order, index, openedItem, setOpenedItem, token}: OrderEntry
                                                 className={clsx(btnStyles.btn, btnStyles['btn--outline'], classes.management__entry__actions__btn)}>
                                             <IconPencil/> Edycja
                                         </button>
-                                        <button onClick={() => setModalOpen(true)}>Zrezygnuj z diety</button>
+                                        <button
+                                            className={clsx(btnStyles.btn, btnStyles['btn--outline'], btnStyles['btn--outline--danger'], classes.management__entry__actions__btn)}
+                                            onClick={() => setModalOpen(true)}><IconTrash/>
+                                            <span>Zrezygnuj z diety</span></button>
                                     </div>
                                 </>
                             )}
