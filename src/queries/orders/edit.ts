@@ -35,7 +35,7 @@ export function useOrderActivity(){
         return { message: res.message }
     }, {onSuccess: () =>{
             toast.success('Zamówienie zostało deaktywowane!');
-            queryClient.invalidateQueries(['OrdersList'])
+            queryClient.invalidateQueries(['UserOrders'])
         },
         onError: (error) => {
             toast.error(error.message)
