@@ -28,7 +28,7 @@ function CartAddresses<T extends FieldValues>({addresses, control, name, isAddre
         weekends: boolean
     }[] = watch('cart')
     const isCartItemWeekend = cartItems.some(cartItem => cartItem.weekends)
-    const [filteredAddresses] = useState<Address[]>(isCartItemWeekend ? addresses.filter(address => address.is_weekend === true) : addresses);
+    const filteredAddresses = isCartItemWeekend ? addresses.filter(address => address.is_weekend) : addresses;
     return (
         <Controller control={control} name={name as Path<T>} render={({field: {onChange}}) => (
             <div className={cartClasses.cart__addresses}>
