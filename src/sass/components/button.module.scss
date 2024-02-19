@@ -9,12 +9,6 @@
   border: 1px solid transparent;
   cursor: pointer;
   transition: background-color .3s;
-  &--outline{
-    background: none;
-    border: 1px solid $cta;
-    transition: background-color .3s, color .3s;
-    color: $cta;
-  }
   &--link{
     text-align: center;
     text-decoration: none;
@@ -23,9 +17,25 @@
   &:hover{
     background-color: rgb(80,215,116);
   }
+  &--outline{
+    background: none;
+    border: 1px solid $cta;
+    transition: background-color .3s, color .3s;
+    color: $cta;
+    &:hover{
+      color: $text-color-primary;
+    }
+    &--danger{
+      border-color: $cta-red;
+      color: $cta-red;
+      &:hover{
+        background-color: red;
+        color: $text-color-primary;
+      }
+  }
   &--outline:hover{
     background-color: $cta;
-    color: $text-color-primary;
+  }
   }
   &:disabled{
     background-color: $border;
@@ -33,6 +43,12 @@
   }
   &:disabled:hover{
     background-color: $border;
+  }
+  &--danger{
+    background-color: $cta-red;
+    &:hover{
+      background-color: $desaturated-cta-red;
+    }
   }
   &--dark{
     background: none;
@@ -45,4 +61,5 @@
       background: none;
     }
   }
+
 }

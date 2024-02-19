@@ -1,0 +1,6 @@
+@use '../utils' as *;
+.sheet{
+  &__content, &__header{
+    background-color: $dark;
+  }
+}

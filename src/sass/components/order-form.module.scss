@@ -1,0 +1,42 @@
+@use '../utils' as *;
+.form{
+  &__wrapper{
+    padding: 1em 1em 65px;
+    display: flex;
+    flex-direction: column;
+  }
+  &__address{
+    &__container{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      height: 300px;
+      overflow-y: auto;
+    }
+    &__item{
+      display: flex;
+      padding: 1em;
+      border: 3px solid $dark;
+      border-radius: 8px;
+      height: 160px;
+      font-size: $normal;
+      font-family: $family-sec;
+      font-weight: $semi-bold;
+      transition: border-color .2s;
+      cursor: pointer;
+      &--active{
+        border-color: $cta;
+      }
+      input[type='radio']{
+        appearance: none;
+        margin: 0;
+        background-color: $page-bg;
+      }
+    }
+  }
+  &__button{
+    margin: 1em 0;
+    width: 100%;
+    justify-self: flex-end;
+  }
+}
