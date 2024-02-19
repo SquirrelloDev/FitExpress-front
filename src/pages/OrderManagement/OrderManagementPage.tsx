@@ -6,6 +6,7 @@ import {Grid} from "react-loader-spinner";
 import classes from "../../sass/pages/order-manage.module.scss";
 import ManagementControl from "../../components/OrderManagement/ManagementControls";
 import {Order} from "../../types/dbtypes/Order";
+import clsx from "clsx";
 
 function OrderManagementPage() {
 	const [openedItem, setOpenedItem] = useState<number>(-1);
@@ -44,11 +45,11 @@ function OrderManagementPage() {
 		<section className={classes.management}>
 			<h1>Moje diety</h1>
 			<div className={classes.management__container}>
-				{isLoading && <Grid/>}
+				{isLoading && <div className={clsx(classes.management__container,classes['management__container--empty'])}><Grid/></div>}
 				{!isLoading && (
 					<>
 					<ManagementControl filterFunction={filterItems}/>
-					{filteredArr.length === 0 && <p>Coś tu pusto...</p>}
+						{filteredArr.length === 0 && <div className={clsx(classes.management__container,classes['management__container--empty'])}><p>Brak wyników</p></div>}
 					{filteredArr.map((order, idx) => <OrderEntry token={userData.token} order={order} index={idx} openedItem={openedItem} setOpenedItem={selectItem} key={order._id}/>)}
 					</>
 				) }

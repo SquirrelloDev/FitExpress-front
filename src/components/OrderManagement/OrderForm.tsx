@@ -1,12 +1,13 @@
 import {FormProvider, useForm} from "react-hook-form";
 import Input from "../Input/Input";
 import {Order} from "../../types/dbtypes/Order";
-import {OrderPostData} from "../../queries/orders/create";
 import OrderAddresses from "./OrderAddresses/OrderAddresses";
 import {Address} from "../../types/dbtypes/Address";
-import {DevTool} from "@hookform/devtools";
 import useOrderEdit, {OrderClientEditSchema, OrderPutData} from "../../queries/orders/edit";
 import {TailSpin} from "react-loader-spinner";
+import btnStyles from '../../sass/components/button.module.scss'
+import classes from "../../sass/components/order-form.module.scss";
+import clsx from "clsx";
 interface OrderFormProps {
 	order: Order,
 	addresses: Address[]
@@ -38,13 +39,14 @@ function OrderForm({order, addresses, userToken}:OrderFormProps) {
 	}
 	return (
 		<FormProvider {...methods}>
+			<div className={classes.form__wrapper}>
 			<h1>{order.name}</h1>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
 				<Input name={'name'} placeholder={'Nazwa diety'}/>
 				<OrderAddresses allAddresses={addresses} defaultAddressId={order.address_id._id} control={control} name={'address'} isWeekend={order.with_weekends} />
-				<button type={'submit'} disabled={isLoading}>{isLoading ? <TailSpin/> : 'Potwierdź zmiany'}</button>
+				<button type={'submit'} disabled={isLoading} className={clsx(btnStyles.btn, classes.form__button)}>{isLoading ? <TailSpin/> : 'Potwierdź zmiany'}</button>
 			</form>
-			<DevTool control={control}/>
+			</div>
 		</FormProvider>
 	)
 }

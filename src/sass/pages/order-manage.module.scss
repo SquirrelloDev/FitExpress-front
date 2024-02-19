@@ -4,6 +4,12 @@
   &__container{
     display: flex;
     flex-direction: column;
+    &--empty{
+      justify-content: center;
+      align-items: center;
+      min-height: 50vh;
+      font-size: $big;
+    }
   }
   &__entry{
     padding: .5em;
