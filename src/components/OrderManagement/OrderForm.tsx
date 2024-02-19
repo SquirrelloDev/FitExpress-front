@@ -18,7 +18,7 @@ function OrderForm({order, addresses, userToken}:OrderFormProps) {
 		defaultValues: {name: order.name, address: order.address_id._id}
 	})
 	const {handleSubmit, control} = methods;
-	const {mutate, isLoading, isError, error} = useOrderEdit()
+	const {mutate, isLoading} = useOrderEdit()
 	const onSubmit = (data: OrderClientEditSchema) => {
 		const updatedOrder: OrderPutData = {
 			order: {

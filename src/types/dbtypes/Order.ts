@@ -16,5 +16,5 @@ export type Order = {
     },
     calories: number,
     with_weekends: boolean
-    flexi_tier?: string
+    flexi_tier?: number
 }

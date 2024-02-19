@@ -13,6 +13,9 @@ type UserOrdersListKey = [typeof userOrdersPartialKey, OneAuthParams]
 const getUserOrders:QueryFunction<UserOrdersResponse, UserOrdersListKey> = async ({signal, queryKey}) =>{
     const [,{token, id}] = queryKey
     const res = await FitExpressClient.getInstance().get<UserOrdersResponse>(apiRoutes.GET_ORDERS_USER(id), {signal, headers: {Authorization: `Bearer ${token}`}})
+    if(res.status && res.status !== 200){
+        throw new Error('Coś poszło nie tak')
+    }
     return {orders: res.data as unknown} as UserOrdersResponse
 }
 function useUserOrdersQuery(params: OneAuthParams) {

@@ -6,7 +6,6 @@ import clsx from "clsx";
 import {useNavigate} from "react-router-dom";
 import {appRoutes} from "../../utils/routes";
 import {Order} from "../../types/dbtypes/Order";
-import useOrderDelete from "../../queries/orders/delete";
 import Modal from "../Modal/Modal";
 import ViewDelete from "../Modal/Views/ViewDelete";
 import {useCallback, useState} from "react";
@@ -67,7 +66,7 @@ function OrderEntry({order, index, openedItem, setOpenedItem, token}: OrderEntry
                     )
                     }
                 </div>
-                {modalOpen && <Modal><ViewDelete id={order._id} closeModal={setModalOpen}
+                {modalOpen && <Modal><ViewDelete closeModal={setModalOpen}
                                                  deleteMutation={updateOrderStatus} isDeleting={isLoading}/></Modal>}
             </Card>
         </>

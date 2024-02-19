@@ -45,6 +45,7 @@ function OrderManagementPage() {
 		<section className={classes.management}>
 			<h1>Moje diety</h1>
 			<div className={classes.management__container}>
+				{isError && <div className={clsx(classes.management__container,classes['management__container--empty'])}><p>{(error as Error).message}</p></div>}
 				{isLoading && <div className={clsx(classes.management__container,classes['management__container--empty'])}><Grid/></div>}
 				{!isLoading && (
 					<>

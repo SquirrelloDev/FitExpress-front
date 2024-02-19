@@ -38,7 +38,7 @@ export function useOrderActivity(){
             queryClient.invalidateQueries(['UserOrders'])
         },
         onError: (error) => {
-            toast.error(error.message)
+            toast.error((error as Error).message)
         }
         })
     return {mutate, isLoading, isError, error}

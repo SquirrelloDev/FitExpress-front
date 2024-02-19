@@ -1,7 +1,6 @@
 import Select from "react-select";
 import selectStyles from "../../sass/components/select.module.scss";
 import clsx from "clsx";
-import {SelectOption} from "../Select/types";
 
 interface ManagementControlProps {
     filterFunction: (filterArg: string) => void
@@ -16,7 +15,11 @@ function ManagementControl({filterFunction}: ManagementControlProps) {
                     label: 'Aktywne',
                     value: 'active'
                 }, {label: 'Zakończone', value: 'deactive'}]}
-                        onChange={(newValue: SelectOption[]) => {
+                        onChange={(newValue) => {
+                            if(!newValue){
+                                filterFunction('')
+                                return;
+                            }
                             filterFunction(newValue.value)
                         }}
                         defaultValue={{label: 'Wszystkie', value: 'all'}}

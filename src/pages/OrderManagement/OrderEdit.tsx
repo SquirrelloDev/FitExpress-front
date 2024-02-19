@@ -15,7 +15,7 @@ function OrderEdit() {
         <>
             {(isLoading || isAddressLoading) && <Grid/>}
             {(!isLoading && !isAddressLoading) && (
-                <OrderForm order={data?.order} addresses={userAddresses!.addresses} userToken={userData.token}/>
+                <OrderForm order={data!.order} addresses={userAddresses!.addresses} userToken={userData.token}/>
             )}
         </>
     )
