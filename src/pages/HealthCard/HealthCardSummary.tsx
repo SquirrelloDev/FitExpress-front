@@ -12,8 +12,8 @@ import {TailSpin} from "react-loader-spinner";
 function HealthCardSummary() {
     const userData = useAuthStore((state) => state.userData);
     const navigate = useNavigate();
-    const {data, isLoading} = useOneUserListQuery({id: userData.id, token: userData.token});
-    const {currentCategory, plannedCategory} = useBMICategory(data?.user.health_data.bmi, data?.user.health_data.bmi_planned)
+    const {data, isLoading, isSuccess} = useOneUserListQuery({id: userData.id, token: userData.token});
+    const {currentCategory, plannedCategory} = useBMICategory()
     if(isLoading) return (
         <TailSpin visible={true}/>
     )
@@ -54,17 +54,21 @@ function HealthCardSummary() {
                 <h3 className={classes['summary-wrapper__header']}>BMI</h3>
                 <div className={clsx(classes['summary-wrapper__section__item'], classes['summary-wrapper__section__item__bmi'])}>
                     <h4>Aktualne BMI</h4>
+                    {isSuccess && (
                     <div>
-                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${currentCategory!.color}`])}>{data?.user.health_data.bmi}</p>
-                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${currentCategory!.color}`])}>{currentCategory!.name}</p>
+                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${currentCategory(data!.user.health_data.bmi).color}`])}>{data!.user.health_data.bmi}</p>
+                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${currentCategory(data!.user.health_data.bmi).color}`])}>{currentCategory(data!.user.health_data.bmi).name}</p>
                     </div>
+                    )}
                 </div>
                 <div className={clsx(classes['summary-wrapper__section__item'], classes['summary-wrapper__section__item__bmi'])}>
                     <h4>Spodziewane BMI</h4>
+                    {isSuccess && (
                     <div>
-                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${plannedCategory!.color}`])}>{data?.user.health_data.bmi_planned}</p>
-                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${plannedCategory!.color}`])}>{plannedCategory!.name}</p>
+                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${plannedCategory(data!.user.health_data.bmi_planned).color}`])}>{data!.user.health_data.bmi_planned}</p>
+                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${plannedCategory(data!.user.health_data.bmi_planned).color}`])}>{plannedCategory(data!.user.health_data.bmi_planned).name}</p>
                     </div>
+                    )}
                 </div>
             </div>
             <div className={classes['summary-wrapper__footer']}>

@@ -15,6 +15,8 @@ import {TailSpin} from "react-loader-spinner";
 import useUserPrefs from "../../hooks/useUserPrefs";
 import {registerLocale} from "react-datepicker";
 import pl from "date-fns/locale/pl";
+import {useNavigate} from "react-router-dom";
+import {appRoutes} from "../../utils/routes";
 registerLocale('pl', pl)
 const palActive: SelectOption[] = [
     {label: 'Brak treningów / jeden lekki', value: 1.2},
@@ -32,11 +34,12 @@ const palPassive: SelectOption[] = [
 ]
 
 function HealthCardPage() {
+    const navigate = useNavigate()
     const methods = useForm({
         resolver: zodResolver(healthCardSchema)
     });
     const {assignHealthStore} = useUserPrefs();
-    const {mutate, isLoading} = useHealthPatch()
+    const {mutate, isLoading} = useHealthPatch(() => {navigate(appRoutes.healthCardSummary)})
     const userData = useAuthStore((state) => state.userData);
     const {handleSubmit} = methods
     const maxDate = new Date().setFullYear(new Date().getFullYear() - 18, new Date().getMonth(), new Date().getDate())
