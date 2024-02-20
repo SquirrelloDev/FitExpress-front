@@ -30,6 +30,8 @@ import PaymentSuccess from "./pages/Cart/PaymentSuccess";
 import {Toaster} from "react-hot-toast";
 import OrderManagementPage from "./pages/OrderManagement/OrderManagementPage";
 import OrderEdit from "./pages/OrderManagement/OrderEdit";
+import HealthPage from "./pages/HealthPage/HealthPage";
+import {HealthEditPage} from "./pages/HealthPage/HealthEditPage";
 
 const router = createBrowserRouter([
     {
@@ -73,6 +75,14 @@ const router = createBrowserRouter([
         children: [
             {element: <OrderManagementPage />, index: true},
             {path: appRoutes.dietEdit, element: <OrderEdit/>}
+        ]
+    },
+    {
+        path: appRoutes.healthPage,
+        element: <AppLayout minPermLevel={UserRole.loggedIn} />,
+        children: [
+            {element: <HealthPage />, index: true},
+            {path: appRoutes.editHcard, element: <HealthEditPage/>}
         ]
     },
     {

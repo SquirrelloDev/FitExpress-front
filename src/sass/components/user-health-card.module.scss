@@ -1,0 +1,47 @@
+@use "../utils" as *;
+.user-card{
+  &__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    &__edit{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: .5em;
+      color: $cta;
+      background: none;
+      border: 1px solid transparent;
+    }
+  }
+  &__divider{
+    border: 1px solid $border;
+  }
+  &__grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.5rem;
+    padding: .5em 1em;
+    &__item{
+      p:last-child{
+        margin-bottom: .5em;
+        font-size: $big;
+        text-align: center;
+        font-weight: $bold;
+      }
+      &--gender{
+        grid-area: 1 / 1 / 2 / 3;
+      }
+      &--pal-active{
+        grid-area: 4 / 1 / 5 / 3;
+      }
+      &--pal-passive{
+        grid-area: 5 / 1 / 6 / 3;
+      }
+      &--goal{
+        grid-area: 6 / 1 / 7 / 3;
+      }
+    }
+  }
+}

@@ -1,35 +1,37 @@
-import Input from "../../components/Input/Input";
-import ControlledSelect from "../../components/Select/ControlledSelect";
-import {zodResolver} from "@hookform/resolvers/zod";
+import {useNavigate} from "react-router-dom";
 import {FormProvider, useForm} from "react-hook-form";
-import {SelectOption} from "../../components/Select/types";
+import {zodResolver} from "@hookform/resolvers/zod";
 import useHealthPatch, {healthCardSchema, PatchHealthData, UserHealthSchema} from "../../queries/user/healthCard";
-import btnStyles from '../../sass/components/button.module.scss'
-import classes from "../../sass/pages/health-card.module.scss";
-import HealthCardRadio from "../../components/HealthCardRadio/HealthCardRadio";
-import ControlledDatePicker from "../../components/Datepicker/ControlledDatePicker";
-import {DevTool} from "@hookform/devtools";
+import useUserPrefs from "../../hooks/useUserPrefs";
+import {appRoutes} from "../../utils/routes";
 import useAuthStore from "../../stores/authStore";
 import {calculateAge, calculateBMI, calculateDemands} from "../../utils/calculateUserData";
-import {TailSpin} from "react-loader-spinner";
-import useUserPrefs from "../../hooks/useUserPrefs";
-import {registerLocale} from "react-datepicker";
-import pl from "date-fns/locale/pl";
-import {useNavigate} from "react-router-dom";
-import {appRoutes} from "../../utils/routes";
+import classes from "../../sass/pages/health-card.module.scss";
+import ControlledSelect from "../../components/Select/ControlledSelect";
+import Input from "../../components/Input/Input";
+import ControlledDatePicker from "../../components/Datepicker/ControlledDatePicker";
 import {palActive, palPassive} from "../../utils/palTypes";
-registerLocale('pl', pl)
+import HealthCardRadio from "../../components/HealthCardRadio/HealthCardRadio";
+import btnStyles from "../../sass/components/button.module.scss";
+import {TailSpin} from "react-loader-spinner";
+import {DevTool} from "@hookform/devtools";
+import {Alert} from "@mantine/core";
+import {IconAlertTriangle, IconChevronLeft} from "@tabler/icons-react";
+import clsx from "clsx";
 
-function HealthCardPage() {
+export function HealthEditPage() {
     const navigate = useNavigate()
     const methods = useForm({
         resolver: zodResolver(healthCardSchema)
     });
     const {assignHealthStore} = useUserPrefs();
-    const {mutate, isLoading} = useHealthPatch(() => {navigate(appRoutes.healthCardSummary)})
+    const {mutate, isLoading} = useHealthPatch(() => {
+        navigate(appRoutes.healthCardSummary)
+    })
     const userData = useAuthStore((state) => state.userData);
     const {handleSubmit} = methods
     const maxDate = new Date().setFullYear(new Date().getFullYear() - 18, new Date().getMonth(), new Date().getDate())
+    const warningIcon = <IconAlertTriangle/>
     const onSubmit = (data: UserHealthSchema) => {
         const userAge = calculateAge(data.birth_date);
         const {
@@ -63,10 +65,12 @@ function HealthCardPage() {
     }
     return (
         <FormProvider {...methods}>
-            <div className={classes.hcard}>
-                <h1 className={classes.hcard__header}>Powiedz coś więcej o sobie</h1>
-                <p className={classes.hcard__subtext}>Zanim rozpoczniesz korzystanie z aplikacji, chcemy dowiedzieć się
-                    więcej o Tobie, by wyliczyć odpowiednie zapotrzebowanie kaloryczne dla Ciebie</p>
+            <div className={clsx(classes.hcard, classes['hcard--app'])}>
+                <button onClick={() => navigate(-1)} className={classes.hcard__back}><IconChevronLeft/></button>
+                <h1 className={classes.hcard__header}>Edycja karty zdrowia</h1>
+				<Alert variant={'light'} color={'yellow'} title={'Uwaga!'} icon={warningIcon} classNames={{root: classes.hcard__alert__root,title: classes.hcard__alert__title,message: classes.hcard__alert__message, icon: classes.hcard__alert__icon}}>
+					Zmiana danych w karcie wpływa tylko na podpowiedzi przy rozpiskach kalorycznych! Prosimy o zaktualizowanie kaloryczności diet w zakładce "Plany".
+				</Alert>
                 {/*@ts-expect-error data are sent correctly*/}
                 <form className={classes.hcard__form} onSubmit={handleSubmit(onSubmit)}>
                     <ControlledSelect options={[{label: 'Mężczyzna', value: 'M'}, {label: 'Kobieta', value: 'F'}]}
@@ -77,13 +81,16 @@ function HealthCardPage() {
                     <Input name={'user_weight_planned'} type='number' min={40} max={500}
                            placeholder={'Planowana waga (w kg)'}/>
                     <ControlledDatePicker control={methods.control} name={'birth_date'}
-                                          placeholderText={'Data urodzin'} locale={'pl'} minDate={new Date('1900-01-01')} maxDate={new Date(maxDate)}/>
+                                          placeholderText={'Data urodzin'} locale={'pl'}
+                                          minDate={new Date('1900-01-01')} maxDate={new Date(maxDate)}/>
                     <ControlledSelect options={palActive} control={methods.control} name={'pal_active'}
                                       placeholder={'Aktywność treningowa w tygodniu'}/>
                     <ControlledSelect options={palPassive} control={methods.control} name={'pal_passive'}
                                       placeholder={'Aktywność pozatreningowa'}/>
                     <HealthCardRadio name={'user_goal'} control={methods.control}/>
-                    <button type='submit' className={btnStyles.btn} disabled={isLoading}>{isLoading ? <TailSpin visible={true} color={"#fff"} height={20} width={20} /> : 'Oblicz zapotrzebowanie'}</button>
+                    <button type='submit' className={btnStyles.btn} disabled={isLoading}>{isLoading ?
+                        <TailSpin visible={true} color={"#fff"} height={20}
+                                  width={20}/> : 'Aktualizuj'}</button>
                 </form>
             </div>
             <DevTool control={methods.control}/>
@@ -91,5 +98,3 @@ function HealthCardPage() {
 
     )
 }
-
-export default HealthCardPage;
