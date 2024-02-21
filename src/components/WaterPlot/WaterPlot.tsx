@@ -8,8 +8,9 @@ import {useDisclosure} from "@mantine/hooks";
 import WaterAddSheet from "./WaterAddSheet/WaterAddSheet";
 import {percents} from "../../utils/calcDays";
 import {isToday} from "date-fns";
-import {Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis} from "recharts";
+import {Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import useWaterChart from "../../hooks/useWaterChart";
+import classes from "../../sass/components/water-plot.module.scss";
 
 interface WaterPlotProps {
     waterArr: { date: Date, water: number }[]
@@ -22,19 +23,18 @@ function WaterPlot({waterArr, maxWater, id, token}: WaterPlotProps) {
     const [opened, {open, close}] = useDisclosure(false)
     const todayWater = waterArr.find(waterItem => isToday(waterItem.date))?.water
     const percentValue = percents(maxWater, todayWater)
-    console.log(waterArr, todayWater, percentValue)
     const waterChartData = useWaterChart(waterArr);
-    const dates = waterArr.map(waterDatum => new Date(new Date(waterDatum.date).setHours(0,0,0,0)));
+    const dates = waterArr.map(waterDatum => new Date(waterDatum.date));
     return (
         <>
             <Card>
-                <div>
-                    <div>
+                <div className={classes.plot}>
+                    <div className={classes.plot__header}>
                         <h2>Woda</h2>
-                        <p>{todayWater ? (todayWater / 1000).toFixed(2) : '0.00'} z {(maxWater / 1000).toFixed(2)}l</p>
+                        <p className={classes.plot__header__values}>{todayWater ? (todayWater / 1000).toFixed(3) : '0.000'} z {(maxWater / 1000).toFixed(3)}l</p>
                     </div>
                     <div>
-                        <Progress.Root size={'xxl'} radius={'lg'}>
+                        <Progress.Root size={'xxl'} radius={'lg'} classNames={{root: classes.plot__progress__root, section: classes.plot__progress__section}}>
                             <Progress.Section value={percentValue ? Math.floor(percentValue) : 0}>
                                 <Progress.Label>{percentValue ? Math.floor(percentValue) : 0}%</Progress.Label>
                             </Progress.Section>
@@ -50,9 +50,9 @@ function WaterPlot({waterArr, maxWater, id, token}: WaterPlotProps) {
                         </BarChart>
                         </ResponsiveContainer>
                     </div>
-                    <div>
-                        <Link to={appRoutes.waterHistory}><IconHistory/></Link>
-                        <button onClick={open}><IconPlus/></button>
+                    <div className={classes.plot__actions}>
+                        <Link to={appRoutes.waterHistory} className={classes.plot__actions__history}><IconHistory/></Link>
+                        <button onClick={open} className={classes.plot__actions__add}><IconPlus/></button>
                     </div>
                 </div>
             </Card>

@@ -35,11 +35,11 @@ const createEntry: MutationFunction<PostProgressResponse, ProgressData> = async 
         }})
     return {message: res.data}
 }
-type SuccesProgresssMutation<T> = (
+export type SuccessProgresssMutation<T> = (
     data: PostProgressResponse,
     variables: T
 ) => unknown
-function useProgressCreate(onSuccess?: SuccesProgresssMutation<ProgressData>) {
+function useProgressCreate(onSuccess?: SuccessProgresssMutation<ProgressData>) {
     const {mutate, isLoading, isSuccess, isError, error} = useMutation<PostProgressResponse, ProgressError, ProgressData>(['Progress-Create'], createEntry, {
         onSuccess
     })

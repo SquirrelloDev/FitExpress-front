@@ -5,22 +5,29 @@ import useProgressCreate, {ProgressData, waterSchema, WaterSchema} from "../../.
 import {TailSpin} from "react-loader-spinner";
 import btnStyles from '../../../sass/components/button.module.scss'
 import {zodResolver} from "@hookform/resolvers/zod";
+import {DevTool} from "@hookform/devtools";
 import {queryClient} from "../../../utils/api";
+import useProgressPatch from "../../../queries/progress-entry/edit";
 
-interface WaterAddSheetProps {
+interface WaterEditSheetProps {
     id: string,
     token: string,
     close: () => void,
-    dates: Date[]
+    dates: Date[],
+    defValue: {date: Date, water: number}
 }
 
-function WaterAddSheet({id, token, close, dates}: WaterAddSheetProps) {
-    const {mutate, isLoading} = useProgressCreate(() => {
+function WaterEditSheet({id, token, close, dates, defValue}: WaterEditSheetProps) {
+    const {mutate, isLoading} = useProgressPatch(() => {
         queryClient.invalidateQueries(['List-Progress'])
         close()
     })
     const methods = useForm({
         resolver: zodResolver(waterSchema),
+        defaultValues: {
+            date: defValue.date,
+            water: defValue.water
+        }
     })
     const {handleSubmit} = methods
     // Custom filter function
@@ -48,15 +55,14 @@ function WaterAddSheet({id, token, close, dates}: WaterAddSheetProps) {
     }
     return (
         <FormProvider {...methods}>
-            <h3>Dodaj wodę</h3>
+            <h3>Edytuj wodę</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <ControlledDatePicker control={methods.control} name={'date'} placeholderText={'Data'} maxDate={new Date()} filterDate={isDateDisabled}/>
                 <Input type={'number'} min={0} max={5000} placeholder={'Woda w ml'} name={'water'}/>
-
                 <button type={'submit'} disabled={isLoading} className={btnStyles.btn}>{isLoading ? <TailSpin/> : 'Zapisz'}</button>
             </form>
         </FormProvider>
     )
 }
 
-export default WaterAddSheet
+export default WaterEditSheet

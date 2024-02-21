@@ -1,5 +1,5 @@
 import {MutationFunction, useMutation} from "@tanstack/react-query";
-import {PostProgressResponse, ProgressData} from "./create";
+import {PostProgressResponse, ProgressData, SuccessProgresssMutation} from "./create";
 import {apiRoutes, FitExpressClient, queryClient} from "../../utils/api";
 import {ProgressError} from "./listing";
 
@@ -12,10 +12,8 @@ const updateEntry: MutationFunction<PostProgressResponse, ProgressData> = async 
         }})
     return{message: res.data}
 }
-function useProgressPatch() {
-    const {mutate, isError, error, isSuccess, isLoading} = useMutation<PostProgressResponse, ProgressError, ProgressData>(['Edit-Progress'], updateEntry, {onSuccess: () => {
-            queryClient.invalidateQueries(['List-Progress'])
-        }})
+function useProgressPatch(onSuccess?: SuccessProgresssMutation<ProgressData>) {
+    const {mutate, isError, error, isSuccess, isLoading} = useMutation<PostProgressResponse, ProgressError, ProgressData>(['Edit-Progress'], updateEntry, {onSuccess: onSuccess})
     return {mutate, isError, error, isSuccess, isLoading}
 }
 export default useProgressPatch

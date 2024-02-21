@@ -32,6 +32,7 @@ import OrderManagementPage from "./pages/OrderManagement/OrderManagementPage";
 import OrderEdit from "./pages/OrderManagement/OrderEdit";
 import HealthPage from "./pages/HealthPage/HealthPage";
 import {HealthEditPage} from "./pages/HealthPage/HealthEditPage";
+import WaterHistory from "./pages/HealthPage/WaterHistory";
 
 const router = createBrowserRouter([
     {
@@ -82,7 +83,8 @@ const router = createBrowserRouter([
         element: <AppLayout minPermLevel={UserRole.loggedIn} />,
         children: [
             {element: <HealthPage />, index: true},
-            {path: appRoutes.editHcard, element: <HealthEditPage/>}
+            {path: appRoutes.editHcard, element: <HealthEditPage/>},
+            {path: appRoutes.waterHistory, element: <WaterHistory/>}
         ]
     },
     {
