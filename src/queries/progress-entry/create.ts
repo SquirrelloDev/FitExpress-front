@@ -4,14 +4,14 @@ import {ProgressError} from "./listing";
 import {z} from "zod";
 import {dateErrorMap} from "../orders/create";
 import errorMessages from "../../utils/errorMessages";
-import {apiRoutes, FitExpressClient, queryClient} from "../../utils/api";
+import {apiRoutes, FitExpressClient} from "../../utils/api";
 export const weightSchema = z.object({
     date: z.coerce.date({errorMap: dateErrorMap}),
     weight: z.number().min(1, errorMessages.required)
 })
 export const waterSchema = z.object({
     date: z.coerce.date({errorMap: dateErrorMap}),
-    water: z.number().min(1, errorMessages.required)
+    water: z.coerce.number().min(1, errorMessages.required)
 })
 export type WeightSchema = z.infer<typeof weightSchema>
 export type WaterSchema = z.infer<typeof waterSchema>
@@ -35,12 +35,14 @@ const createEntry: MutationFunction<PostProgressResponse, ProgressData> = async 
         }})
     return {message: res.data}
 }
-function useProgressCreate() {
+type SuccesProgresssMutation<T> = (
+    data: PostProgressResponse,
+    variables: T
+) => unknown
+function useProgressCreate(onSuccess?: SuccesProgresssMutation<ProgressData>) {
     const {mutate, isLoading, isSuccess, isError, error} = useMutation<PostProgressResponse, ProgressError, ProgressData>(['Progress-Create'], createEntry, {
-        onSuccess: () => {
-            queryClient.invalidateQueries(['List-Progress'])
-        }
+        onSuccess
     })
-    return {mutate, isLoading}
+    return {mutate, isLoading, isSuccess, isError, error}
 }
 export default useProgressCreate

@@ -7,7 +7,7 @@ import {ProgressEntry} from "../../types/dbtypes/ProgressEntry";
 const progressEntryPartialKey = 'List-Progress'
 type ProgressEntryKey = [typeof progressEntryPartialKey, OneAuthParams]
 export type ProgressResponse = {
-    data: ProgressEntry[]
+    data: ProgressEntry
 }
 export type ProgressError = AxiosError<{general: string}>
 
