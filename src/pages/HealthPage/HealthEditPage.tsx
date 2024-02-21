@@ -68,9 +68,6 @@ export function HealthEditPage() {
             <div className={clsx(classes.hcard, classes['hcard--app'])}>
                 <button onClick={() => navigate(-1)} className={classes.hcard__back}><IconChevronLeft/></button>
                 <h1 className={classes.hcard__header}>Edycja karty zdrowia</h1>
-				<Alert variant={'light'} color={'yellow'} title={'Uwaga!'} icon={warningIcon} classNames={{root: classes.hcard__alert__root,title: classes.hcard__alert__title,message: classes.hcard__alert__message, icon: classes.hcard__alert__icon}}>
-					Zmiana danych w karcie wpływa tylko na podpowiedzi przy rozpiskach kalorycznych! Prosimy o zaktualizowanie kaloryczności diet w zakładce "Plany".
-				</Alert>
                 {/*@ts-expect-error data are sent correctly*/}
                 <form className={classes.hcard__form} onSubmit={handleSubmit(onSubmit)}>
                     <ControlledSelect options={[{label: 'Mężczyzna', value: 'M'}, {label: 'Kobieta', value: 'F'}]}
