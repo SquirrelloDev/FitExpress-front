@@ -7,11 +7,11 @@ import errorMessages from "../../utils/errorMessages";
 import {apiRoutes, FitExpressClient} from "../../utils/api";
 export const weightSchema = z.object({
     date: z.coerce.date({errorMap: dateErrorMap}),
-    weight: z.number().min(1, errorMessages.required)
+    weight: z.coerce.number().min(1, errorMessages.required).max(450, 'Wartość musi się znajdować w przedziale 1-450')
 })
 export const waterSchema = z.object({
     date: z.coerce.date({errorMap: dateErrorMap}),
-    water: z.coerce.number().min(1, errorMessages.required)
+    water: z.coerce.number().min(1, errorMessages.required).max(5000, 'Wartość musi się znajdować w przedziale 1-5000')
 })
 export type WeightSchema = z.infer<typeof weightSchema>
 export type WaterSchema = z.infer<typeof waterSchema>
