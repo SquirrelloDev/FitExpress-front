@@ -1,7 +1,12 @@
 import {FormProvider, useForm} from "react-hook-form";
 import ControlledDatePicker from "../../Datepicker/ControlledDatePicker";
 import Input from "../../Input/Input";
-import useProgressCreate, {ProgressData, waterSchema, WaterSchema} from "../../../queries/progress-entry/create";
+import useProgressCreate, {
+    ProgressData,
+    waterSchema,
+    WaterSchema, weightSchema,
+    WeightSchema
+} from "../../../queries/progress-entry/create";
 import {TailSpin} from "react-loader-spinner";
 import btnStyles from '../../../sass/components/button.module.scss'
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -10,24 +15,25 @@ import {queryClient} from "../../../utils/api";
 import useProgressPatch from "../../../queries/progress-entry/edit";
 import classes from "../../../sass/components/entry-sheet.module.scss";
 
-interface WaterEditSheetProps {
+
+interface WeightEditSheetProps {
     id: string,
     token: string,
     close: () => void,
     dates: Date[],
-    defValue: {date: Date, water: number}
+    defValue: {date: Date, weight: number}
 }
 
-function WaterEditSheet({id, token, close, dates, defValue}: WaterEditSheetProps) {
+function WeightEditSheet({id, token, close, dates, defValue}: WeightEditSheetProps) {
     const {mutate, isLoading} = useProgressPatch(() => {
         queryClient.invalidateQueries(['List-Progress'])
         close()
     })
     const methods = useForm({
-        resolver: zodResolver(waterSchema),
+        resolver: zodResolver(weightSchema),
         defaultValues: {
             date: defValue.date,
-            water: defValue.water
+            weight: defValue.weight
         }
     })
     const {handleSubmit} = methods
@@ -42,12 +48,12 @@ function WaterEditSheet({id, token, close, dates, defValue}: WaterEditSheetProps
             );
         });
     };
-    const onSubmit = (data: WaterSchema) => {
+    const onSubmit = (data: WeightSchema) => {
         const newEntry: ProgressData = {
-            kind: "water",
+            kind: "weight",
             data: {
                 date: data.date,
-                water: Number(data.water)
+                weight: Number(data.weight)
             },
             token,
             id
@@ -56,14 +62,14 @@ function WaterEditSheet({id, token, close, dates, defValue}: WaterEditSheetProps
     }
     return (
         <FormProvider {...methods}>
-            <h3>Edytuj wodę</h3>
+            <h3>Edytuj wagę</h3>
             <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
                 <ControlledDatePicker control={methods.control} name={'date'} placeholderText={'Data'} maxDate={new Date()} filterDate={isDateDisabled}/>
-                <Input type={'number'} min={0} max={5000} placeholder={'Woda w ml'} name={'water'}/>
+                <Input type={'number'} min={0} max={5000} placeholder={'Waga w kg'} name={'weight'}/>
                 <button type={'submit'} disabled={isLoading} className={btnStyles.btn}>{isLoading ? <TailSpin/> : 'Zapisz'}</button>
             </form>
         </FormProvider>
     )
 }
 
-export default WaterEditSheet
+export default WeightEditSheet
