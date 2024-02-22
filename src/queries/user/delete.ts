@@ -1,6 +1,6 @@
 import {useMutation} from "@tanstack/react-query";
 import {AxiosError} from "axios";
-import {apiRoutes, FitExpressClient, queryClient} from "../../utils/api";
+import {apiRoutes, FitExpressClient} from "../../utils/api";
 import {toast} from "react-hot-toast";
 import useAuthStore from "../../stores/authStore";
 

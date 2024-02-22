@@ -1,11 +1,10 @@
 import {MutationFunction, useMutation} from "@tanstack/react-query";
 import {apiRoutes, FitExpressClient, queryClient} from "../../utils/api";
-import {useNavigate} from "react-router-dom";
 import {toast} from "react-hot-toast";
-import {appRoutes} from "../../utils/routes";
 import {z} from "zod";
 import errorMessages from "../../utils/errorMessages";
 import {AxiosError} from "axios";
+
 export type UserError = AxiosError<{errors: {general: string}}>
 export type UserResponse = {message: string}
 export type UserPutData = {
