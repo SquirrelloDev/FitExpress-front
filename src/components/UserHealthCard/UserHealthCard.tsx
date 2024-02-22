@@ -34,7 +34,7 @@ export default function UserHealthCard({healthData}: UserHealthCardProps) {
                     </div>
                     <div className={classes['user-card__grid__item']}>
                         <Card>
-                            <p>Waga</p>
+                            <p>Startowa waga</p>
                             <p>{healthData.user_weight_current} kg</p>
                         </Card>
                     </div>
