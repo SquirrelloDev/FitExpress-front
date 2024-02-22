@@ -14,11 +14,9 @@ import {calculateAge, calculateBMI, calculateDemands} from "../../utils/calculat
 import {TailSpin} from "react-loader-spinner";
 import useUserPrefs from "../../hooks/useUserPrefs";
 import {registerLocale} from "react-datepicker";
-import pl from "date-fns/locale/pl";
 import {useNavigate} from "react-router-dom";
 import {appRoutes} from "../../utils/routes";
 import {palActive, palPassive} from "../../utils/palTypes";
-registerLocale('pl', pl)
 
 function HealthCardPage() {
     const navigate = useNavigate()
