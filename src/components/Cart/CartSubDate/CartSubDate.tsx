@@ -5,14 +5,12 @@ import ControlledRangedDatePicker from "../../Datepicker/ControlledRangedDatePic
 import {calcDays} from "../../../utils/calcDays";
 import classes from "../../../sass/pages/cart.module.scss";
 import {registerLocale} from "react-datepicker";
-import pl from "date-fns/locale/pl";
 
 interface CartSubDateProps<T extends FieldValues> {
     name: string
     control: Control<T, unknown>,
     prices: Record<string, number>
 }
-registerLocale('pl', pl)
 function CartSubDate<T extends FieldValues>({name, control, prices}: CartSubDateProps<T>) {
     const {watch} = useFormContext()
     const withWeekends = watch(`${name}.weekends`)
