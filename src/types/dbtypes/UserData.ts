@@ -19,5 +19,6 @@ export type UserFullData = {
     birth_date: Date,
     addresses: Address[],
     redeemedCodes: Promocode[],
-    health_data: HealthData
+    health_data: HealthData,
+    phone: string
 }
