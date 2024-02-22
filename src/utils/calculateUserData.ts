@@ -47,3 +47,15 @@ export function calculateBMI(height: number, weight: number, plannedWeight: numb
     const plannedBMI = parseFloat((plannedWeight / (heightMeters * heightMeters)).toFixed(1));
     return {currentBMI, plannedBMI}
 }
+export function calculateBMIPercents(value: number){
+    const percentVal = ((value - 16) / (40 - 16)) * 100
+    if(percentVal >= 100){
+        return 100
+    }
+    else if(percentVal <= 0){
+        return 0
+    }
+    else{
+        return percentVal
+    }
+}

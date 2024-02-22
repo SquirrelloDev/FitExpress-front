@@ -1,4 +1,4 @@
-import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
+import DatePicker, {ReactDatePickerProps, registerLocale} from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import "../../sass/components/date-picker.scss"
 import inputStyles from '../../sass/components/text-input.module.scss'
@@ -6,6 +6,7 @@ import {Control, Controller, FieldValues, Path, useFormContext} from 'react-hook
 import CustomInput from "./CustomInput";
 import errorMessages from "../../utils/errorMessages";
 import {useState} from "react";
+import pl from "date-fns/locale/pl";
 
 interface ControlledDatepickerProps<T extends FieldValues>
   extends Omit<ReactDatePickerProps, 'onChange'> {
@@ -13,7 +14,7 @@ interface ControlledDatepickerProps<T extends FieldValues>
   name: string
   error?: string
 }
-
+registerLocale('pl', pl)
 function ControlledDatePicker<T extends FieldValues>({
   control,
   name,
@@ -48,6 +49,7 @@ function ControlledDatePicker<T extends FieldValues>({
             customInput={<CustomInput name={name} />}
             nextMonthButtonLabel=">"
             previousMonthButtonLabel="<"
+            locale={'pl'}
             {...props}
           />
           {errors[name] && (

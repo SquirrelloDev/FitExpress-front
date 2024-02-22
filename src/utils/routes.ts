@@ -28,8 +28,9 @@ export const appRoutes = {
     dietEdit: ':dietId',
 //     healthPage
     healthPage: '/health',
-    weightHistory: '/health/weight-history',
-    waterHistory: '/health/water-history',
+    weightHistory: 'weight-history',
+    waterHistory: 'water-history',
+    editHcard: 'edit',
 //     profile
     profile: '/profile',
     profileDetails: '/profile/details',

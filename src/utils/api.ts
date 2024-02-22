@@ -126,5 +126,10 @@ export const apiRoutes = {
 //     DAILY ORDERS
     GET_DAILY: (page: string, pageSize: string) => `http://localhost:3001/daily?page=${page}&pageSize=${pageSize}`,
     GET_DAILY_DATE: (date: string) => `http://localhost:3001/daily/date?date=${date}`,
-    ADD_DAILY: 'http://localhost:3001/daily'
+    ADD_DAILY: 'http://localhost:3001/daily',
+//     PROGRESS
+    GET_USER_PROGRESS: (userId: string) => `http://localhost:3001/entries/user?userId=${userId}`,
+    ADD_ENTRY: (kind: string) => `http://localhost:3001/entries?kind=${kind}`,
+    EDIT_ENTRY: (kind: string, date: string) => `http://localhost:3001/entries?kind=${kind}&date=${date}`,
+    DELETE_ENTRY: (kind: string, date: string, userId: string) => `http://localhost:3001/entries?kind=${kind}&date=${date}&userId=${userId}`
 }

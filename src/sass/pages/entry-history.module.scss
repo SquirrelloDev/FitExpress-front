@@ -1,0 +1,51 @@
+@use '../utils' as *;
+.history{
+  padding: 1em 1em 65px;
+  position: relative;
+  &__back{
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1em .25em;
+    background: none;
+    border: 1px solid transparent;
+  }
+  h1{
+    margin-left: 1em;
+  }
+  &__item{
+    display: flex;
+    flex-direction: column;
+    padding: .7em;
+    &__second-row{
+      margin: .5em 0;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  &__icon-text{
+    display: flex;
+    align-items: center;
+    svg{
+      margin-right: .5em;
+    }
+  }
+  &__actions{
+    button{
+      padding: .15em;
+      background: none;
+      color: $text-color-primary;
+      border: 1px solid transparent;
+    }
+    button:first-child{
+      margin-right: .5em;
+    }
+    button:last-child{
+      color: $cta-red;
+    }
+  }
+}
