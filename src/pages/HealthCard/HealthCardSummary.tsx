@@ -65,8 +65,8 @@ function HealthCardSummary() {
                     <h4>Spodziewane BMI</h4>
                     {isSuccess && (
                     <div>
-                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${plannedCategory(data!.user.health_data.bmi_planned).color}`])}>{data!.user.health_data.bmi_planned}</p>
-                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${plannedCategory(data!.user.health_data.bmi_planned).color}`])}>{plannedCategory(data!.user.health_data.bmi_planned).name}</p>
+                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${plannedCategory(data!.user.health_data.bmi_planned)?.color}`])}>{data!.user.health_data.bmi_planned}</p>
+                        <p className={clsx(classes['summary-wrapper__section__item__bmi__text'], classes[`summary-wrapper__section__item__bmi__text--${plannedCategory(data!.user.health_data.bmi_planned)?.color}`])}>{plannedCategory(data!.user.health_data.bmi_planned)?.name}</p>
                     </div>
                     )}
                 </div>

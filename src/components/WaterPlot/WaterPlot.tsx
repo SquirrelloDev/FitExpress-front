@@ -8,7 +8,7 @@ import {useDisclosure} from "@mantine/hooks";
 import WaterAddSheet from "./WaterAddSheet/WaterAddSheet";
 import {percents} from "../../utils/calcDays";
 import {isToday} from "date-fns";
-import {Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis} from "recharts";
 import classes from "../../sass/components/water-plot.module.scss";
 import useChartData from "../../hooks/useChartData";
 

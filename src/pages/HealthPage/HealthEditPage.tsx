@@ -15,8 +15,7 @@ import HealthCardRadio from "../../components/HealthCardRadio/HealthCardRadio";
 import btnStyles from "../../sass/components/button.module.scss";
 import {TailSpin} from "react-loader-spinner";
 import {DevTool} from "@hookform/devtools";
-import {Alert} from "@mantine/core";
-import {IconAlertTriangle, IconChevronLeft} from "@tabler/icons-react";
+import {IconChevronLeft} from "@tabler/icons-react";
 import clsx from "clsx";
 
 export function HealthEditPage() {
@@ -31,7 +30,6 @@ export function HealthEditPage() {
     const userData = useAuthStore((state) => state.userData);
     const {handleSubmit} = methods
     const maxDate = new Date().setFullYear(new Date().getFullYear() - 18, new Date().getMonth(), new Date().getDate())
-    const warningIcon = <IconAlertTriangle/>
     const onSubmit = (data: UserHealthSchema) => {
         const userAge = calculateAge(data.birth_date);
         const {

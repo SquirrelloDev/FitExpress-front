@@ -1,6 +1,6 @@
 import {MutationFunction, useMutation} from "@tanstack/react-query";
 import {PostProgressResponse, ProgressData, SuccessProgresssMutation} from "./create";
-import {apiRoutes, FitExpressClient, queryClient} from "../../utils/api";
+import {apiRoutes, FitExpressClient} from "../../utils/api";
 import {ProgressError} from "./listing";
 
 const updateEntry: MutationFunction<PostProgressResponse, ProgressData> = async (progressData) => {

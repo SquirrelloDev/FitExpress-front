@@ -1,23 +1,13 @@
 import useUserProgressQuery from "../../queries/progress-entry/listing";
 import useAuthStore from "../../stores/authStore";
 import Card from "../../components/Card/Card";
-import {
-	IconCalendarEvent,
-	IconChevronLeft,
-	IconDroplet,
-	IconEdit,
-	IconScaleOutline,
-	IconTrashX
-} from "@tabler/icons-react";
+import {IconCalendarEvent, IconChevronLeft, IconEdit, IconScaleOutline, IconTrashX} from "@tabler/icons-react";
 import BottomActionSheet from "../../components/BottomActionSheet/BottomActionSheet";
 import {useDisclosure} from "@mantine/hooks";
-import WaterEditSheet from "../../components/WaterPlot/WaterEditSheet/WaterEditSheet";
 import {useState} from "react";
-import WaterDeleteSheet from "../../components/WaterPlot/WaterDeleteSheet/WaterDeleteSheet";
 import WeightEditSheet from "../../components/WeightPlot/WeightEditSheet/WeightEditSheet";
-import WeightDeleteSheet from "../../components/EntryDeleteSheet/DeleteSheet";
-import classes from "../../sass/pages/entry-history.module.scss";
 import DeleteSheet from "../../components/EntryDeleteSheet/DeleteSheet";
+import classes from "../../sass/pages/entry-history.module.scss";
 import {useNavigate} from "react-router-dom";
 
 function WeightHistory() {
@@ -35,7 +25,7 @@ function WeightHistory() {
 			<div>
 			{!isProgressLoading && (
 				<>
-				{progressData?.data.weight_progress.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(weightItem => (
+				{progressData!.data.weight_progress.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(weightItem => (
 					<Card clearPadding>
 						<div className={classes.history__item}>
 						<p className={classes['history__icon-text']}><IconCalendarEvent /> {new Date(weightItem.date).toLocaleDateString()}</p>
@@ -57,7 +47,7 @@ function WeightHistory() {
 					</Card>
 				))}
 					<BottomActionSheet opened={opened} close={close} size={'xl'} withCloseButton={false}>
-						<WeightEditSheet id={userData.id} token={userData.token} close={close} dates={progressData?.data.weight_progress.map(waterItem => new Date(waterItem.date))} defValue={selectedEntry} />
+						<WeightEditSheet id={userData.id} token={userData.token} close={close} dates={progressData!.data.weight_progress.map(waterItem => new Date(waterItem.date))} defValue={selectedEntry} />
 					</BottomActionSheet>
 					<BottomActionSheet opened={openedDelete} close={closeDelete} size={'35%'} withCloseButton={false}>
 						<DeleteSheet close={closeDelete} userId={userData.id} token={userData.token} date={new Date(selectedEntry.date)} kind={"weight"}/>

@@ -1,11 +1,11 @@
 export type ProgressEntry = {
     _id: string,
     userId: string,
-    weightProgress: {
+    weight_progress: {
         date: Date,
         weight: number
     }[],
-    waterProgress: {
+    water_progress: {
         date: Date,
         water: number
     }[]

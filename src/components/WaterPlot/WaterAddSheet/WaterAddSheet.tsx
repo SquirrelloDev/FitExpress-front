@@ -24,7 +24,7 @@ function WaterAddSheet({id, token, close, dates}: WaterAddSheetProps) {
     })
     const {handleSubmit} = methods
     // Custom filter function
-    const isDateDisabled = (date) => {
+    const isDateDisabled = (date: Date) => {
         // Check if the date is in the array of disabled dates
         return !dates.some((disabledDate) => {
             return (
@@ -49,6 +49,7 @@ function WaterAddSheet({id, token, close, dates}: WaterAddSheetProps) {
     return (
         <FormProvider {...methods}>
             <h3>Dodaj wodę</h3>
+            {/*@ts-expect-error data types are correct*/}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <ControlledDatePicker control={methods.control} name={'date'} placeholderText={'Data'} maxDate={new Date()} filterDate={isDateDisabled}/>
                 <Input type={'number'} min={0} max={5000} placeholder={'Woda w ml'} name={'water'}/>

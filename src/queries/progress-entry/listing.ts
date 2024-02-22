@@ -19,7 +19,7 @@ const listProgress: QueryFunction<ProgressResponse, ProgressEntryKey> = async ({
     return {data: res.data}
 }
 function useUserProgressQuery(params: OneAuthParams) {
-    const queryKey = ['List-Progress', params]
+    const queryKey = ['List-Progress', params] as ProgressEntryKey
     const {data, isLoading, isError, error, isSuccess} = useQuery(queryKey, listProgress)
     return {data, isLoading, isError, error, isSuccess}
 }

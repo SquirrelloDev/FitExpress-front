@@ -1,5 +1,5 @@
 function useBMICategory() {
-    const categories: { name: string, min?: number, max?: number, color: string }[] = [
+    const categories: { name: string, min: number, max: number, color: string }[] = [
         {name: 'Niedowaga', min: 16, max: 18.49, color: 'blue'},
         {name: 'Optimum', min: 18.5, max: 24.99, color: 'green'},
         {name: 'Nadwaga', min: 25, max: 29.99, color: 'yellow'},

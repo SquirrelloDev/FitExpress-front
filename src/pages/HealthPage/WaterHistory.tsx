@@ -6,7 +6,6 @@ import BottomActionSheet from "../../components/BottomActionSheet/BottomActionSh
 import {useDisclosure} from "@mantine/hooks";
 import WaterEditSheet from "../../components/WaterPlot/WaterEditSheet/WaterEditSheet";
 import {useState} from "react";
-import WaterDeleteSheet from "../../components/WaterPlot/WaterDeleteSheet/WaterDeleteSheet";
 import classes from "../../sass/pages/entry-history.module.scss";
 import DeleteSheet from "../../components/EntryDeleteSheet/DeleteSheet";
 import {useNavigate} from "react-router-dom";
@@ -26,7 +25,7 @@ function WaterHistory() {
 			<div>
 			{!isProgressLoading && (
 				<>
-				{progressData?.data.water_progress.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(waterItem => (
+				{progressData!.data.water_progress.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(waterItem => (
 					<Card clearPadding>
 						<div className={classes.history__item}>
 						<p className={classes['history__icon-text']}><IconCalendarEvent /> {new Date(waterItem.date).toLocaleDateString()}</p>
@@ -48,7 +47,7 @@ function WaterHistory() {
 					</Card>
 				))}
 					<BottomActionSheet opened={opened} close={close} size={'xl'} withCloseButton={false}>
-						<WaterEditSheet id={userData.id} token={userData.token} close={close} dates={progressData?.data.water_progress.map(waterItem => new Date(waterItem.date))} defValue={selectedEntry} />
+						<WaterEditSheet id={userData.id} token={userData.token} close={close} dates={progressData!.data.water_progress.map(waterItem => new Date(waterItem.date))} defValue={selectedEntry} />
 					</BottomActionSheet>
 					<BottomActionSheet opened={openedDelete} close={closeDelete} size={'35%'} withCloseButton={false}>
 						<DeleteSheet close={closeDelete} userId={userData.id} token={userData.token} date={new Date(selectedEntry.date)} kind={'water'}/>

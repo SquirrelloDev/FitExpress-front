@@ -12,7 +12,7 @@ interface DeleteSheetProps {
 	kind: "water" | "weight"
 }
 function DeleteSheet({close, userId, token, date, kind}:DeleteSheetProps) {
-	const {mutate, isLoading, error} = useProgressDelete(() => {
+	const {mutate, isLoading} = useProgressDelete(() => {
 		queryClient.invalidateQueries(['List-Progress'])
 		close()
 	})

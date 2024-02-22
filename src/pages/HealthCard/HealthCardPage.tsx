@@ -2,7 +2,6 @@ import Input from "../../components/Input/Input";
 import ControlledSelect from "../../components/Select/ControlledSelect";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {FormProvider, useForm} from "react-hook-form";
-import {SelectOption} from "../../components/Select/types";
 import useHealthPatch, {healthCardSchema, PatchHealthData, UserHealthSchema} from "../../queries/user/healthCard";
 import btnStyles from '../../sass/components/button.module.scss'
 import classes from "../../sass/pages/health-card.module.scss";
@@ -13,7 +12,6 @@ import useAuthStore from "../../stores/authStore";
 import {calculateAge, calculateBMI, calculateDemands} from "../../utils/calculateUserData";
 import {TailSpin} from "react-loader-spinner";
 import useUserPrefs from "../../hooks/useUserPrefs";
-import {registerLocale} from "react-datepicker";
 import {useNavigate} from "react-router-dom";
 import {appRoutes} from "../../utils/routes";
 import {palActive, palPassive} from "../../utils/palTypes";

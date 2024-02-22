@@ -1,11 +1,10 @@
 import {FormProvider, useForm} from "react-hook-form";
 import ControlledDatePicker from "../../Datepicker/ControlledDatePicker";
 import Input from "../../Input/Input";
-import useProgressCreate, {ProgressData, waterSchema, WaterSchema} from "../../../queries/progress-entry/create";
+import {ProgressData, waterSchema, WaterSchema} from "../../../queries/progress-entry/create";
 import {TailSpin} from "react-loader-spinner";
 import btnStyles from '../../../sass/components/button.module.scss'
 import {zodResolver} from "@hookform/resolvers/zod";
-import {DevTool} from "@hookform/devtools";
 import {queryClient} from "../../../utils/api";
 import useProgressPatch from "../../../queries/progress-entry/edit";
 import classes from "../../../sass/components/entry-sheet.module.scss";
@@ -32,7 +31,7 @@ function WaterEditSheet({id, token, close, dates, defValue}: WaterEditSheetProps
     })
     const {handleSubmit} = methods
     // Custom filter function
-    const isDateDisabled = (date) => {
+    const isDateDisabled = (date: Date) => {
         // Check if the date is in the array of disabled dates
         return !dates.some((disabledDate) => {
             return (

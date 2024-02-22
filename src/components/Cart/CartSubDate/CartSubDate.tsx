@@ -4,7 +4,6 @@ import inputStyles from '../../../sass/components/text-input.module.scss'
 import ControlledRangedDatePicker from "../../Datepicker/ControlledRangedDatePicker";
 import {calcDays} from "../../../utils/calcDays";
 import classes from "../../../sass/pages/cart.module.scss";
-import {registerLocale} from "react-datepicker";
 
 interface CartSubDateProps<T extends FieldValues> {
     name: string

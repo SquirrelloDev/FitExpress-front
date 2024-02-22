@@ -1,9 +1,4 @@
-import useProgressCreate, {
-	ProgressData,
-	WaterSchema,
-	waterSchema, WeightSchema,
-	weightSchema
-} from "../../../queries/progress-entry/create";
+import useProgressCreate, {ProgressData, WeightSchema, weightSchema} from "../../../queries/progress-entry/create";
 import {queryClient} from "../../../utils/api";
 import {FormProvider, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -28,7 +23,7 @@ function WeightAddSheet({id, token, close, dates}: WeightAddSheetProps) {
 	})
 	const {handleSubmit} = methods
 	// Custom filter function
-	const isDateDisabled = (date) => {
+	const isDateDisabled = (date: Date) => {
 		// Check if the date is in the array of disabled dates
 		return !dates.some((disabledDate) => {
 			return (
@@ -53,6 +48,7 @@ function WeightAddSheet({id, token, close, dates}: WeightAddSheetProps) {
 	return (
 		<FormProvider {...methods}>
 			<h3>Dodaj wagę</h3>
+			{/*@ts-expect-error data types are correct*/}
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<ControlledDatePicker control={methods.control} name={'date'} placeholderText={'Data'} maxDate={new Date()} filterDate={isDateDisabled}/>
 				<Input type={'number'} min={0} max={450} placeholder={'Waga w kg'} name={'weight'}/>
