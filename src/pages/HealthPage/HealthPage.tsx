@@ -4,6 +4,7 @@ import useAuthStore from "../../stores/authStore";
 import classes from "../../sass/pages/health-page.module.scss";
 import WaterPlot from "../../components/WaterPlot/WaterPlot";
 import useUserProgressQuery from "../../queries/progress-entry/listing";
+import WeightPlot from "../../components/WeightPlot/WeightPlot";
 
 function HealthPage() {
 	const userData = useAuthStore((state) => state.userData)
@@ -15,6 +16,7 @@ function HealthPage() {
 			{(!isLoading && !isProgressLoading) &&(
 				<>
 				<UserHealthCard healthData={data!.user.health_data}/>
+				<WeightPlot token={userData.token} id={userData.id} weightArr={progressData!.data.weight_progress} firstWeight={data!.user.health_data.user_weight_current} plannedWeight={data!.user.health_data.user_weight_planned} userHeight={data!.user.health_data.user_height}/>
 				<WaterPlot waterArr={progressData!.data.water_progress} maxWater={data!.user.health_data.water_demand} id={userData.id} token={userData.token}/>
 				</>
 			)}
