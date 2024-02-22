@@ -34,6 +34,8 @@ import HealthPage from "./pages/HealthPage/HealthPage";
 import {HealthEditPage} from "./pages/HealthPage/HealthEditPage";
 import WaterHistory from "./pages/HealthPage/WaterHistory";
 import WeightHistory from "./pages/HealthPage/WeightHistory";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import ProfileDetails from "./pages/ProfilePage/ProfileDetails/ProfileDetails";
 
 const router = createBrowserRouter([
     {
@@ -87,6 +89,14 @@ const router = createBrowserRouter([
             {path: appRoutes.editHcard, element: <HealthEditPage/>},
             {path: appRoutes.waterHistory, element: <WaterHistory/>},
             {path: appRoutes.weightHistory, element: <WeightHistory/>}
+        ]
+    },
+    {
+        path: appRoutes.profile,
+        element: <AppLayout minPermLevel={UserRole.loggedIn} />,
+        children: [
+            {element: <ProfilePage />, index: true},
+            {path: appRoutes.profileDetails, element: <ProfileDetails/>}
         ]
     },
     {
