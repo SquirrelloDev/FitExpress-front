@@ -9,8 +9,8 @@ import WaterAddSheet from "./WaterAddSheet/WaterAddSheet";
 import {percents} from "../../utils/calcDays";
 import {isToday} from "date-fns";
 import {Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import useWaterChart from "../../hooks/useWaterChart";
 import classes from "../../sass/components/water-plot.module.scss";
+import useChartData from "../../hooks/useChartData";
 
 interface WaterPlotProps {
     waterArr: { date: Date, water: number }[]
@@ -22,8 +22,8 @@ interface WaterPlotProps {
 function WaterPlot({waterArr, maxWater, id, token}: WaterPlotProps) {
     const [opened, {open, close}] = useDisclosure(false)
     const todayWater = waterArr.find(waterItem => isToday(waterItem.date))?.water
-    const percentValue = percents(maxWater, todayWater)
-    const waterChartData = useWaterChart(waterArr);
+    const percentValue = percents(maxWater, todayWater ? todayWater : 0)
+    const waterChartData = useChartData(waterArr);
     const dates = waterArr.map(waterDatum => new Date(waterDatum.date));
     return (
         <>
@@ -35,7 +35,7 @@ function WaterPlot({waterArr, maxWater, id, token}: WaterPlotProps) {
                     </div>
                     <div>
                         <Progress.Root size={'xxl'} radius={'lg'} classNames={{root: classes.plot__progress__root, section: classes.plot__progress__section}}>
-                            <Progress.Section value={percentValue ? Math.floor(percentValue) : 0}>
+                            <Progress.Section value={percentValue}>
                                 <Progress.Label>{percentValue ? Math.floor(percentValue) : 0}%</Progress.Label>
                             </Progress.Section>
                         </Progress.Root>
