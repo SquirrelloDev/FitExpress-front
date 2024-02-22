@@ -9,9 +9,10 @@ import {appRoutes} from "../../utils/routes";
 
 interface UserHealthCardProps {
     healthData: HealthData
+    link?: string
 }
 
-export default function UserHealthCard({healthData}: UserHealthCardProps) {
+export default function UserHealthCard({healthData, link}: UserHealthCardProps) {
     const navigate = useNavigate()
     const {
         userGoal,
@@ -22,7 +23,7 @@ export default function UserHealthCard({healthData}: UserHealthCardProps) {
         <Card clearPadding>
             <div className={classes['user-card']}>
                 <div className={classes['user-card__header']}><h3>Moja karta zdrowia</h3>
-                    <button onClick={() => navigate(appRoutes.editHcard)} className={classes['user-card__header__edit']}><IconEdit size={30}/></button>
+                    <button onClick={() => navigate(link ? link : appRoutes.editHcard)} className={classes['user-card__header__edit']}><IconEdit size={30}/></button>
                 </div>
                 <hr className={classes['user-card__divider']}/>
                 <div className={classes['user-card__grid']}>
