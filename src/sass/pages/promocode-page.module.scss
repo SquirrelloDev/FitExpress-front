@@ -1,0 +1,31 @@
+@use '../utils' as *;
+.promos{
+  padding: 2.5em 0 65px;
+  h1{
+    padding: 0.25em .75em;
+  }
+  &__tabs{
+    margin-top: .5em;
+    &__list{
+      border: none;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      &::before{
+        border: none;
+      }
+    }
+    &__tab{
+      font-size: $normal;
+      &[data-active]{
+        color: $cta;
+        border-bottom: 2px solid $cta;
+      }
+    }
+  }
+  &__panel{
+    padding: 1em;
+    &__empty{
+      text-align: center;
+    }
+  }
+}

@@ -18,7 +18,7 @@ export type UserFullData = {
     role: UserRole,
     birth_date: Date,
     addresses: Address[],
-    redeemedCodes: Promocode[],
+    redeemed_codes: Promocode[],
     health_data: HealthData,
     phone: string
 }

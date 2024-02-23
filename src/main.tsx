@@ -36,6 +36,7 @@ import WaterHistory from "./pages/HealthPage/WaterHistory";
 import WeightHistory from "./pages/HealthPage/WeightHistory";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ProfileDetails from "./pages/ProfilePage/ProfileDetails/ProfileDetails";
+import PromocodePage from "./pages/ProfilePage/PromocodePage/PromocodePage";
 
 const router = createBrowserRouter([
     {
@@ -96,7 +97,8 @@ const router = createBrowserRouter([
         element: <AppLayout minPermLevel={UserRole.loggedIn} />,
         children: [
             {element: <ProfilePage />, index: true},
-            {path: appRoutes.profileDetails, element: <ProfileDetails/>}
+            {path: appRoutes.profileDetails, element: <ProfileDetails/>},
+            {path: appRoutes.vouchers, element: <PromocodePage/>}
         ]
     },
     {
