@@ -3,15 +3,18 @@ import btnStyles from '../../../sass/components/button.module.scss'
 import {Dispatch, useEffect, useRef, useState} from "react";
 import {useNamePromoQuery} from "../../../queries/promocodes/listing";
 import classes from "../../../sass/pages/cart.module.scss";
+import useCartStore from "../../../stores/cartStore";
 interface CartPromocodeProps {
 	token: string
 	setCurrentDiscount: Dispatch<number>
+	userId: string
 }
-function CartPromocode({token, setCurrentDiscount}:CartPromocodeProps) {
+function CartPromocode({token, setCurrentDiscount, userId}:CartPromocodeProps) {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const [enteredPromo, setEnteredPromo] = useState<string>('')
-	const {data, refetch, isSuccess, error, isError} = useNamePromoQuery({token, name:enteredPromo})
+	const {data, refetch, isSuccess, error, isError} = useNamePromoQuery({token, name:enteredPromo, userId})
 	const [blankErr, setBlankErr] = useState<boolean>(false)
+	const applyPromocode = useCartStore(state => state.applyPromocode)
 	useEffect(() => {
 		if(enteredPromo !== ''){
 			refetch()
@@ -19,9 +22,10 @@ function CartPromocode({token, setCurrentDiscount}:CartPromocodeProps) {
 	}, [data, enteredPromo, refetch])
 	useEffect(() => {
 		if(isSuccess){
+			applyPromocode(data!.promocode._id)
 			setCurrentDiscount(data!.promocode.discount)
 		}
-	}, [data, isSuccess, setCurrentDiscount])
+	}, [applyPromocode, data, isSuccess, setCurrentDiscount])
 	const applyPromo = () => {
 		if(inputRef.current!.value !== ''){
 		setEnteredPromo(inputRef.current!.value);

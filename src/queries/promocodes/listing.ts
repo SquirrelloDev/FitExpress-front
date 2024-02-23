@@ -31,7 +31,8 @@ type OnePromoListKey = [typeof onePromoPartialKey, OneAuthParams]
 
 type NamePromoParams = {
     token: string,
-    name: string
+    name: string,
+    userId: string
 }
 
 const namePromoPartialKey = 'PromoName'
@@ -63,14 +64,17 @@ const listOnePromo: QueryFunction<OnePromoResponse, OnePromoListKey> = async ({s
     return {promocode: res.data as unknown} as OnePromoResponse
 }
 const getPromoByName: QueryFunction<OnePromoResponse, NamePromoListKey> = async ({signal, queryKey}) => {
-    const [,{token, name}] = queryKey;
-    const res = await FitExpressClient.getInstance().get<OnePromoResponse>(apiRoutes.GET_PROMOCODE_NAME(name), {
+    const [,{token, name, userId}] = queryKey;
+    const res = await FitExpressClient.getInstance().get<OnePromoResponse>(apiRoutes.GET_PROMOCODE_NAME(name, userId), {
         signal, headers: {
             Authorization: `Bearer ${token}`
         }
     })
     if(isAxiosError(res) && res.response?.status === 404){
         throw new Error('Podany kod nie istnieje albo utracił ważność!')
+    }
+    if(isAxiosError(res) && res.response?.status === 409){
+        throw new Error('Podany kod został już wykorzystany na tym koncie!')
     }
     return {promocode: res.data as unknown} as OnePromoResponse
 }

@@ -41,6 +41,7 @@ function CartPage() {
     const navigate = useNavigate()
     const cartItems = useCartStore((state) => state.cartItems)
     const deleteItem = useCartStore((state) => state.deleteItem)
+    const appliedPromocode = useCartStore(state => state.appliedPromocode)
     const userData = useAuthStore((state) => state.userData);
     const [cartStep, setCartStep] = useState<number>(0)
 
@@ -97,7 +98,7 @@ function CartPage() {
                 token: userData.token
             }
         })
-        paymentMutate(orders)
+        paymentMutate({orders, appliedPromocode})
     }
     return (
         <FormProvider {...methods}>
@@ -193,7 +194,7 @@ function CartPage() {
                                 <CartAddresses control={methods.control} name={'address'}
                                                addresses={userAddresses!.addresses}
                                                isAddressesLoading={isAddressesLoading}/>
-                                <CartPromocode token={userData.token} setCurrentDiscount={setCartDiscount}/>
+                                <CartPromocode token={userData.token} setCurrentDiscount={setCartDiscount} userId={userData.id}/>
                             </div>
                         </>
                     )}

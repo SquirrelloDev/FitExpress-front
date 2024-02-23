@@ -114,7 +114,7 @@ export const apiRoutes = {
     GET_PROMOCODES: (page: string, pageSize: string) => `http://localhost:3001/promocode?page=${page}&pageSize=${pageSize}`,
     ADD_PROMOCODE: `http://localhost:3001/promocode/new`,
     GET_PROMOCODE_ID: (id: string) => `http://localhost:3001/promocode/${id}`,
-    GET_PROMOCODE_NAME: (name: string) => `http://localhost:3001/promocode/by-name/${name}`,
+    GET_PROMOCODE_NAME: (name: string, userId: string) => `http://localhost:3001/promocode/by-name/${name}?userId=${userId}`,
     EDIT_PROMOCODE: (id: string) => `http://localhost:3001/promocode/${id}`,
     DELETE_PROMOCODE: (id: string) => `http://localhost:3001/promocode/${id}`,
 //     DELIVERY

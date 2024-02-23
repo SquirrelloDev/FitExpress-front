@@ -2,6 +2,8 @@ import {create} from "zustand";
 import {persist} from "zustand/middleware";
 interface CartStore {
     cartItems: string[]
+    appliedPromocode: string
+    applyPromocode: (promoId: string) => void
     addItem: (item: string) => void
     getCount: () => number
     deleteItem: (idx: number) => void
@@ -13,6 +15,12 @@ const initCart = (): string[] => {
 const useCartStore = create(persist<CartStore>(
     (set,get) => ({
         cartItems: initCart(),
+        appliedPromocode: '',
+        applyPromocode: (promoId) => {
+          set(() => {
+              return {cartItems: get().cartItems, appliedPromocode: promoId}
+          })
+        },
         addItem: (item) => {
             set((state) => {
                 return {cartItems: state.cartItems.concat(item)}
