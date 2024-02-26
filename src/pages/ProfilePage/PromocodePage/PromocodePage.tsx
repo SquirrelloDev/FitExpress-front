@@ -9,7 +9,7 @@ import {Grid} from "react-loader-spinner";
 
 export default function PromocodePage() {
     const userData = useAuthStore(state => state.userData)
-    const {data, isLoading} = usePromosListQuery({id: userData.id, token: userData.token, pageIndex: 0, pageSize: 0})
+    const {data, isLoading} = usePromosListQuery({token: userData.token, pageIndex: 0, pageSize: 0})
     const {data: userPromos, isLoading: userPromosLoading} = useOneUserListQuery({
         id: userData.id,
         token: userData.token

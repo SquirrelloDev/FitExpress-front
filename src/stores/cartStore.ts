@@ -37,7 +37,7 @@ const useCartStore = create(persist<CartStore>(
         },
         clearCart: () => {
             set(() => {
-                return {cartItems: initCart()}
+                return {cartItems: initCart(), appliedPromocode: ''}
             })
         }
     }), {name: 'fit:cart'}
