@@ -39,6 +39,7 @@ import ProfileDetails from "./pages/ProfilePage/ProfileDetails/ProfileDetails";
 import PromocodePage from "./pages/ProfilePage/PromocodePage/PromocodePage";
 import {AddressesPage} from "./pages/ProfilePage/AddressesPage/AddressesPage";
 import AddressCreate from "./pages/ProfilePage/AddressesPage/AddressCreate/AddressCreate";
+import AddressEdit from "./pages/ProfilePage/AddressesPage/AddressEdit/AddressEdit";
 
 const router = createBrowserRouter([
     {
@@ -102,7 +103,8 @@ const router = createBrowserRouter([
             {path: appRoutes.profileDetails, element: <ProfileDetails/>},
             {path: appRoutes.addresses, children: [
                     {element: <AddressesPage/>, index: true},
-                    {path: appRoutes.newAddress, element: <AddressCreate/>}
+                    {path: appRoutes.newAddress, element: <AddressCreate/>},
+                    {path: appRoutes.editAddress, element: <AddressEdit/>}
                 ]},
             {path: appRoutes.vouchers, element: <PromocodePage/>},
         ]

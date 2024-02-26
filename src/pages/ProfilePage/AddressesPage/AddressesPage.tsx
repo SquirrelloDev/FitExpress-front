@@ -25,7 +25,7 @@ export function AddressesPage() {
 							<p>Woj. {addr.voivodeship}</p>
 							</div>
 							<div>
-								<Link to={appRoutes.editAddress}><IconEdit/></Link>
+								<Link to={`edit/${addr._id}`}><IconEdit/></Link>
 								<button><IconTrashX/></button>
 							</div>
 						</div>
