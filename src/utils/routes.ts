@@ -34,9 +34,9 @@ export const appRoutes = {
 //     profile
     profile: '/profile',
     profileDetails: '/profile/details',
-    addresses: 'profile/addresses',
-    newAddress: 'addressses/new',
-    editAddress: 'addresses/edit/:id',
+    addresses: 'addresses',
+    newAddress: 'new',
+    editAddress: 'edit/:id',
     vouchers: 'vouchers',
     reports: '/profile/reports',
     newReport: 'reports/new',
