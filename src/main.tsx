@@ -37,6 +37,8 @@ import WeightHistory from "./pages/HealthPage/WeightHistory";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ProfileDetails from "./pages/ProfilePage/ProfileDetails/ProfileDetails";
 import PromocodePage from "./pages/ProfilePage/PromocodePage/PromocodePage";
+import {AddressesPage} from "./pages/ProfilePage/AddressesPage/AddressesPage";
+import AddressCreate from "./pages/ProfilePage/AddressesPage/AddressCreate/AddressCreate";
 
 const router = createBrowserRouter([
     {
@@ -98,7 +100,11 @@ const router = createBrowserRouter([
         children: [
             {element: <ProfilePage />, index: true},
             {path: appRoutes.profileDetails, element: <ProfileDetails/>},
-            {path: appRoutes.vouchers, element: <PromocodePage/>}
+            {path: appRoutes.addresses, children: [
+                    {element: <AddressesPage/>, index: true},
+                    {path: appRoutes.newAddress, element: <AddressCreate/>}
+                ]},
+            {path: appRoutes.vouchers, element: <PromocodePage/>},
         ]
     },
     {
