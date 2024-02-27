@@ -11,7 +11,6 @@ interface AddressEntryProps {
 	open: () => void
 }
 function AddressEntry({address, setSelectedAddress, open}:AddressEntryProps) {
-	console.log('render address entry')
 	return (
 		<Card>
 			<div className={classes.addresses__entry}>

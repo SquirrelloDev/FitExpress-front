@@ -1,5 +1,5 @@
 import {apiRoutes, FitExpressClient} from "../../utils/api";
-import {useQuery} from "@tanstack/react-query";
+import {QueryFunction, useQuery} from "@tanstack/react-query";
 
 
 const partialGeocodeKey = 'Geocode-Address'
@@ -12,7 +12,17 @@ export type GeocodeParams = {
 
 }
 type GeocodeKey = [typeof partialGeocodeKey, GeocodeParams]
-const geocode = async ({signal, queryKey}) => {
+type GeocodeResponse = {
+    data: {
+        features:{
+            properties: {
+                lat: number,
+                lon: number
+            }
+        }[]
+    }
+}
+const geocode:QueryFunction<GeocodeResponse ,GeocodeKey> = async ({signal, queryKey}) => {
     const [,{street,buildingNumber,city,postal,voivodeship}] = queryKey
     const combinedAddress = `${street} ${buildingNumber} ${postal}, ${city},${voivodeship}`
     const res = await FitExpressClient.getInstance().get(apiRoutes.GEOCODE(combinedAddress), {signal})
@@ -20,8 +30,6 @@ const geocode = async ({signal, queryKey}) => {
 }
 export function useGeoCode(params: GeocodeParams) {
     const queryKey = ['Geocode-Address', params] as GeocodeKey
-    const {data, isLoading, isSuccess, refetch} = useQuery(queryKey, geocode, {enabled: false, onSuccess: (data) => {
-        console.log(data);
-        }})
+    const {data, isLoading, isSuccess, refetch} = useQuery(queryKey, geocode, {enabled: false})
     return {data, isLoading, isSuccess, refetch}
 }

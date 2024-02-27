@@ -41,6 +41,7 @@ function OrderForm({order, addresses, userToken}:OrderFormProps) {
 		<FormProvider {...methods}>
 			<div className={classes.form__wrapper}>
 			<h1>{order.name}</h1>
+			{/*	@ts-expect-error data to post are mixed from order and form*/}
 			<form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
 				<Input name={'name'} placeholder={'Nazwa diety'}/>
 				<OrderAddresses allAddresses={addresses} defaultAddressId={order.address_id ? order.address_id._id : null} control={control} name={'address'} isWeekend={order.with_weekends} />

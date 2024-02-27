@@ -27,11 +27,13 @@
   }
   &__add{
     position: fixed;
-    bottom: 70px;
+    bottom: 65px;
     left: 50%;
     right: 0;
     width: 90%;
     transform: translateX(-50%);
+    background-color: $page-bg;
+    padding: .25em;
     a{
       display: inline-block;
       width: 100%;

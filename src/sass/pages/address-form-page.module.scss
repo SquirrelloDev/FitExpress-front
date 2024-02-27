@@ -6,6 +6,10 @@
     &__availability{
       margin: .75em 0;
       align-self: center;
+      display: flex;
+      svg{
+        margin-right: .5em;
+      }
     }
   }
 }

@@ -3,8 +3,8 @@ import {apiRoutes, FitExpressClient} from "../../utils/api";
 
 const deliveryPartialKey = 'GetInRange'
 type DeliveryParams = {
-    lat: number,
-    lng: number,
+    lat?: number,
+    lng?: number,
     token: string
 }
 type DeliveryKey = [typeof deliveryPartialKey, DeliveryParams]
@@ -14,7 +14,7 @@ interface DeliveryResponse {
 }
 const getPointsInRange:QueryFunction<DeliveryResponse, DeliveryKey> = async ({signal, queryKey}) => {
     const [,{token, lng, lat}] = queryKey
-    const res = await FitExpressClient.getInstance().get<DeliveryResponse>(apiRoutes.GET_DELIVERY_RANGE(lat, lng), {signal,
+    const res = await FitExpressClient.getInstance().get<DeliveryResponse>(apiRoutes.GET_DELIVERY_RANGE(lat ? lat : 0, lng ? lng : 0), {signal,
         headers: {
             Authorization: `Bearer ${token}`
         }

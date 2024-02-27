@@ -13,7 +13,6 @@ import {useEffect} from "react";
 import {useDebouncedValue} from "@mantine/hooks";
 import useDeliveryRange from "../../../../queries/delivery/listing";
 import AddresAvailability from "../../../../components/AddressAvailability/AddresAvailability";
-import {DevTool} from "@hookform/devtools";
 import classes from "../../../../sass/pages/address-form-page.module.scss";
 import btnStyles from '../../../../sass/components/button.module.scss'
 import inputStyles from '../../../../sass/components/text-input.module.scss'
@@ -50,7 +49,6 @@ export default function AddressCreate() {
     const [debounced] = useDebouncedValue(watch as string[], 350)
     const {
         data,
-        isLoading: isGeocodeLoading,
         refetch: geocodeAddress,
         isSuccess: isGeocodeSuccess
     } = useGeoCode({
@@ -60,7 +58,7 @@ export default function AddressCreate() {
         postal: debounced[3],
         voivodeship: debounced[4]
     })
-    const {data: deliveryData, isLoading: isDeliveryLoading, refetch, isFetching} = useDeliveryRange({
+    const {data: deliveryData, refetch, isFetching} = useDeliveryRange({
         lat: data?.data.features[0].properties.lat,
         lng: data?.data.features[0].properties.lon,
         token: userData.token
@@ -98,6 +96,7 @@ export default function AddressCreate() {
             <BackButton/>
             <h2>Dodaj adres</h2>
             <FormProvider {...methods}>
+                {/*@ts-expect-error data are compatible*/}
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.page__form}>
                     <div>
                         <Input name={'city'} placeholder={'Miasto'}/>
@@ -119,7 +118,6 @@ export default function AddressCreate() {
 
                 </form>
             </FormProvider>
-            <DevTool control={control}/>
         </section>
     )
 }

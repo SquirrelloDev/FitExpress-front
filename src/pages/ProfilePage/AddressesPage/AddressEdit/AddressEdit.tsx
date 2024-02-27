@@ -7,7 +7,7 @@ import AddressEditForm from "./AddressEditForm";
 export default function AddressEdit() {
     const userData = useAuthStore(state => state.userData)
     const params = useParams();
-    const {data, isLoading} = useOneAddressListQuery({id: params!.id, token: userData.token})
+    const {data, isLoading} = useOneAddressListQuery({id: params.id!, token: userData.token})
     return (
         <>
             {!isLoading && <AddressEditForm addressData={data!.address} userData={userData}/>}

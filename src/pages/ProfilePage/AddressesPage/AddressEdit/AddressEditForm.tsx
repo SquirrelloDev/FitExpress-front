@@ -11,7 +11,6 @@ import ControlledSelect from "../../../../components/Select/ControlledSelect";
 import AddresAvailability from "../../../../components/AddressAvailability/AddresAvailability";
 import TextArea from "../../../../components/TextArea/TextArea";
 import Checkbox from "../../../../components/Checkbox/Checkbox";
-import {DevTool} from "@hookform/devtools";
 import {SelectOption} from "../../../../components/Select/types";
 import useAddressEdit from "../../../../queries/addresses/edit";
 import {Address} from "../../../../types/dbtypes/Address";
@@ -133,7 +132,6 @@ export default function AddressEditForm({addressData, userData}:AddressEditFormP
 
                 </form>
             </FormProvider>
-            <DevTool control={control}/>
         </section>
     )
 }
