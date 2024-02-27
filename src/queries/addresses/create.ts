@@ -59,7 +59,7 @@ function useAddressCreate(){
     const {mutate, isError, isLoading, isSuccess, error} = useMutation<AddressResponse, AddressError, AddressPostData>(['Address-Create'], createAddress, {onSuccess: () => {
             toast.success('Adres dodany!');
             queryClient.invalidateQueries(['AddressesList'])
-            navigate(appRoutes.addresses);
+            navigate(`${appRoutes.profile}/${appRoutes.addresses}`);
         },
         onError: (error) => {
         toast.error(error.message)
