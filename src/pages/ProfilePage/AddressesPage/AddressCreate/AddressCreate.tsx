@@ -14,6 +14,10 @@ import {useDebouncedValue} from "@mantine/hooks";
 import useDeliveryRange from "../../../../queries/delivery/listing";
 import AddresAvailability from "../../../../components/AddressAvailability/AddresAvailability";
 import {DevTool} from "@hookform/devtools";
+import classes from "../../../../sass/pages/address-form-page.module.scss";
+import btnStyles from '../../../../sass/components/button.module.scss'
+import inputStyles from '../../../../sass/components/text-input.module.scss'
+import {TailSpin} from "react-loader-spinner";
 // import {IconCurrentLocation} from "@tabler/icons-react";
 const voivodeships: SelectOption[] = [
     {label: 'Zachodniopomorskie', value: 'Zachodniopomorskie'},
@@ -43,9 +47,6 @@ export default function AddressCreate() {
     const {handleSubmit, control} = methods
     const watch = useWatch({control: control, name: ['city', 'street', 'buildingNumber', 'postal', 'voivodeship']})
     const extraInfoWatch = useWatch({control: control, name:'extraInfo'})
-    // useEffect(() => {
-    //     console.log(watch)
-    // }, [watch])
     const [debounced] = useDebouncedValue(watch as string[], 350)
     const {
         data,
@@ -93,11 +94,11 @@ export default function AddressCreate() {
         mutate(address)
     }
     return (
-        <section style={{paddingBottom: '70px'}}>
+        <section className={classes.page}>
             <BackButton/>
             <h2>Dodaj adres</h2>
             <FormProvider {...methods}>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} className={classes.page__form}>
                     <div>
                         <Input name={'city'} placeholder={'Miasto'}/>
                         {/*Uncomment when making pwa <button><IconCurrentLocation /></button>*/}
@@ -112,9 +113,9 @@ export default function AddressCreate() {
                                       placeholder={'Województwo'}/>
                     <AddresAvailability debouncedArr={debounced} inRange={deliveryData?.inRange}/>
                     <TextArea name={'extraInfo'} placeholder={'Dodatkowe informacje dla kuriera'}/>
-                    <Checkbox name={'isWeekend'} placeholder={'Weekendy'}/>
+                    <Checkbox name={'isWeekend'} placeholder={'Weekendy'} className={inputStyles.checkbox}/>
 
-                     <button type={'submit'} disabled={(isFetching || !deliveryData?.inRange || extraInfoWatch === '')}>Zapisz</button>
+                     <button type={'submit'} disabled={(isFetching || !deliveryData?.inRange || extraInfoWatch === '' || isLoading)} className={btnStyles.btn}>{isLoading ? <TailSpin /> : 'Zapisz'}</button>
 
                 </form>
             </FormProvider>

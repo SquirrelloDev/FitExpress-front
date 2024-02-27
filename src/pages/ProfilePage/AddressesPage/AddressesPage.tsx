@@ -11,7 +11,9 @@ import AddressDeleteSheet from "../../../components/AddressDeleteSheet/AddressDe
 import {useDisclosure} from "@mantine/hooks";
 import {useState} from "react";
 import classes from "../../../sass/pages/address-page.module.scss";
+import btnStyles from '../../../sass/components/button.module.scss'
 import AddressEntry from "../../../components/AddressEntry/AddressEntry";
+import clsx from "clsx";
 
 export function AddressesPage() {
 	const userData = useAuthStore(state => state.userData)
@@ -27,7 +29,9 @@ export function AddressesPage() {
 					<AddressEntry key={addr._id} address={addr} setSelectedAddress={setSelectedAddress} open={open} />
 				))}
 			</div>
-			<Link to={appRoutes.newAddress}>Dodaj adres</Link>
+			<div className={classes.addresses__add}>
+			<Link to={appRoutes.newAddress} className={clsx(btnStyles.btn, btnStyles['btn--link'])}>Dodaj adres</Link>
+			</div>
 			<BottomActionSheet opened={opened} close={close} withCloseButton={false} size={'35%'}>
 				<AddressDeleteSheet close={close} addressId={selectedAddress} token={userData.token}/>
 			</BottomActionSheet>

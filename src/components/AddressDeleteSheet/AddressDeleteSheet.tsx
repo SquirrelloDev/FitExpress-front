@@ -1,4 +1,3 @@
-import useProgressDelete from "../../queries/progress-entry/delete";
 import {queryClient} from "../../utils/api";
 import {TailSpin} from "react-loader-spinner";
 import btnStyles from '../../sass/components/button.module.scss'

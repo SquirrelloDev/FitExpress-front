@@ -16,6 +16,9 @@ import {SelectOption} from "../../../../components/Select/types";
 import useAddressEdit from "../../../../queries/addresses/edit";
 import {Address} from "../../../../types/dbtypes/Address";
 import {UserData} from "../../../../types/dbtypes/UserData";
+import classes from "../../../../sass/pages/address-form-page.module.scss";
+import btnStyles from "../../../../sass/components/button.module.scss";
+import {TailSpin} from "react-loader-spinner";
 
 const voivodeships: SelectOption[] = [
     {label: 'Zachodniopomorskie', value: 'Zachodniopomorskie'},
@@ -105,11 +108,11 @@ export default function AddressEditForm({addressData, userData}:AddressEditFormP
         mutate(address)
     }
     return (
-        <section style={{paddingBottom: '70px'}}>
+        <section className={classes.page}>
             <BackButton/>
             <h2>Edytuj adres</h2>
             <FormProvider {...methods}>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} className={classes.page__form}>
                     <div>
                         <Input name={'city'} placeholder={'Miasto'}/>
                         {/*Uncomment when making pwa <button><IconCurrentLocation /></button>*/}
@@ -126,9 +129,7 @@ export default function AddressEditForm({addressData, userData}:AddressEditFormP
                     <TextArea name={'extraInfo'} placeholder={'Dodatkowe informacje dla kuriera'}/>
                     <Checkbox name={'isWeekend'} placeholder={'Weekendy'}/>
 
-                    <button type={'submit'}
-                            disabled={(isFetching || !deliveryData?.inRange || extraInfoWatch === '' || isLoading)}>Zapisz
-                    </button>
+                    <button type={'submit'} disabled={(isFetching || !deliveryData?.inRange || extraInfoWatch === '' || isLoading)} className={btnStyles.btn}>{isLoading ? <TailSpin /> : 'Zapisz'}</button>
 
                 </form>
             </FormProvider>
