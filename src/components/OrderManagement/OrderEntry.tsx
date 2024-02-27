@@ -45,7 +45,8 @@ function OrderEntry({order, index, openedItem, setOpenedItem, token}: OrderEntry
                                 <p>Okres trwania planu:</p>
                                 <p>{new Date(order.sub_date.from).toLocaleDateString()} - {new Date(order.sub_date.to).toLocaleDateString()}</p>
                                 <p>Adres:</p>
-                                <p>{order.address_id.street} {order.address_id.building_no}{order.address_id.apartment_no ? `/${order.address_id.apartment_no}` : ''}, {order.address_id.postal} {order.address_id.city}</p>
+                                {!order.address_id && <p>Brak adresu</p>}
+                                {order.address_id && <p>{order.address_id.street} {order.address_id.building_no}{order.address_id.apartment_no ? `/${order.address_id.apartment_no}` : ''}, {order.address_id.postal} {order.address_id.city}</p>}
                             </div>
                             {order.is_active && (
                                 <>

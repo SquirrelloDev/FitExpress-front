@@ -6,7 +6,7 @@ import clsx from "clsx";
 
 interface OrderAddressesProps<T extends FieldValues> {
 	allAddresses: Address[]
-	defaultAddressId: string
+	defaultAddressId?: string
 	control: Control<T>
 	name: string
 	isWeekend: boolean
