@@ -10,6 +10,8 @@ import BottomActionSheet from "../../../components/BottomActionSheet/BottomActio
 import AddressDeleteSheet from "../../../components/AddressDeleteSheet/AddressDeleteSheet";
 import {useDisclosure} from "@mantine/hooks";
 import {useState} from "react";
+import classes from "../../../sass/pages/address-page.module.scss";
+import AddressEntry from "../../../components/AddressEntry/AddressEntry";
 
 export function AddressesPage() {
 	const userData = useAuthStore(state => state.userData)
@@ -17,28 +19,12 @@ export function AddressesPage() {
 	const {data, isLoading} = useUserAddressListQuery({id: userData.id, token: userData.token})
 	const [selectedAddress, setSelectedAddress] = useState<string>('')
 	return (
-		<section>
+		<section className={classes.addresses}>
 			<BackButton />
 			<h1>Moje adresy</h1>
 			<div>
 				{!isLoading &&  data!.addresses.map(addr => (
-					<Card key={addr._id}>
-						<div>
-							<div>
-							<div>{addr.is_weekend && <Pill>Weekendy</Pill>}</div>
-							<p>{addr.street} {addr.building_no}{addr.apartment_no ? `/${addr.apartment_no}` : ''}</p>
-							<p>{addr.postal}, {addr.city}</p>
-							<p>Woj. {addr.voivodeship}</p>
-							</div>
-							<div>
-								<Link to={`edit/${addr._id}`}><IconEdit/></Link>
-								<button onClick={() => {
-									setSelectedAddress(addr._id)
-									open()
-								}}><IconTrashX/></button>
-							</div>
-						</div>
-					</Card>
+					<AddressEntry key={addr._id} address={addr} setSelectedAddress={setSelectedAddress} open={open} />
 				))}
 			</div>
 			<Link to={appRoutes.newAddress}>Dodaj adres</Link>
