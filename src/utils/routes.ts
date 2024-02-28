@@ -39,7 +39,7 @@ export const appRoutes = {
     editAddress: 'edit/:id',
     vouchers: 'vouchers',
     reports: '/profile/reports',
-    newReport: 'reports/new',
+    newReport: 'new',
     editReport: 'reports/edit/:id',
     exclusionsDb: '/profile/exclusions',
     appSettings: '/profile/settings',

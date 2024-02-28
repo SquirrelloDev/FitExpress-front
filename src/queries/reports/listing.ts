@@ -2,6 +2,7 @@ import {QueryFunction, useQuery} from "@tanstack/react-query";
 import {apiRoutes, FitExpressClient} from "../../utils/api";
 import {Report} from "../../types/dbtypes/Report";
 import {AuthParams} from "../../types/queriesTypes/queriesTypes";
+import {isAxiosError} from "axios";
 
 interface paginationInfo {
     totalItems: number,
@@ -65,7 +66,10 @@ const listUserReports: QueryFunction<UserReportsResponse, UserReportsListKey> = 
     const res = await FitExpressClient.getInstance().get<ReportsResponse>(apiRoutes.GET_REPORTS_USER(id, pageIndex, pageSize), {signal, headers: {
         Authorization: `Bearer ${token}`
         }});
-    return res.data
+    if(isAxiosError(res) && res.response?.status !== 200){
+        throw new Error('Coś poszło nie tak')
+    }
+    return res.data as unknown as UserReportsResponse
 }
 
 function useReportsListQuery(params: AuthParams) {

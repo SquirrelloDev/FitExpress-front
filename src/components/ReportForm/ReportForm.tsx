@@ -12,7 +12,7 @@ import {UserData} from "../../types/dbtypes/UserData";
 import {TailSpin} from "react-loader-spinner";
 import {SelectOption} from "../Select/types";
 import classes from "../../sass/pages/report-create.module.scss";
-import {DevTool} from "@hookform/devtools";
+
 interface ReportFormProps {
 	orders: Order[],
 	userData: UserData
@@ -48,6 +48,7 @@ export default function ReportForm({orders, userData}:ReportFormProps) {
 	}
 	return (
 		<FormProvider {...methods}>
+			{/*@ts-expect-error data are compatible*/}
 			<form onSubmit={handleSubmit(onSubmit)} className={classes.create__form}>
 				<ControlledSelect options={reportCategories} control={control} name={'category'} placeholder={'Wybierz kategorię zgłoszenia'}/>
 				<h3>Której diety dotyczy to zgłoszenie?</h3>

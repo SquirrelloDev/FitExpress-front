@@ -3,9 +3,9 @@ import {TailSpin} from "react-loader-spinner";
 import btnStyles from '../../sass/components/button.module.scss'
 import clsx from "clsx";
 import classes from "../../sass/components/entry-sheet.module.scss";
-import useAddressDelete from "../../queries/addresses/delete";
 import {toast} from "react-hot-toast";
 import useReportDelete from "../../queries/reports/delete";
+
 interface ReportDeleteSheetProps {
 	close: () => void,
 	reportId: string
