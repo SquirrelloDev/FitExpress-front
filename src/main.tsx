@@ -34,6 +34,14 @@ import HealthPage from "./pages/HealthPage/HealthPage";
 import {HealthEditPage} from "./pages/HealthPage/HealthEditPage";
 import WaterHistory from "./pages/HealthPage/WaterHistory";
 import WeightHistory from "./pages/HealthPage/WeightHistory";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import ProfileDetails from "./pages/ProfilePage/ProfileDetails/ProfileDetails";
+import PromocodePage from "./pages/ProfilePage/PromocodePage/PromocodePage";
+import {AddressesPage} from "./pages/ProfilePage/AddressesPage/AddressesPage";
+import AddressCreate from "./pages/ProfilePage/AddressesPage/AddressCreate/AddressCreate";
+import AddressEdit from "./pages/ProfilePage/AddressesPage/AddressEdit/AddressEdit";
+import ReportsPage from "./pages/ProfilePage/ReportsPage/ReportsPage";
+import ReportCreate from "./pages/ProfilePage/ReportsPage/ReportCreate/ReportCreate";
 
 const router = createBrowserRouter([
     {
@@ -87,6 +95,24 @@ const router = createBrowserRouter([
             {path: appRoutes.editHcard, element: <HealthEditPage/>},
             {path: appRoutes.waterHistory, element: <WaterHistory/>},
             {path: appRoutes.weightHistory, element: <WeightHistory/>}
+        ]
+    },
+    {
+        path: appRoutes.profile,
+        element: <AppLayout minPermLevel={UserRole.loggedIn} />,
+        children: [
+            {element: <ProfilePage />, index: true},
+            {path: appRoutes.profileDetails, element: <ProfileDetails/>},
+            {path: appRoutes.addresses, children: [
+                    {element: <AddressesPage/>, index: true},
+                    {path: appRoutes.newAddress, element: <AddressCreate/>},
+                    {path: appRoutes.editAddress, element: <AddressEdit/>}
+                ]},
+            {path: appRoutes.vouchers, element: <PromocodePage/>},
+            {path: appRoutes.reports, children: [
+                    {element: <ReportsPage />, index: true},
+                    {path: appRoutes.newReport, element: <ReportCreate />}
+                ]}
         ]
     },
     {

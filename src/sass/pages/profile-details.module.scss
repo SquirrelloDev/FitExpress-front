@@ -1,0 +1,13 @@
+.details{
+  padding: 2.5em 1em 70px;
+  &__form, &__delete{
+    display: flex;
+    flex-direction: column;
+    margin: 1em 0;
+  }
+  &__delete{
+    button{
+      margin-top: .5em;
+    }
+  }
+}

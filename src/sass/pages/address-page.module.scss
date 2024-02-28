@@ -1,0 +1,43 @@
+@use '../utils' as *;
+
+.addresses {
+  padding: 2.5em 1em 125px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  &__entry {
+    padding: .5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__actions {
+      a {
+        color: $text-color-primary;
+      }
+
+      button {
+        margin-left: .5em;
+        padding: .15em;
+        background: none;
+        color: $cta-red;
+        border: 1px solid transparent;
+      }
+    }
+  }
+  &__add{
+    position: fixed;
+    bottom: 65px;
+    left: 50%;
+    right: 0;
+    width: 90%;
+    transform: translateX(-50%);
+    background-color: $page-bg;
+    padding: .25em;
+    a{
+      display: inline-block;
+      width: 100%;
+
+    }
+  }
+}

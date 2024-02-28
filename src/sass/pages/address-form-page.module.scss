@@ -1,0 +1,15 @@
+.page{
+  padding: 2.5em 1em 70px;
+  &__form{
+    display: flex;
+    flex-direction: column;
+    &__availability{
+      margin: .75em 0;
+      align-self: center;
+      display: flex;
+      svg{
+        margin-right: .5em;
+      }
+    }
+  }
+}

@@ -37,6 +37,7 @@ export class FitExpressClient {
         return this.clientInstance.axiosInstance;
     }
 }
+const geoapiKey = 'df6a8c18019f4523b077b0ddd70584c7'
 export const apiRoutes = {
     LOGIN: 'http://localhost:3001/users/login/',
     REGISTER: 'http://localhost:3001/users',
@@ -105,7 +106,7 @@ export const apiRoutes = {
 //     REPORTS
     GET_REPORTS: (page: string, pageSize: string) => `http://localhost:3001/reports?page=${page}&pageSize=${pageSize}`,
     ADD_REPORT: `http://localhost:3001/reports`,
-    GET_REPORTS_USER: (id: string) => `http://localhost:3001/reports/user?userId=${id}`,
+    GET_REPORTS_USER: (id: string, page: number, pageSize: number) => `http://localhost:3001/reports/user?userId=${id}&page=${page}&pageSize=${pageSize}`,
     GET_REPORT_ID: (id: string) => `http://localhost:3001/reports/${id}`,
     EDIT_REPORT: (id: string) => `http://localhost:3001/reports/${id}`,
     EDIT_REPORT_STATUS: (id: string, status: string) => `http://localhost:3001/reports/${id}?status=${status}`,
@@ -114,11 +115,12 @@ export const apiRoutes = {
     GET_PROMOCODES: (page: string, pageSize: string) => `http://localhost:3001/promocode?page=${page}&pageSize=${pageSize}`,
     ADD_PROMOCODE: `http://localhost:3001/promocode/new`,
     GET_PROMOCODE_ID: (id: string) => `http://localhost:3001/promocode/${id}`,
-    GET_PROMOCODE_NAME: (name: string) => `http://localhost:3001/promocode/by-name/${name}`,
+    GET_PROMOCODE_NAME: (name: string, userId: string) => `http://localhost:3001/promocode/by-name/${name}?userId=${userId}`,
     EDIT_PROMOCODE: (id: string) => `http://localhost:3001/promocode/${id}`,
     DELETE_PROMOCODE: (id: string) => `http://localhost:3001/promocode/${id}`,
 //     DELIVERY
     GET_DELIVERY: (page: string, pageSize: string) => `http://localhost:3001/delivery?page=${page}&pageSize=${pageSize}`,
+    GET_DELIVERY_RANGE: (lat: number, lng: number) => `http://localhost:3001/delivery/search?lat=${lat}&lng=${lng}`,
     ADD_DELIVERY: `http://localhost:3001/delivery`,
     GET_DELIVERY_ID: (id: string) => `http://localhost:3001/delivery/${id}`,
     EDIT_DELIVERY: (id: string) => `http://localhost:3001/delivery/${id}`,
@@ -131,5 +133,7 @@ export const apiRoutes = {
     GET_USER_PROGRESS: (userId: string) => `http://localhost:3001/entries/user?userId=${userId}`,
     ADD_ENTRY: (kind: string) => `http://localhost:3001/entries?kind=${kind}`,
     EDIT_ENTRY: (kind: string, date: string) => `http://localhost:3001/entries?kind=${kind}&date=${date}`,
-    DELETE_ENTRY: (kind: string, date: string, userId: string) => `http://localhost:3001/entries?kind=${kind}&date=${date}&userId=${userId}`
+    DELETE_ENTRY: (kind: string, date: string, userId: string) => `http://localhost:3001/entries?kind=${kind}&date=${date}&userId=${userId}`,
+//     GEOCODING
+    GEOCODE: (address: string) => `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(address)}&apiKey=${geoapiKey}`
 }

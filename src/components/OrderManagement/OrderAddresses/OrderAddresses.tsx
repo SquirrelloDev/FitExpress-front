@@ -6,7 +6,7 @@ import clsx from "clsx";
 
 interface OrderAddressesProps<T extends FieldValues> {
 	allAddresses: Address[]
-	defaultAddressId: string
+	defaultAddressId: string | null
 	control: Control<T>
 	name: string
 	isWeekend: boolean
@@ -35,7 +35,6 @@ function OrderAddresses<T extends FieldValues>({allAddresses, defaultAddressId, 
 								<h4>{`Adres ${idx + 1}`}</h4>
 								<p>{`${address.street} ${address.building_no} ${address.apartment_no ? address.apartment_no : ''}`}</p>
 								<p>{`${address.postal}, ${address.city}`}</p>
-								<p>{address.isDefault && 'Domyślny adres'}</p>
 							</div>
 						</label>
 					))}

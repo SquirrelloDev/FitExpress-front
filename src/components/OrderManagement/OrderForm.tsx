@@ -15,7 +15,7 @@ interface OrderFormProps {
 }
 function OrderForm({order, addresses, userToken}:OrderFormProps) {
 	const methods = useForm({
-		defaultValues: {name: order.name, address: order.address_id._id}
+		defaultValues: {name: order.name, address: order.address_id ? order.address_id._id : null}
 	})
 	const {handleSubmit, control} = methods;
 	const {mutate, isLoading} = useOrderEdit()
@@ -41,9 +41,10 @@ function OrderForm({order, addresses, userToken}:OrderFormProps) {
 		<FormProvider {...methods}>
 			<div className={classes.form__wrapper}>
 			<h1>{order.name}</h1>
+			{/*	@ts-expect-error data to post are mixed from order and form*/}
 			<form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
 				<Input name={'name'} placeholder={'Nazwa diety'}/>
-				<OrderAddresses allAddresses={addresses} defaultAddressId={order.address_id._id} control={control} name={'address'} isWeekend={order.with_weekends} />
+				<OrderAddresses allAddresses={addresses} defaultAddressId={order.address_id ? order.address_id._id : null} control={control} name={'address'} isWeekend={order.with_weekends} />
 				<button type={'submit'} disabled={isLoading} className={clsx(btnStyles.btn, classes.form__button)}>{isLoading ? <TailSpin/> : 'Potwierdź zmiany'}</button>
 			</form>
 			</div>

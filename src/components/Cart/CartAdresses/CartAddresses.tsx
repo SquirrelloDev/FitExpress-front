@@ -43,7 +43,7 @@ function CartAddresses<T extends FieldValues>({addresses, control, name, isAddre
                             {filteredAddresses.length > 0 && filteredAddresses.map((address, idx) => (
                                 <label htmlFor={address._id} key={address._id}
                                        className={clsx(cartClasses['cart__addresses__item'], activeRadio === idx && cartClasses['cart__addresses__item--active'])}>
-                                    <input type={"radio"} id={address._id} name={name} checked={address.isDefault}
+                                    <input type={"radio"} id={address._id} name={name}
                                            onClick={() => {
                                                onChange(address._id)
                                                setActiveRadio(idx)
@@ -54,7 +54,6 @@ function CartAddresses<T extends FieldValues>({addresses, control, name, isAddre
                                         <h4>{`Adres ${idx + 1}`}</h4>
                                         <p>{`${address.street} ${address.building_no} ${address.apartment_no ? address.apartment_no : ''}`}</p>
                                         <p>{`${address.postal}, ${address.city}`}</p>
-                                        <p>{address.isDefault && 'Domyślny adres'}</p>
                                     </div>
                                 </label>
                             ))}

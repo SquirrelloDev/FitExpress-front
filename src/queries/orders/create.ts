@@ -85,12 +85,13 @@ const createOrder:MutationFunction<OrderResponse, OrderPostData> = async (order)
 type PaymentResponse = {
     id: string
 }
-const proccessPayment:MutationFunction<PaymentResponse, OrderPostData[]> = async (order) => {
+const proccessPayment:MutationFunction<PaymentResponse, {orders: OrderPostData[], appliedPromocode: string}> = async (order) => {
     const stripe = await loadStripe('pk_test_51OjkX2IEJEI12bS3vAJpQ4Ftps8jjf5ZrNgZs7o2iqFHJCrdQxUHzUigomsI4h7D7PrEUQ6ymIFq8MGQcoVzeXMD00rOc7T4u0')
 
     const res = await FitExpressClient.getInstance().post<PaymentResponse>(apiRoutes.CHECKOUT, {
-        orders: order
-    }, {headers: {Authorization: `Bearer ${order[0].token}`}})
+        orders: order.orders,
+        appliedPromocode: order.appliedPromocode
+    }, {headers: {Authorization: `Bearer ${order.orders[0].token}`}})
     const result = stripe!.redirectToCheckout({
         sessionId: res.data.id
     })
