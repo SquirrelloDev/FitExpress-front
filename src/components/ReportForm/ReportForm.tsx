@@ -56,7 +56,6 @@ export default function ReportForm({orders, userData}:ReportFormProps) {
 				<TextArea name={'message'} placeholder={'Treść zgłoszenia'}/>
 				<button type={'submit'} disabled={(isLoading || orders.length === 0)} className={clsx(btnStyles.btn)}>{isLoading ? <TailSpin /> : 'Dodaj zgłoszenie'}</button>
 			</form>
-			<DevTool control={control} />
 		</FormProvider>
 	)
 }

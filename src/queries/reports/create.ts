@@ -39,8 +39,8 @@ const createReport:MutationFunction<ReportResponse, ReportPostData> = async (rep
 function useReportCreate(){
     const navigate = useNavigate();
     const {mutate, isError, isLoading, isSuccess, error} = useMutation<ReportResponse, ReportError, ReportPostData>(['Report-Create'], createReport, {onSuccess: () => {
-            toast.success('Zgłoszenie dodane!');
-            queryClient.invalidateQueries(['ReportsList'])
+            toast.success('Zgłoszenie dodane! O kolejnych krokach będziemy informować mailowo', {duration: 5000, position: "bottom-center"});
+            queryClient.invalidateQueries(['UserReports'])
             navigate(appRoutes.reports);
         },
         onError: (error) => {
