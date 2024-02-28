@@ -40,7 +40,7 @@ function OrderEntry({order, index, openedItem, setOpenedItem, token}: OrderEntry
                             <div className={classes.management__entry__info}>
                                 <h4>Dane diety:</h4>
                                 <p>Plan diety: {order.diet_id.diet_type}</p>
-                                <p>Typ diety: {order.name}</p>
+                                <p>Typ diety: {order.diet_id.name}</p>
                                 <p>Kaloryczność: {order.calories} kcal</p>
                                 <p>Okres trwania planu:</p>
                                 <p>{new Date(order.sub_date.from).toLocaleDateString()} - {new Date(order.sub_date.to).toLocaleDateString()}</p>
