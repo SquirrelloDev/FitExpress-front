@@ -19,7 +19,7 @@ function MenuCalendar({currentDate, currentDateListing, setCurrentDateListing}: 
         <div className={classes.calendar}>
             <div className={clsx(classes.calendar__row, classes['snaps-inline'])}>
                 {days.map(day => (
-                    <label htmlFor={`${day.date}-${day.month}`} className={clsx(classes.calendar__row__item, currentDateListing.getDate() === Number(day.date) && classes['calendar__row__item--active'])}>
+                    <label key={`${day.date}-${day.month}`} htmlFor={`${day.date}-${day.month}`} className={clsx(classes.calendar__row__item, currentDateListing.getDate() === Number(day.date) && classes['calendar__row__item--active'])}>
                         <input type={'radio'} id={`${day.date}-${day.month}`} name={'date'} defaultChecked={currentDate.getDate() === Number(day.date)} onClick={() => setCurrentDateListing(parseIntoMidnight((new Date(new Date().getFullYear(), Number(day.month) - 1, Number(day.date)))))}/>
                         <p>{day.date}</p>
                         <p>{day.name}</p>
