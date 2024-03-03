@@ -1,0 +1,63 @@
+@use "../utils" as *;
+.menu{
+  padding-bottom: 65px;
+  &__heading{
+    padding: .5em;
+  }
+  &__tabs{
+    margin-top: .5em;
+    &__list{
+      border: none;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      &::before{
+        border: none;
+      }
+    }
+    &__tab{
+      font-size: $normal;
+      &[data-active]{
+        color: $cta;
+        border-bottom: 2px solid $cta;
+      }
+    }
+    &_panel{
+      padding: .75em;
+    }
+  }
+  &__item{
+    padding: .5em .75em;
+    &__desc{
+      margin: .5em 0;
+    }
+    &__actions{
+      display: flex;
+      justify-content: space-between;
+      &__check{
+        background: none;
+        padding: .25em 1em;
+        border: 1px solid $cta;
+        transition: background-color .3s, color .3s;
+        color: $cta;
+        cursor: pointer;
+        border-radius: 15px;
+        &:hover{
+          color: $text-color-primary;
+          background-color: $cta;
+        }
+      }
+    }
+    a{
+      padding: .25em 1em;
+      background-color: $cta;
+      text-decoration: none;
+      color: $text-color-primary;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: background-color .2s;
+      &:hover{
+        background-color: $desaturated-cta;
+      }
+    }
+  }
+}

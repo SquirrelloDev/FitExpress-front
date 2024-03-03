@@ -42,6 +42,7 @@ import AddressCreate from "./pages/ProfilePage/AddressesPage/AddressCreate/Addre
 import AddressEdit from "./pages/ProfilePage/AddressesPage/AddressEdit/AddressEdit";
 import ReportsPage from "./pages/ProfilePage/ReportsPage/ReportsPage";
 import ReportCreate from "./pages/ProfilePage/ReportsPage/ReportCreate/ReportCreate";
+import MenuPage from "./pages/MenuPage/MenuPage";
 
 const router = createBrowserRouter([
     {
@@ -77,6 +78,13 @@ const router = createBrowserRouter([
         children: [
             {element: <CartPage />, index: true},
             {path: appRoutes.cartPaymentSuccess ,element: <PaymentSuccess />}
+        ]
+    },
+    {
+        path: appRoutes.menu,
+        element: <AppLayout minPermLevel={UserRole.loggedIn} />,
+        children: [
+            {element: <MenuPage />, index: true}
         ]
     },
     {

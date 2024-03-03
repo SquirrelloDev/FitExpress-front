@@ -1,0 +1,25 @@
+@use "../utils" as *;
+.details{
+  padding: .5em;
+  &__header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5em;
+  }
+  &__desc{
+    margin: 1em 0;
+  }
+  a{
+    margin-top: 1em;
+    padding: .15em .6em;
+    background-color: $cta;
+    text-decoration: none;
+    color: $text-color-primary;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color .2s;
+    &:hover{
+      background-color: $desaturated-cta;
+    }
+  }
+}

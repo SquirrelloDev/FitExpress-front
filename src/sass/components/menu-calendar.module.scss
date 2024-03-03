@@ -1,0 +1,36 @@
+@use "../utils" as *;
+.calendar{
+  &__row{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 30%;
+    grid-column-gap: 20px;
+    overflow-x: auto;
+    overflow-behavior-inline: contain;
+    margin: 0 .5em;
+    &__item{
+      display: flex;
+      border: 3px solid $dark;
+      border-radius: 8px;
+      flex-direction: column;
+      align-items: center;
+      padding: 1em 0;
+      margin: 1em 0;
+      &--active{
+        border-color: $cta;
+      }
+      input[type='radio']{
+        appearance: none;
+        margin: 0;
+        background-color: $page-bg;
+      }
+    }
+  }
+
+}
+.snaps-inline{
+  scroll-snap-type: inline mandatory;
+  & > *{
+    scroll-snap-align: start;
+  }
+}
