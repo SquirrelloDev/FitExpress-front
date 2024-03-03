@@ -5,10 +5,11 @@ import {MenuView} from "../../components/MenuView/MenuView";
 import MenuCalendar from "../../components/MenuCalendar/MenuCalendar";
 import {useState} from "react";
 import classes from "../../sass/pages/menu-page.module.scss";
+import {parseIntoMidnight} from "../../utils/dates";
 
 function MenuPage() {
 	const userData = useAuthStore((state) => state.userData)
-	const [currentDateListing, setCurrentDateListing] = useState<Date>(new Date())
+	const [currentDateListing, setCurrentDateListing] = useState<Date>(parseIntoMidnight(new Date()))
 	const {data, isLoading} = useUserOrdersQuery({id: userData.id, token: userData.token})
 	return (
 		<section className={classes.menu}>

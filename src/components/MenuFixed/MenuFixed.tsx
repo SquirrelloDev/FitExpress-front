@@ -12,8 +12,8 @@ interface MenuFixedProps{
 function MenuFixed({data, dietId}:MenuFixedProps) {
 	return (
 		<div>
-			{Object.values(data.diets.find(diet => diet.diet_id._id === dietId)!.meals).map(meal => (
-				<Card clearPadding key={meal._id}>
+			{Object.values(data.diets.find(diet => diet.diet_id._id === dietId)!.meals).map((meal, idx) => (
+				<Card clearPadding key={`${meal._id}-${idx}`}>
 					<div className={classes.menu__item}>
 						<div>
 							<div>

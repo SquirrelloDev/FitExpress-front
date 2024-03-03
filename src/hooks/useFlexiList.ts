@@ -6,7 +6,6 @@ import {useMemo} from "react";
 function useFlexiList(currentDate: Date, data: DayFlexi, token: string, orderId: string){
     const {data: dailyData, isLoading} = useOneDailyOrderListQuery({token, date: parseIntoMidnight(currentDate).toISOString()})
     const orders = useMemo(() => {
-        console.log(dailyData)
         if(!isLoading && dailyData?.daily !== undefined){
             const order = dailyData.daily.orders.find(order => order.order_id._id === orderId);
             if (order) {
