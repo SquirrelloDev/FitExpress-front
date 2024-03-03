@@ -3,6 +3,8 @@ import classes from "../../sass/pages/home.module.scss";
 import {Order} from "../../types/dbtypes/Order";
 import {useMediaQuery} from "@mantine/hooks";
 import useHomeCalendar from "../../hooks/useHomeCalendar";
+import {useNavigate} from "react-router-dom";
+import {appRoutes} from "../../utils/routes";
 interface HomeCalendarProps {
 	item: Order,
 	currentDate: Date
@@ -10,9 +12,10 @@ interface HomeCalendarProps {
 function HomeCalendar({item, currentDate}:HomeCalendarProps) {
 	const matches = useMediaQuery('(min-width: 768px)');
 	const days = useHomeCalendar(currentDate);
+	const navigate = useNavigate()
 	return (
 		<Card>
-			<div className={classes.standard__calendar}>
+			<div className={classes.standard__calendar} onClick={() => navigate(appRoutes.menu)}>
 				<p>{item.flexi_tier ? "Wybierz posiłki" : "Przejrzyj menu"}</p>
 				<div className={classes.standard__calendar__row}>
 					<Card>
