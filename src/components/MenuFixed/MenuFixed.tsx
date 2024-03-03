@@ -1,5 +1,4 @@
 import {DayFixed} from "../../types/dbtypes/DayFixed";
-import {DayFlexi} from "../../types/dbtypes/DayFlexi";
 import Card from "../Card/Card";
 import {Link} from "react-router-dom";
 import {appRoutes} from "../../utils/routes";

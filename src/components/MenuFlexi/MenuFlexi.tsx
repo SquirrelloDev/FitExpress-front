@@ -7,18 +7,17 @@ import BottomActionSheet from "../BottomActionSheet/BottomActionSheet";
 import {useDisclosure} from "@mantine/hooks";
 import FlexiSelection from "../FlexiSelection/FlexiSelection";
 import {useState} from "react";
-import {parseIntoMidnight} from "../../utils/dates";
 import {isToday} from "date-fns";
 import FlexiDetails from "../FlexiDetails/FlexiDetails";
 import useFlexiTier from "../../hooks/useFlexiTier";
 import classes from "../../sass/pages/menu-page.module.scss";
-import btnStyles from '../../sass/components/button.module.scss'
+import {Meal} from "../../types/dbtypes/Meal";
 
 interface MenuFlexiProps {
 	data: DayFlexi
 	currentDateListing: Date
 	orderId: string
-	flexiTier: number | undefined
+	flexiTier: number
 	dietId: string,
 	token: string
 }
@@ -27,7 +26,7 @@ function MenuFlexi({data, currentDateListing, orderId, dietId, token, flexiTier}
 	const initialMeals = useFlexiList(currentDateListing,data, token, orderId)
 	const [opened, {open, close}] = useDisclosure(false)
 	const [selectedDayPart, setSelectedDayPart] = useState<string>(helperArr[0])
-	const mealInfo = useFlexiTier(data[selectedDayPart]);
+	const mealInfo = useFlexiTier(data[selectedDayPart as keyof {morning_meals: Meal, lunch_meals: Meal, dinner_meals: Meal, teatime_meals: Meal, supper_meals: Meal}]);
 	return (
 		<>
 		<div>

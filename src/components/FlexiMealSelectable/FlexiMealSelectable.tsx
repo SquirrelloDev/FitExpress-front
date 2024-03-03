@@ -9,7 +9,7 @@ import clsx from "clsx";
 interface FlexiMealSelectableProps<T extends FieldValues> {
 	control: Control<T>
 	name: string
-	flexiTier: number | undefined
+	flexiTier: number
 	dayPartMeals: {meal: Meal, tier: number}[],
 }
 function FlexiMealSelectable<T extends FieldValues>({control, name, dayPartMeals, flexiTier}: FlexiMealSelectableProps<T>) {
@@ -29,6 +29,11 @@ function FlexiMealSelectable<T extends FieldValues>({control, name, dayPartMeals
 						<Link to={`${appRoutes.meal}/${meal.meal._id}`}>Szczegóły</Link>
 					</label>
 				))}
+				{errors[name] && (
+					<p>
+						{`${errors[name]?.message}`}
+					</p>
+				)}
 			</>
 		)}/>
 	)

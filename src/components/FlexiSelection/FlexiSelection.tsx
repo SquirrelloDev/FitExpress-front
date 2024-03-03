@@ -16,7 +16,7 @@ interface FlexiSelectionProps {
 	dayPartIdx: number
 	orderId: string
 	dietId: string
-	flexiTier?: number
+	flexiTier: number
 	currentDateListing: Date,
 	selectedMeals: string[]
 	closeSheet: () => void
@@ -54,6 +54,7 @@ export default function FlexiSelection({dayPartMeals, dayPartIdx, dietId, orderI
 		<div>
 			<h3>Wybierz posiłek</h3>
 			<FormProvider {...methods}>
+			{/*	@ts-expect-error data are compatible*/}
 			<form onSubmit={handleSubmit(onSubmit)} className={classes.selection}>
 				<FlexiMealSelectable control={control} name={'mealId'} dayPartMeals={dayPartMeals} flexiTier={flexiTier} />
 				{isToday(currentDateListing) && <button disabled={isLoading} className={btnStyles.btn} type={'submit'}>{isLoading ? <TailSpin/> : 'Potwierdź wybór'}</button>}

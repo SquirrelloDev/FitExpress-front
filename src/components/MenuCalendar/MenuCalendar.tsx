@@ -1,6 +1,4 @@
-import {useMediaQuery} from "@mantine/hooks";
 import useHomeCalendar from "../../hooks/useHomeCalendar";
-import Card from "../Card/Card";
 import classes from "../../sass/components/menu-calendar.module.scss";
 import clsx from "clsx";
 import {Dispatch, SetStateAction} from "react";
@@ -13,7 +11,7 @@ interface MenuCalendarProps {
 }
 
 function MenuCalendar({currentDate, currentDateListing, setCurrentDateListing}: MenuCalendarProps) {
-    const matches = useMediaQuery('(min-width: 768px)');
+    // const matches = useMediaQuery('(min-width: 768px)');
     const days = useHomeCalendar(currentDate);
     return (
         <div className={classes.calendar}>
