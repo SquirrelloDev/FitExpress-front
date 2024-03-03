@@ -37,5 +37,9 @@
         background-color: $desaturated-cta;
       }
     }
+    &__error{
+      margin-bottom: 1em;
+      color: $cta-red
+    }
   }
 }

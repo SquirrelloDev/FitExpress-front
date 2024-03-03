@@ -30,7 +30,7 @@ function FlexiMealSelectable<T extends FieldValues>({control, name, dayPartMeals
 					</label>
 				))}
 				{errors[name] && (
-					<p>
+					<p className={classes.selection__selectable__error}>
 						{`${errors[name]?.message}`}
 					</p>
 				)}
