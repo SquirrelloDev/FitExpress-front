@@ -8,19 +8,24 @@ import {useDisclosure} from "@mantine/hooks";
 import FlexiSelection from "../FlexiSelection/FlexiSelection";
 import {useState} from "react";
 import {parseIntoMidnight} from "../../utils/dates";
+import {isToday} from "date-fns";
+import FlexiDetails from "../FlexiDetails/FlexiDetails";
+import useFlexiTier from "../../hooks/useFlexiTier";
 
 interface MenuFlexiProps {
 	data: DayFlexi
 	currentDateListing: Date
 	orderId: string
+	flexiTier: number | undefined
 	dietId: string,
 	token: string
 }
 const helperArr = ['morning_meals', 'lunch_meals', 'dinner_meals', 'teatime_meals', 'supper_meals']
-function MenuFlexi({data, currentDateListing, orderId, dietId, token}:MenuFlexiProps) {
+function MenuFlexi({data, currentDateListing, orderId, dietId, token, flexiTier}:MenuFlexiProps) {
 	const initialMeals = useFlexiList(currentDateListing,data, token, orderId)
 	const [opened, {open, close}] = useDisclosure(false)
-	const [selectedDayPart, setSelectedDayPart] = useState<string>('')
+	const [selectedDayPart, setSelectedDayPart] = useState<string>(helperArr[0])
+	const mealInfo = useFlexiTier(data[selectedDayPart]);
 	return (
 		<>
 		<div>
@@ -33,13 +38,13 @@ function MenuFlexi({data, currentDateListing, orderId, dietId, token}:MenuFlexiP
 						<button onClick={() => {
 							setSelectedDayPart(helperArr[index])
 							open()
-						}}>Zmień</button>
+						}}>{isToday(currentDateListing) ? 'Zmień' : 'Sprawdź'}</button>
 					</div>
 				</Card>
 			))}
 		</div>
 			<BottomActionSheet opened={opened} close={close} size={'100%'}>
-				<FlexiSelection orderId={orderId} dietId={dietId} currentDateListing={currentDateListing} dayPartMeals={data[selectedDayPart]} dayPartIdx={helperArr.indexOf(selectedDayPart)} selectedMeals={initialMeals.map(meal => meal._id)}/>
+				{isToday(currentDateListing) ? <FlexiSelection orderId={orderId} flexiTier={flexiTier} dietId={dietId} currentDateListing={currentDateListing} closeSheet={close} dayPartMeals={mealInfo} dayPartIdx={helperArr.indexOf(selectedDayPart)} selectedMeals={initialMeals.map(meal => meal._id)}/> : <FlexiDetails dayPartMeals={mealInfo} flexiTier={flexiTier} />}
 			</BottomActionSheet>
 		</>
 	)

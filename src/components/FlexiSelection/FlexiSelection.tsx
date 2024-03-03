@@ -5,18 +5,28 @@ import useAuthStore from "../../stores/authStore";
 import useDailyCreate, {DailyPutData, dailySchema, DailySchema} from "../../queries/daily-orders/create";
 import FlexiMealSelectable from "../FlexiMealSelectable/FlexiMealSelectable";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {isToday} from "date-fns";
+import {queryClient} from "../../utils/api";
+import {TailSpin} from "react-loader-spinner";
+import classes from "../../sass/components/flexi-selection.module.scss";
+import btnStyles from '../../sass/components/button.module.scss'
 
 interface FlexiSelectionProps {
-	dayPartMeals: Meal[]
+	dayPartMeals: {meal: Meal, tier: number}[]
 	dayPartIdx: number
 	orderId: string
 	dietId: string
+	flexiTier?: number
 	currentDateListing: Date,
 	selectedMeals: string[]
+	closeSheet: () => void
 }
-export default function FlexiSelection({dayPartMeals, dayPartIdx, dietId, orderId, currentDateListing, selectedMeals}:FlexiSelectionProps) {
+export default function FlexiSelection({dayPartMeals, dayPartIdx, dietId, orderId, flexiTier, currentDateListing, selectedMeals, closeSheet}:FlexiSelectionProps) {
 	const userData = useAuthStore(state => state.userData)
-	const {mutate} = useDailyCreate()
+	const {mutate, isLoading} = useDailyCreate(() => {
+		queryClient.invalidateQueries(['DailyOrderList'])
+		closeSheet()
+	})
 	const methods = useForm({
 		defaultValues: {
 			orderId: orderId,
@@ -44,10 +54,9 @@ export default function FlexiSelection({dayPartMeals, dayPartIdx, dietId, orderI
 		<div>
 			<h3>Wybierz posiłek</h3>
 			<FormProvider {...methods}>
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<FlexiMealSelectable control={control} name={'mealId'} dayPartMeals={dayPartMeals} />
-				{/*TODO: block adding orders when the date is not today: disabled={!isToday(currentDateListing)}*/}
-				<button type={'submit'}>Potwierdź wybór</button>
+			<form onSubmit={handleSubmit(onSubmit)} className={classes.selection}>
+				<FlexiMealSelectable control={control} name={'mealId'} dayPartMeals={dayPartMeals} flexiTier={flexiTier} />
+				{isToday(currentDateListing) && <button disabled={isLoading} className={btnStyles.btn} type={'submit'}>{isLoading ? <TailSpin/> : 'Potwierdź wybór'}</button>}
 			</form>
 			</FormProvider>
 		</div>

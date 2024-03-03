@@ -25,8 +25,12 @@ const addOrder:MutationFunction<DailyResponse, DailyPutData> = async (daily) =>{
     }, {headers: {Authorization: `Bearer ${daily.token}`}})
     return {message: res.data}
 }
-function useDailyCreate(){
-    const {mutate, isLoading, isSuccess, isError, error} = useMutation<DailyResponse, DailyError, DailyPutData>(['Add-daily'], addOrder)
+type SuccessMutationDaily<T> = (
+    data: DailyResponse,
+    variables: T
+) => unknown
+function useDailyCreate(onSuccess?:SuccessMutationDaily<DailyPutData>){
+    const {mutate, isLoading, isSuccess, isError, error} = useMutation<DailyResponse, DailyError, DailyPutData>(['Add-daily'], addOrder, {onSuccess})
     return {mutate, isError, error, isLoading, isSuccess}
 
 }

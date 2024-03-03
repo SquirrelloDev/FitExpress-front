@@ -22,3 +22,15 @@ export const getFlexiTier = (dietName: string | undefined): number | null  => {
             return null;
     }
 }
+export const getFlexiTierName = (tier: number): string  => {
+    switch (tier){
+        case 1:
+            return 'Basic';
+        case 2:
+            return 'Plus';
+        case 3:
+            return 'All-in';
+        default:
+            return 'Basic';
+    }
+}
