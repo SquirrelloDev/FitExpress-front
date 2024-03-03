@@ -11,6 +11,8 @@ import {parseIntoMidnight} from "../../utils/dates";
 import {isToday} from "date-fns";
 import FlexiDetails from "../FlexiDetails/FlexiDetails";
 import useFlexiTier from "../../hooks/useFlexiTier";
+import classes from "../../sass/pages/menu-page.module.scss";
+import btnStyles from '../../sass/components/button.module.scss'
 
 interface MenuFlexiProps {
 	data: DayFlexi
@@ -31,14 +33,16 @@ function MenuFlexi({data, currentDateListing, orderId, dietId, token, flexiTier}
 		<div>
 			{initialMeals.map((meal, index) => (
 				<Card clearPadding key={`${meal._id}-${index}`}>
-					<div>
+					<div className={classes.menu__item}>
 						<h4>{meal.name}</h4>
-						<p>{meal.description}</p>
+						<p className={classes.menu__item__desc}>{meal.description}</p>
+						<div className={classes.menu__item__actions}>
 						<Link to={`${appRoutes.meal}/${meal._id}`}>Szczegóły</Link>
-						<button onClick={() => {
+						<button className={classes.menu__item__actions__check} onClick={() => {
 							setSelectedDayPart(helperArr[index])
 							open()
 						}}>{isToday(currentDateListing) ? 'Zmień' : 'Sprawdź'}</button>
+						</div>
 					</div>
 				</Card>
 			))}
