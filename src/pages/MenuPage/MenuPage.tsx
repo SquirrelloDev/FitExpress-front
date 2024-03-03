@@ -8,7 +8,7 @@ import classes from "../../sass/pages/menu-page.module.scss";
 
 function MenuPage() {
 	const userData = useAuthStore((state) => state.userData)
-	const [currentDateListing, setCurrentDateListing] = useState<Date>(new Date('2024-03-02'))
+	const [currentDateListing, setCurrentDateListing] = useState<Date>(new Date())
 	const {data, isLoading} = useUserOrdersQuery({id: userData.id, token: userData.token})
 	return (
 		<section className={classes.menu}>
