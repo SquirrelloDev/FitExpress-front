@@ -43,7 +43,7 @@ export const apiRoutes = {
     LOGIN: 'http://localhost:3001/users/login/',
     REGISTER: 'http://localhost:3001/users',
     REQ_PASSWD: `http://localhost:3001/users/password-request`,
-    NEW_PASSWD: (resetToken: string) => `http://localhost:3001/users/password?token${resetToken}`,
+    NEW_PASSWD: (resetToken: string) => `http://localhost:3001/users/password?token=${resetToken}`,
     // USERS
     GET_USERS: (page: string, pageSize: string) => `http://localhost:3001/users?page=${page}&pageSize=${pageSize}`,
     GET_USER: (id: string) => `http://localhost:3001/users/${id}`,
