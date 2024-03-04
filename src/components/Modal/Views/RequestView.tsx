@@ -41,7 +41,15 @@ function RequestView({closeModal}:RequestViewProps) {
 					Na podany adres e-mail został wysłany link do zmiany hasła
 				</Alert>
 				}
+				{
+					isError && (
+						<Alert variant={'light'} title={'Wystąpił błąd'} color={'red'} classNames={{root: alertStyles.alert,title: alertStyles.alert__title,message: alertStyles.alert__message}}>
+							{error?.message}
+						</Alert>
+					)
+				}
 			</div>
+			{/*@ts-expect-error data are compatible*/}
 			<form onSubmit={handleSubmit(onSubmit)}>
 			<div className={classes.view__info}>
 				<p>Podaj adres e-mail do konta FitExpress</p>

@@ -9,7 +9,7 @@ import {Alert} from "@mantine/core";
 import alertStyles from "../../sass/components/alert.module.scss";
 
 interface ChangePasswordFormProps {
-    token: string
+    token: string | null
 }
 
 function ChangePasswordForm({token}: ChangePasswordFormProps) {
@@ -23,16 +23,21 @@ function ChangePasswordForm({token}: ChangePasswordFormProps) {
     const onSubmit = (data: ChangePasswdSchema) => {
         const passwdObj: NewPasswdData = {
             password: data.newPasswd,
-            resetToken: token
+            resetToken: token ? token : ''
         }
         mutate(passwdObj)
     }
     return (
         <FormProvider {...methods}>
-                {isError &&
-                    <Alert title={'Wystąpił błąd'} variant={'light'} color={'red'} classNames={{root: alertStyles.alert,title: alertStyles.alert__title,message: alertStyles.alert__message}}>
-						{error?.message}
-                    </Alert>}
+            {isError &&
+                <Alert title={'Wystąpił błąd'} variant={'light'} color={'red'} classNames={{
+                    root: alertStyles.alert,
+                    title: alertStyles.alert__title,
+                    message: alertStyles.alert__message
+                }}>
+                    {error?.message}
+                </Alert>}
+            {/*@ts-expect-error data are compatilbe*/}
             <form className={classes.change__form} onSubmit={handleSubmit(onSubmit)}>
                 <Input type={'password'} placeholder={'Nowe hasło'} name={'newPasswd'}/>
                 <Input type={'password'} placeholder={'Potwierdź nowe hasło'} name={'newPasswdConfirm'}/>

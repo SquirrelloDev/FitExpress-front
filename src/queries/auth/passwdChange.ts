@@ -11,15 +11,21 @@ export const requestSchema = z.object({
     email: z.string().email(errorMessages.invalidMail)
 })
 export type RequestPasswdSchema = z.infer<typeof requestSchema>
-type PasswdResponse = {message: string, token: string}
+interface PasswdResponse {message: string}
+interface PasswdTokenResponse extends PasswdResponse{
+    token: string
+}
 type PasswdError = AxiosError<{general: string}>
 export type PasswdPostData = {
     email: string
 }
-const requestChange:MutationFunction<PasswdResponse, PasswdPostData> = async (email) => {
-  const res = await FitExpressClient.getInstance().post<PasswdResponse>(apiRoutes.REQ_PASSWD, {
+const requestChange:MutationFunction<PasswdTokenResponse, PasswdPostData> = async (email) => {
+  const res = await FitExpressClient.getInstance().post<PasswdTokenResponse>(apiRoutes.REQ_PASSWD, {
       ...email
   })
+    if(isAxiosError(res) && res.response?.status == 404){
+        throw new Error('Użytkownik o podanym adresie e-mail nie istnieje!')
+    }
     return {message: res.data.message, token: res.data.token}
 }
 export const changePasswdSchema = z.object({
@@ -38,16 +44,16 @@ const changePasswd:MutationFunction<PasswdResponse, NewPasswdData> = async (newP
     const res = await FitExpressClient.getInstance().put(apiRoutes.NEW_PASSWD(newPasswd.resetToken), {
     password: newPasswd.password
     })
-    if(isAxiosError(res) && res.response.status === 500){
+    if(isAxiosError(res) && res.response?.status === 500){
         throw new Error('Sesja wygasła')
     }
-    if(isAxiosError(res) && res.response.status === 409){
+    if(isAxiosError(res) && res.response?.status === 409){
         throw new Error('Nowe hasło jest takie samo jak stare hasło')
     }
     return {message: res.data}
 }
 function usePasswdChangeRequest() {
-    const {mutate, isLoading, isError, error, isSuccess} = useMutation<PasswdResponse, PasswdError, PasswdPostData>(['Passwd-Request'], requestChange)
+    const {mutate, isLoading, isError, error, isSuccess} = useMutation<PasswdTokenResponse, PasswdError, PasswdPostData>(['Passwd-Request'], requestChange)
     return {mutate, isLoading, isError, error, isSuccess}
 }
 export function usePasswdChange(){
