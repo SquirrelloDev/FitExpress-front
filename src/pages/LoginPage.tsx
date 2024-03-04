@@ -21,6 +21,7 @@ function LoginPage() {
 		mutate(data);
 	}
 	return (
+		<>
 		<FormProvider {...methods}>
 			<div className={classes.login}>
 				<div>
@@ -29,12 +30,17 @@ function LoginPage() {
 				<form onSubmit={handleSubmit(onSubmit)} className={classes.login__form}>
 					<Input name='email' placeholder='Adres e-mail'/>
 					<Input name='password' type='password' placeholder='Hasło'/>
+					<div className={classes.login__form__reset}>
+						<p>Zapomniałeś hasła?</p>
+						<button>Odzyskaj hasło</button>
+					</div>
 					<button type='submit' disabled={isLoading} className={btnStyles.btn}>{isLoading ? <TailSpin visible={true} color={"#fff"} height={20} width={20}/> : "Zaloguj"}</button>
 				</form>
 				</div>
 				<p className={classes.login__footer}>Nie masz konta? <Link to={appRoutes.register} className={classes['login__footer-link']}>Stwórz je teraz</Link></p>
 			</div>
 		</FormProvider>
+		</>
 
 	)
 }

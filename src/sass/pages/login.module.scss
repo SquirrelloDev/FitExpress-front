@@ -20,6 +20,18 @@
     button {
       margin-top: 1em;
     }
+    &__reset{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      button{
+        margin: 0;
+        background: none;
+        border: 1px solid transparent;
+        text-decoration: underline;
+        color: $cta
+      }
+    }
   }
 
   &__footer {
