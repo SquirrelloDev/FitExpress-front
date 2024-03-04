@@ -1,0 +1,19 @@
+@use "../utils" as *;
+.change{
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  &__heading{
+    margin-bottom: 1em;
+    text-align: center;
+    font-size: calc($bigger + .5rem);
+  }
+  &__form{
+    display: flex;
+    flex-direction: column;
+    margin-top: .5em;
+    button[type='submit']{
+      margin-top: 1em;
+    }
+  }
+}

@@ -6,7 +6,7 @@ export const appRoutes = {
     welcomePage: '/welcome',
     healthCard: '/health-card',
     healthCardSummary: '/health-card/summary',
-
+    newPasswd: 'reset',
     notAuthorized: '/forbidden',
     // diet screen
     diets: '/diets',
