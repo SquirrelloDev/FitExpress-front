@@ -1,0 +1,11 @@
+@use "../utils" as *;
+.alert{
+  border-radius: 8px;
+  &__title{
+    font-size: $normal;
+  }
+  &__message{
+    color: $text-color-primary;
+    font-size: $normal;
+  }
+}

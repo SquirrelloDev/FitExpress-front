@@ -4,7 +4,7 @@ import errorMessages from "../../utils/errorMessages";
 import {AxiosError} from "axios";
 import {apiRoutes, FitExpressClient} from "../../utils/api";
 
-const requestSchema = z.object({
+export const requestSchema = z.object({
     email: z.string().email(errorMessages.invalidMail)
 })
 export type RequestPasswdSchema = z.infer<typeof requestSchema>
@@ -30,8 +30,8 @@ const changePasswd:MutationFunction<PasswdResponse, NewPasswdData> = async (newP
     return {message: res.data}
 }
 function usePasswdChangeRequest() {
-    const {mutate, isLoading, isError, error} = useMutation<PasswdResponse, PasswdError, PasswdPostData>(['Passwd-Request'], requestChange)
-    return {mutate, isLoading, isError, error}
+    const {mutate, isLoading, isError, error, isSuccess} = useMutation<PasswdResponse, PasswdError, PasswdPostData>(['Passwd-Request'], requestChange)
+    return {mutate, isLoading, isError, error, isSuccess}
 }
 export function usePasswdChange(){
     const {mutate, isLoading, isError, error} = useMutation<PasswdResponse, PasswdError, NewPasswdData>(['Passwd-Change'], changePasswd)
