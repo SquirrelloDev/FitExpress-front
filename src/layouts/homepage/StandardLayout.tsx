@@ -68,7 +68,6 @@ function StandardLayout({orderData}: StandardLayoutProps) {
                     })}
                 </Tabs>
             </section>
-            {/*	tabs*/}
         </>
     )
 }
