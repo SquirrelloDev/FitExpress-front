@@ -78,9 +78,11 @@ export default function AddressEditForm({addressData, userData}:AddressEditFormP
     const logPosition = useReverseGeocode(useCallback((data) => {
         setValue('city', data.data.results[0].city)
         setValue('street', data.data.results[0].street)
+        // TODO: FIX BUILDING NUMBER TO STRING TYPE
+        // @ts-expect-error this will be fixed in fixes branch
         setValue('buildingNumber', data.data.results[0].housenumber)
         setValue('postal', data.data.results[0].postcode)
-        setValue('voivodeship', data.data.results[0].state.split(' ')[0])
+        setValue('voivodeship', voivodeships.find(voivodeship => (voivodeship.value as string).toLowerCase() === data.data.results[0].state.split(' ')[1])?.value as typeof addressData.voivodeship)
     }, [setValue]))
     const {data: deliveryData, refetch, isFetching} = useDeliveryRange({
         lat: data?.data.features[0].properties.lat,
