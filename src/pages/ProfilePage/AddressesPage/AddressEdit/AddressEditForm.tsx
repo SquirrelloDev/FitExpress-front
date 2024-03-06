@@ -1,10 +1,10 @@
 import {FormProvider, useForm, useWatch} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {AddressPostData, AddressSchema, addressSchema} from "../../../../queries/addresses/create";
-import {useDebouncedValue} from "@mantine/hooks";
+import {useDebouncedValue, useMediaQuery} from "@mantine/hooks";
 import {useGeoCode} from "../../../../queries/delivery/geocoding";
 import useDeliveryRange from "../../../../queries/delivery/listing";
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import BackButton from "../../../../components/BackBtn/BackButton";
 import Input from "../../../../components/Input/Input";
 import ControlledSelect from "../../../../components/Select/ControlledSelect";
@@ -18,6 +18,8 @@ import {UserData} from "../../../../types/dbtypes/UserData";
 import classes from "../../../../sass/pages/address-form-page.module.scss";
 import btnStyles from "../../../../sass/components/button.module.scss";
 import {TailSpin} from "react-loader-spinner";
+import {IconCurrentLocation} from "@tabler/icons-react";
+import useReverseGeocode from "../../../../hooks/useReverseGeocode";
 
 const voivodeships: SelectOption[] = [
     {label: 'Zachodniopomorskie', value: 'Zachodniopomorskie'},
@@ -57,10 +59,11 @@ export default function AddressEditForm({addressData, userData}:AddressEditFormP
             extraInfo: addressData.extra_info
         }
     })
-    const {handleSubmit, control} = methods
+    const {handleSubmit, control, setValue} = methods
     const watch = useWatch({control: control, name: ['city', 'street', 'buildingNumber', 'postal', 'voivodeship']})
     const extraInfoWatch = useWatch({control: control, name: 'extraInfo'})
     const [debounced] = useDebouncedValue(watch as string[], 350)
+    const matches = useMediaQuery('(display-mode: standalone)');
     const {
         data,
         refetch: geocodeAddress,
@@ -72,6 +75,13 @@ export default function AddressEditForm({addressData, userData}:AddressEditFormP
         postal: debounced[3],
         voivodeship: debounced[4]
     })
+    const logPosition = useReverseGeocode(useCallback((data) => {
+        setValue('city', data.data.results[0].city)
+        setValue('street', data.data.results[0].street)
+        setValue('buildingNumber', data.data.results[0].housenumber)
+        setValue('postal', data.data.results[0].postcode)
+        setValue('voivodeship', data.data.results[0].state.split(' ')[0])
+    }, [setValue]))
     const {data: deliveryData, refetch, isFetching} = useDeliveryRange({
         lat: data?.data.features[0].properties.lat,
         lng: data?.data.features[0].properties.lon,
@@ -112,9 +122,9 @@ export default function AddressEditForm({addressData, userData}:AddressEditFormP
             <h2>Edytuj adres</h2>
             <FormProvider {...methods}>
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.page__form}>
-                    <div>
+                    <div className={classes.page__form__location}>
                         <Input name={'city'} placeholder={'Miasto'}/>
-                        {/*Uncomment when making pwa <button><IconCurrentLocation /></button>*/}
+                        {matches && <button onClick={logPosition} type={'button'} className={classes.page__form__location__btn}><IconCurrentLocation /></button>}
                     </div>
                     <Input name={'street'} placeholder={'Ulica'}/>
                     <div>
