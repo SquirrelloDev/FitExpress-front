@@ -1,5 +1,6 @@
+@use "../utils" as *;
 .profile{
-  padding: 1em;
+  padding: 1em 1em 65px;
   min-height: calc(100vh - 66px);
   &__nav{
     display: flex;
@@ -12,6 +13,14 @@
       margin: .75em 0;
       svg{
         margin-right: .5em;
+      }
+      &__block{
+        display: flex;
+        align-items: center;
+      }
+      &--notification{
+        justify-content: space-between;
+        font-size: $big;
       }
     }
   }

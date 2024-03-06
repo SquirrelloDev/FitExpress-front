@@ -10,7 +10,7 @@ export default defineConfig({
     srcDir: 'public',
     filename: 'sw.js',
     devOptions: {
-      enabled: true,
+      // enabled: true,
     }
   })],
 })
