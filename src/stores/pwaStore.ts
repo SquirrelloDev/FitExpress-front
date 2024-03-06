@@ -5,7 +5,7 @@ interface PWAStore {
     setNotification: (val: boolean) => void
 }
 const usePwaStore = create(persist<PWAStore>(
-    (set,get) => ({
+    (set) => ({
         notificationAllowed: false,
         setNotification: ((val) => {
             set(() => {
