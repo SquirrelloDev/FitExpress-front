@@ -139,5 +139,7 @@ export const apiRoutes = {
     EDIT_ENTRY: (kind: string, date: string) => `http://localhost:3001/entries?kind=${kind}&date=${date}`,
     DELETE_ENTRY: (kind: string, date: string, userId: string) => `http://localhost:3001/entries?kind=${kind}&date=${date}&userId=${userId}`,
 //     GEOCODING
-    GEOCODE: (address: string) => `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(address)}&apiKey=${geoapiKey}`
+    GEOCODE: (address: string) => `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(address)}&apiKey=${geoapiKey}`,
+    REVERSE_GEO: (lat: number, lng:number) => `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&format=json&apiKey=${geoapiKey}
+`
 }

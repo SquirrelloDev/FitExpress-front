@@ -1,8 +1,25 @@
+@use "../utils" as *;
 .page{
   padding: 2.5em 1em 70px;
   &__form{
     display: flex;
     flex-direction: column;
+    &__location{
+      position: relative;
+      &__btn{
+        position: absolute;
+        top: 57%;
+        right: 10px;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: .2em;
+        background: none;
+        color: $text-color-primary;
+        border: 1px solid transparent;
+      }
+    }
     &__availability{
       margin: .75em 0;
       align-self: center;

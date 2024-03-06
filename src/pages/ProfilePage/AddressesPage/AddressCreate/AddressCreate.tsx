@@ -9,7 +9,7 @@ import useAddressCreate, {AddressPostData, AddressSchema, addressSchema} from ".
 import {zodResolver} from "@hookform/resolvers/zod";
 import useAuthStore from "../../../../stores/authStore";
 import {useGeoCode} from "../../../../queries/delivery/geocoding";
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import {useDebouncedValue} from "@mantine/hooks";
 import useDeliveryRange from "../../../../queries/delivery/listing";
 import AddresAvailability from "../../../../components/AddressAvailability/AddresAvailability";
@@ -17,7 +17,9 @@ import classes from "../../../../sass/pages/address-form-page.module.scss";
 import btnStyles from '../../../../sass/components/button.module.scss'
 import inputStyles from '../../../../sass/components/text-input.module.scss'
 import {TailSpin} from "react-loader-spinner";
-// import {IconCurrentLocation} from "@tabler/icons-react";
+import {IconCurrentLocation} from "@tabler/icons-react";
+import {useMediaQuery} from "@mantine/hooks";
+import useReverseGeocode from "../../../../hooks/useReverseGeocode";
 const voivodeships: SelectOption[] = [
     {label: 'Zachodniopomorskie', value: 'Zachodniopomorskie'},
     {label: 'Pomorskie', value: 'Pomorskie'},
@@ -43,10 +45,11 @@ export default function AddressCreate() {
         resolver: zodResolver(addressSchema),
         mode: 'onTouched'
     })
-    const {handleSubmit, control} = methods
+    const {handleSubmit, control, setValue} = methods
     const watch = useWatch({control: control, name: ['city', 'street', 'buildingNumber', 'postal', 'voivodeship']})
     const extraInfoWatch = useWatch({control: control, name:'extraInfo'})
     const [debounced] = useDebouncedValue(watch as string[], 350)
+    const matches = useMediaQuery('(display-mode: standalone)');
     const {
         data,
         refetch: geocodeAddress,
@@ -58,6 +61,13 @@ export default function AddressCreate() {
         postal: debounced[3],
         voivodeship: debounced[4]
     })
+    const logPosition = useReverseGeocode(useCallback((data) => {
+        setValue('city', data.data.results[0].city)
+        setValue('street', data.data.results[0].street)
+        setValue('buildingNumber', data.data.results[0].housenumber)
+        setValue('postal', data.data.results[0].postcode)
+        setValue('voivodeship', data.data.results[0].state.split(' ')[0])
+    }, [setValue]))
     const {data: deliveryData, refetch, isFetching} = useDeliveryRange({
         lat: data?.data.features[0].properties.lat,
         lng: data?.data.features[0].properties.lon,
@@ -88,7 +98,6 @@ export default function AddressCreate() {
             userId: userData.id,
             token: userData.token
         }
-        console.log(address)
         mutate(address)
     }
     return (
@@ -98,9 +107,9 @@ export default function AddressCreate() {
             <FormProvider {...methods}>
                 {/*@ts-expect-error data are compatible*/}
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.page__form}>
-                    <div>
+                    <div className={classes.page__form__location}>
                         <Input name={'city'} placeholder={'Miasto'}/>
-                        {/*Uncomment when making pwa <button><IconCurrentLocation /></button>*/}
+                        {matches && <button onClick={logPosition} type={'button'} className={classes.page__form__location__btn}><IconCurrentLocation /></button>}
                     </div>
                     <Input name={'street'} placeholder={'Ulica'}/>
                     <div>
