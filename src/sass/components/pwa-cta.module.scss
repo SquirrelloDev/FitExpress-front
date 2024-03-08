@@ -1,0 +1,14 @@
+.pwa {
+  display: flex;
+  flex-direction: column;
+
+  &__perks {
+    display: flex;
+    flex-direction: column;
+    &__perk{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}

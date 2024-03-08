@@ -11,12 +11,17 @@ import {IconCheck} from "@tabler/icons-react";
 import HomeCalendar from "../../components/HomeCalendar/HomeCalendar";
 import useCartStore from "../../stores/cartStore";
 import CartCta from "../../components/Cart/CartCta/CartCta";
+import PwaCta from "../../components/PWA-Componets/PWACta/PwaCta";
+import {useMediaQuery} from "@mantine/hooks";
+import usePwaStore from "../../stores/pwaStore";
 
 interface StandardLayoutProps {
     orderData: Order[]
 }
 
 function StandardLayout({orderData}: StandardLayoutProps) {
+    const appInstalled = usePwaStore(state => state.appInstalled)
+    const matches = useMediaQuery('(display-mode: standalone)');
     const currentDate = new Date();
     const intlDate = new Intl.DateTimeFormat("pl-PL", {
         year: "numeric",
@@ -63,6 +68,7 @@ function StandardLayout({orderData}: StandardLayoutProps) {
                                     </div>
                                 </Card>
                                 {cartItems.length > 0 && <CartCta isReminder/>}
+                                {(!matches || !appInstalled) && <PwaCta/> }
                                 <CartCta/>
                             </Tabs.Panel>)
                     })}
