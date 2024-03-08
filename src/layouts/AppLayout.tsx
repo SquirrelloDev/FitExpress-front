@@ -5,12 +5,17 @@ import {appRoutes} from "../utils/routes";
 import {useEffect} from "react";
 import useUserRole from "../hooks/useUserRole";
 import layoutStyles from '../sass/layouts/main.module.scss'
+import useOnlineStatus from "../hooks/useOnlineStatus";
 interface AppLayoutProps {
 	minPermLevel: UserRole
 }
 export function AppLayout({minPermLevel}:AppLayoutProps) {
 	const navigate = useNavigate()
 	const {isAuthorized, isLoggedIn} = useUserRole(minPermLevel)
+	const isAppOnline = useOnlineStatus()
+	useEffect(() => {
+		isAppOnline()
+	}, [isAppOnline])
 	useEffect(() => {
 		if(!isLoggedIn){
 			navigate(appRoutes.welcomePage);

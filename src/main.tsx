@@ -44,6 +44,7 @@ import ReportsPage from "./pages/ProfilePage/ReportsPage/ReportsPage";
 import ReportCreate from "./pages/ProfilePage/ReportsPage/ReportCreate/ReportCreate";
 import MenuPage from "./pages/MenuPage/MenuPage";
 import ChangePasswordPage from "./pages/ChangePasswordPage/ChangePasswordPage";
+import OfflinePage from "./pages/OfflinePage";
 
 const router = createBrowserRouter([
     {
@@ -137,6 +138,7 @@ const router = createBrowserRouter([
             {path: appRoutes.healthCard, element: <HealthCardPage />},
             {path: appRoutes.healthCardSummary, element: <HealthCardSummary />},
             {path: appRoutes.notAuthorized, element: <Unauthorized/>},
+            {path: '/offline', element: <OfflinePage/>},
             {path: "*", element: <NotFound/>}
         ]
     }
