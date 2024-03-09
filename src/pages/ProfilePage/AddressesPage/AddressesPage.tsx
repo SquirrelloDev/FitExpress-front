@@ -11,6 +11,7 @@ import classes from "../../../sass/pages/address-page.module.scss";
 import btnStyles from '../../../sass/components/button.module.scss'
 import AddressEntry from "../../../components/AddressEntry/AddressEntry";
 import clsx from "clsx";
+import {Grid} from "react-loader-spinner";
 
 export function AddressesPage() {
 	const userData = useAuthStore(state => state.userData)
@@ -22,6 +23,7 @@ export function AddressesPage() {
 			<BackButton />
 			<h1>Moje adresy</h1>
 			<div>
+				{isLoading && <Grid />}
 				{!isLoading &&  data!.addresses.map(addr => (
 					<AddressEntry key={addr._id} address={addr} setSelectedAddress={setSelectedAddress} open={open} />
 				))}

@@ -98,7 +98,6 @@ export default function AddressEditForm({addressData, userData}:AddressEditFormP
         }
     }, [geocodeAddress, debounced, isGeocodeSuccess, refetch])
     const onSubmit = (data: AddressSchema) => {
-        console.log(data)
         const address: AddressPostData & {id: string} = {
             address: {
                 street: data.street,
@@ -115,7 +114,6 @@ export default function AddressEditForm({addressData, userData}:AddressEditFormP
             token: userData.token,
             id: addressData._id
         }
-        console.log(address)
         mutate(address)
     }
     return (
