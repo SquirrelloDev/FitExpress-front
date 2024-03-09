@@ -49,10 +49,11 @@ function useLoginMutation(
         mutate,
         error,
         isLoading,
+        isError,
         isSuccess,
         reset
     } = useMutation<LoginResponse,LoginErrorType,LoginFormDataSchema>(mutationKey, loginUser, {onSuccess, onError, networkMode: 'always'})
-    return {mutate, error, isLoading, isSuccess, reset}
+    return {mutate, error, isLoading, isError, isSuccess, reset}
 }
 
 export default useLoginMutation

@@ -11,6 +11,8 @@ import {appRoutes} from "../utils/routes";
 import Modal from "../components/Modal/Modal";
 import RequestView from "../components/Modal/Views/RequestView";
 import {useDisclosure} from "@mantine/hooks";
+import {Alert} from "@mantine/core";
+import alertStyles from "../sass/components/alert.module.scss";
 
 function LoginPage() {
 	const handleSuccessfulLogin = useSuccessfulLogin(appRoutes.home);
@@ -18,7 +20,7 @@ function LoginPage() {
 		mode: 'onTouched',
 		resolver: zodResolver(LoginFormSchema)
 	})
-	const {mutate, isLoading} = useLoginMutation((returnVals) => { handleSuccessfulLogin(returnVals) } )
+	const {mutate, isLoading, error, isError} = useLoginMutation((returnVals) => { handleSuccessfulLogin(returnVals) } )
 	const {handleSubmit} = methods
 	const [openedModal, {open, close}] = useDisclosure(false)
 	const onSubmit = (data: LoginFormDataSchema) =>{
@@ -30,6 +32,11 @@ function LoginPage() {
 			<div className={classes.login}>
 				<div>
 				<h1 className={classes.login__header}>Logowanie</h1>
+					{isError && (
+					<Alert variant={'light'} title={'Wystąpił błąd'} color={'red'} classNames={{root: alertStyles.alert,title: alertStyles.alert__title,message: alertStyles.alert__message}}>
+						{error?.message}
+					</Alert>
+					)}
 					{/*@ts-expect-error data are sent correctly*/}
 				<form onSubmit={handleSubmit(onSubmit)} className={classes.login__form}>
 					<Input name='email' placeholder='Adres e-mail'/>
