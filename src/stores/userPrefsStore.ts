@@ -13,7 +13,7 @@ const getCleanPrefs = ():UserPrefs => {
       user_goal: ''
   }
 }
-const useUserPrefsStore = create<UserPrefsStore>(persist((set) => ({
+const useUserPrefsStore = create(persist<UserPrefsStore>((set) => ({
     userPrefs: getCleanPrefs(),
     setUserPrefs: (userPrefs) => {
         set({

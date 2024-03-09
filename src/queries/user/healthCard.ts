@@ -1,26 +1,11 @@
 import {z} from "zod";
-import errorMessages from "../../utils/errorMessages";
+import errorMessages, {dateErrorMap, selectErrorMap} from "../../utils/errorMessages";
 import {HealthData} from "../../types/dbtypes/HealthData";
 import {AxiosError} from "axios";
 import {MutationFunction, useMutation} from "@tanstack/react-query";
 import {apiRoutes, FitExpressClient} from "../../utils/api";
 import toast from "react-hot-toast";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-export const dateErrorMap: z.ZodErrorMap = (error) => {
-    if (error.code === z.ZodIssueCode.invalid_date) {
-        return {message: errorMessages.required}
-    }
-    return null
-}
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-export const selectErrorMap: z.ZodErrorMap = (error) => {
-    if (error.code === z.ZodIssueCode.invalid_type) {
-        return {message: errorMessages.required}
-    }
-    return null
-}
+
 export const healthCardSchema = z.object({
     birth_date: z.coerce.date({errorMap: dateErrorMap}),
     user_height: z.coerce.number().min(120, errorMessages.minMax(120, 250)).max(250, errorMessages.minMax(120, 250)),

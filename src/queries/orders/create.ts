@@ -1,26 +1,11 @@
 import {MutationFunction, useMutation} from "@tanstack/react-query";
 import {z} from 'zod'
-import errorMessages from "../../utils/errorMessages";
+import errorMessages, {dateErrorMap, selectErrorMap} from "../../utils/errorMessages";
 import {AxiosError} from "axios";
 import {apiRoutes, FitExpressClient, queryClient} from "../../utils/api";
 import {toast} from "react-hot-toast";
 import {loadStripe} from "@stripe/stripe-js";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-export const dateErrorMap: z.ZodErrorMap = (error) => {
-    if (error.code === z.ZodIssueCode.invalid_date) {
-        return { message: errorMessages.required }
-    }
-    return null
-}
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-export const selectErrorMap: z.ZodErrorMap = (error) => {
-    if (error.code === z.ZodIssueCode.invalid_type) {
-        return { message: errorMessages.required }
-    }
-    return null
-}
+
 export const orderSchema = z.object({
     name: z.string().min(1, errorMessages.required),
     dietId: z.string({errorMap: selectErrorMap}).min(1, errorMessages.required),
