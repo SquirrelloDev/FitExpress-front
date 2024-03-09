@@ -1,5 +1,6 @@
 import {UserPrefs} from "../types/userPrefs";
 import {create} from "zustand";
+import {persist} from "zustand/middleware";
 
 interface UserPrefsStore {
     userPrefs: UserPrefs
@@ -12,7 +13,7 @@ const getCleanPrefs = ():UserPrefs => {
       user_goal: ''
   }
 }
-const useUserPrefsStore = create<UserPrefsStore>((set) => ({
+const useUserPrefsStore = create<UserPrefsStore>(persist((set) => ({
     userPrefs: getCleanPrefs(),
     setUserPrefs: (userPrefs) => {
         set({
@@ -25,5 +26,5 @@ const useUserPrefsStore = create<UserPrefsStore>((set) => ({
     clearPrefs: () => {
         set({userPrefs: getCleanPrefs()})
     }
-}));
+}), {name: 'fit:prefs'}));
 export default useUserPrefsStore;
