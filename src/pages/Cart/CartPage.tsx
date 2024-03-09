@@ -10,7 +10,6 @@ import {Diet} from "../../types/dbtypes/Diet";
 import Card from "../../components/Card/Card";
 import Input from "../../components/Input/Input";
 import {FormProvider, useFieldArray, useForm} from "react-hook-form";
-import {DevTool} from "@hookform/devtools";
 import CartCaloriesRadio from "../../components/Cart/CartCaloriesRadio/CartCaloriesRadio";
 import CartSubDate from "../../components/Cart/CartSubDate/CartSubDate";
 import {useUserAddressListQuery} from "../../queries/addresses/listing";
@@ -167,7 +166,6 @@ function CartPage() {
                             <div className={classes.cart__wrapper}>
                                 <h3>Wybrane diety</h3>
                                 {cartItemsFull?.map((cartItem, index) => (
-                                    <>
                                         <Card key={cartItem._id + index}>
                                             <div>
                                                 <Card clearPadding>
@@ -189,7 +187,6 @@ function CartPage() {
                                                 <p>{`${new Date(getValues(`cart.${index}.date.0`)).toLocaleDateString()} - ${new Date(getValues(`cart.${index}.date.1`)).toLocaleDateString()} ${getValues(`cart.${index}.weekends`) ? '+ weekendy' : ''}`}</p>
                                             </div>
                                         </Card>
-                                    </>
                                 ))}
                                 <CartAddresses control={methods.control} name={'address'}
                                                addresses={userAddresses!.addresses}
@@ -202,7 +199,6 @@ function CartPage() {
                                discount={cartDiscount}/>
                 </form>
             </div>
-            <DevTool control={methods.control}/>
         </FormProvider>
     )
 }
