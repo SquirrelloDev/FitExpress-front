@@ -5,10 +5,5 @@
         if (!registered) {
             console.log('SW Registered!')
         }
-        // window.addEventListener('beforeinstallprompt', (e) =>{
-        //     e.preventDefault()
-        //     defferedPrompt = e;
-        //     return false
-        // })
     }
 }

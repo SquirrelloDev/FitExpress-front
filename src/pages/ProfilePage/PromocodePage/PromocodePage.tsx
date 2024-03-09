@@ -14,8 +14,6 @@ export default function PromocodePage() {
         id: userData.id,
         token: userData.token
     })
-	console.log(data);
-	console.log(userPromos)
     return (
         <section className={classes.promos}>
             <BackButton/>

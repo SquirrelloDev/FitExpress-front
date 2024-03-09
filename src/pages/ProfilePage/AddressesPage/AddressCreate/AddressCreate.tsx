@@ -82,7 +82,6 @@ export default function AddressCreate() {
         }
     }, [geocodeAddress, debounced, isGeocodeSuccess, refetch])
     const onSubmit = (data: AddressSchema) => {
-        console.log(data)
         const address: AddressPostData = {
             address: {
                 street: data.street,
