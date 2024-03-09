@@ -6,6 +6,8 @@ import {useOneUserListQuery} from "../../../queries/user/listing";
 import Card from "../../../components/Card/Card";
 import classes from "../../../sass/pages/promocode-page.module.scss";
 import {Grid} from "react-loader-spinner";
+import {toast} from "react-hot-toast";
+import {IconCopy} from "@tabler/icons-react";
 
 export default function PromocodePage() {
     const userData = useAuthStore(state => state.userData)
@@ -14,6 +16,15 @@ export default function PromocodePage() {
         id: userData.id,
         token: userData.token
     })
+    const copyCode = async (code: string) => {
+        try{
+            await navigator.clipboard.writeText(code)
+            toast.success('Skopiowano kod do schowka!')
+        }
+        catch (e){
+            console.error(e.message)
+        }
+    }
     return (
         <section className={classes.promos}>
             <BackButton/>
@@ -30,9 +41,10 @@ export default function PromocodePage() {
                             {isLoading && <Grid/>}
                             {(!isLoading && !userPromosLoading) && data!.promocodes.filter(promo => (new Date(promo.exp_date) > new Date()) && !userPromos!.user.redeemed_codes.some(code => code._id === promo._id)).map(promo => (
                                 <Card key={promo._id}>
-                                    <div>
+                                    <div className={classes.promos__promo}>
                                         <p>Kod: {promo.name}</p>
                                         <p>Kod ważny do: {new Date(promo.exp_date).toLocaleDateString()}</p>
+                                        {('clipboard' in navigator) && <button className={classes.promos__promo__copy} onClick={() => {copyCode(promo.name)}}><IconCopy /></button>}
                                     </div>
                                 </Card>
                             ))}

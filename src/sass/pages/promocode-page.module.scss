@@ -1,31 +1,58 @@
 @use '../utils' as *;
-.promos{
+
+.promos {
   padding: 2.5em 0 65px;
-  h1{
+
+  h1 {
     padding: 0.25em .75em;
   }
-  &__tabs{
+
+  &__tabs {
     margin-top: .5em;
-    &__list{
+
+    &__list {
       border: none;
       flex-wrap: nowrap;
       overflow-x: auto;
-      &::before{
+
+      &::before {
         border: none;
       }
     }
-    &__tab{
+
+    &__tab {
       font-size: $normal;
-      &[data-active]{
+
+      &[data-active] {
         color: $cta;
         border-bottom: 2px solid $cta;
       }
     }
   }
-  &__panel{
+
+  &__panel {
     padding: 1em;
-    &__empty{
+
+    &__empty {
       text-align: center;
+    }
+  }
+
+  &__promo {
+    display: grid;
+    grid-template-columns: 85% 15%;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: 'text copy'
+                          'text copy';
+
+    &__copy {
+      grid-area: copy;
+      background: none;
+      color: $desaturated-cta;
+      border: 1px solid transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }
