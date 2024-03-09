@@ -2,6 +2,7 @@ import {QueryFunction, useQuery} from "@tanstack/react-query";
 import {UserFullData} from "../../types/dbtypes/UserData";
 import {apiRoutes, FitExpressClient} from "../../utils/api";
 import {AuthParams} from "../../types/queriesTypes/queriesTypes";
+import {isAxiosError} from "axios";
 
 interface paginationInfo {
     totalItems: number,
@@ -41,6 +42,9 @@ const listUsers: QueryFunction<UserResponse, UserListKey> = async ({signal, quer
             Authorization: `Bearer ${token}`
         }
     })
+    if (isAxiosError(res) && res.response?.status !== 200){
+        throw new Error('Coś poszło nie tak')
+    }
     return res.data as UserResponse
 }
 const listOneUser: QueryFunction<OneUserResponse, OneUserListKey> = async ({signal, queryKey}) => {
@@ -51,6 +55,9 @@ const listOneUser: QueryFunction<OneUserResponse, OneUserListKey> = async ({sign
             Authorization: `Bearer ${token}`
         }
     })
+    if (isAxiosError(res) && res.response?.status !== 200){
+        throw new Error('Coś poszło nie tak')
+    }
     return {user: res.data as unknown} as OneUserResponse
 }
 
