@@ -9,6 +9,8 @@ import {Link} from "react-router-dom";
 import {appRoutes} from "../utils/routes";
 import PasswordValidator from "../components/PasswordValidator/PasswordValidator";
 import useRegisterMutation, {RegisterFormDataSchema, RegisterFormSchema} from "../queries/auth/register";
+import {Alert} from "@mantine/core";
+import alertStyles from "../sass/components/alert.module.scss";
 
 function RegisterPage() {
 	const handleSuccessfulLogin = useSuccessfulLogin(appRoutes.healthCard);
@@ -16,7 +18,7 @@ function RegisterPage() {
 		mode: 'onTouched',
 		resolver: zodResolver(RegisterFormSchema)
 	})
-	const {mutate, isLoading} = useRegisterMutation((returnVals) => { handleSuccessfulLogin(returnVals) } )
+	const {mutate, isLoading, isError, error} = useRegisterMutation((returnVals) => { handleSuccessfulLogin(returnVals) } )
 	const {handleSubmit, watch} = methods
 	const passwdValue = watch('password');
 	const onSubmit = (data: RegisterFormDataSchema) =>{
@@ -27,11 +29,16 @@ function RegisterPage() {
 			<div className={classes.login}>
 				<div>
 					<h1 className={classes.login__header}>Rejestracja</h1>
+					{isError && (
+						<Alert variant={'light'} title={'Wystąpił błąd'} color={'red'} classNames={{root: alertStyles.alert,title: alertStyles.alert__title,message: alertStyles.alert__message}}>
+							{error?.message}
+						</Alert>
+					)}
 					{/*@ts-expect-error data are sent correctly*/}
 					<form onSubmit={handleSubmit(onSubmit)} className={classes.login__form}>
 						<Input name='name' placeholder='Imię i nazwisko:'/>
-						<Input name='email' type='email' placeholder='Adres e-mail:'/>
-						<Input name='phone' type='tel' placeholder='Numer telefonu (+48):'/>
+						<Input name='email' type='email' placeholder='Adres e-mail:' maxLength={60}/>
+						<Input name='phone' type='tel' placeholder='Numer telefonu (+48):' maxLength={9}/>
 						<Input name='password' type='password' placeholder='Hasło:'/>
 						<PasswordValidator value={passwdValue}/>
 						<button type='submit' disabled={isLoading} className={btnStyles.btn}>{isLoading ? <TailSpin visible={true} color={"#fff"} height={20} width={20}/> : "Utwórz konto"}</button>

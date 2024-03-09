@@ -3,6 +3,8 @@
   padding: .5em 2em;
   background-color: $cta;
   border-radius: 8px;
+  display: flex;
+  justify-content: center;
   font-family: $family-tet;
   font-size: calc($normal + .4rem);
   color: $text-color-primary;

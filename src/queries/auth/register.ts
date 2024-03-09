@@ -47,11 +47,12 @@ function useRegisterMutation(
     const {
         mutate,
         error,
+        isError,
         isLoading,
         isSuccess,
         reset
     } = useMutation<RegisterResponse,LoginErrorType,RegisterFormDataSchema>(mutationKey, registerUser, {onSuccess, onError, networkMode: 'always'})
-    return {mutate, error, isLoading, isSuccess, reset}
+    return {mutate, error, isLoading, isError, isSuccess, reset}
 }
 
 export default useRegisterMutation
