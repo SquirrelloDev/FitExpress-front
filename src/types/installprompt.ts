@@ -1,4 +1,4 @@
-//Solution author: https://stackoverflow.com/questions/51503754/typescript-type-beforeinstallpromptevent
+//Solution from: https://stackoverflow.com/questions/51503754/typescript-type-beforeinstallpromptevent
 type UserChoice = Promise<{
     outcome: 'accepted' | 'dismissed';
     platform: string;
