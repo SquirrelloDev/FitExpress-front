@@ -11,7 +11,7 @@ export function WelcomePage() {
     return (
         <div className={classes.welcome}>
             <div className={classes.welcome__carousel__wrapper}>
-                <Carousel slideSize={{base: "100%", sm: '50%', md: '80%'}} align={'center'} withIndicators
+                <Carousel slideSize={{base: "100%", sm: '50%', md: '80%'}} align={'center'}
                           withControls={false} className={classes.welcome__carousel}>
                     <Carousel.Slide>
                         <div className={classes.welcome__carousel__item}>
