@@ -4,13 +4,15 @@ import useAuthStore from "../../stores/authStore";
 import {useEffect, useState} from "react";
 import {DayParams, useFixedByDayQuery} from "../../queries/fixed/listing";
 import {appRoutes} from "../../utils/routes";
-import {IconArrowLeft, IconArrowRight, IconChevronLeft} from "@tabler/icons-react";
+import {IconArrowLeft, IconArrowRight} from "@tabler/icons-react";
 import Card from "../../components/Card/Card";
 import {Tabs} from "@mantine/core";
 import classes from "../../sass/pages/diet-menu.module.scss";
 import btnStyles from '../../sass/components/button.module.scss'
 import clsx from "clsx";
 import {parseIntoMidnight} from "../../utils/dates";
+import BackButton from "../../components/BackBtn/BackButton";
+
 const daytimes = ['Śniadanie', 'Lunch', 'Obiad', 'Podwieczorek', 'Kolacja'];
 function DietMenu() {
     const navigate = useNavigate()
@@ -73,8 +75,7 @@ function DietMenu() {
     }
     return (
         <div className={classes.menu}>
-            <button onClick={() => navigate(-1)} className={classes.menu__back}><IconChevronLeft
-                color={'#fff'} size={30}/></button>
+            <BackButton />
             <h2>Podgląd menu</h2>
             <div className={classes.menu__controls}>
                 <button disabled={page === 0} onClick={previousDay} className={clsx(btnStyles.btn, btnStyles['btn--dark'], classes.menu__controls__btns)}><IconArrowLeft/></button>

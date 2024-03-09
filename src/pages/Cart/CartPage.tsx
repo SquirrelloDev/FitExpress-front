@@ -25,6 +25,7 @@ import {getFlexiTier} from "../../utils/dietsCalc";
 import {appRoutes} from "../../utils/routes";
 import {calcDays} from "../../utils/calcDays";
 import {toast} from "react-hot-toast";
+import BackButton from "../../components/BackBtn/BackButton";
 
 export interface CartFormValues {
     address: Address
@@ -107,8 +108,7 @@ function CartPage() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     {!isLoading && cartStep === 0 && isSuccess && (
                         <div>
-                            <button onClick={() => navigate(-1)} className={classes.cart__back}><IconChevronLeft
-                                color={'#fff'} size={30}/></button>
+                            <BackButton />
                             <div className={classes.cart__header}>
                                 <p>Konfiguracja</p>
                             </div>

@@ -1,17 +1,16 @@
 import useUserProgressQuery from "../../queries/progress-entry/listing";
 import useAuthStore from "../../stores/authStore";
 import Card from "../../components/Card/Card";
-import {IconCalendarEvent, IconChevronLeft, IconDroplet, IconEdit, IconTrashX} from "@tabler/icons-react";
+import {IconCalendarEvent, IconDroplet, IconEdit, IconTrashX} from "@tabler/icons-react";
 import BottomActionSheet from "../../components/BottomActionSheet/BottomActionSheet";
 import {useDisclosure} from "@mantine/hooks";
 import WaterEditSheet from "../../components/WaterPlot/WaterEditSheet/WaterEditSheet";
 import {useState} from "react";
 import classes from "../../sass/pages/entry-history.module.scss";
 import DeleteSheet from "../../components/EntryDeleteSheet/DeleteSheet";
-import {useNavigate} from "react-router-dom";
+import BackButton from "../../components/BackBtn/BackButton";
 
 function WaterHistory() {
-    const navigate = useNavigate()
     const userData = useAuthStore((state) => state.userData)
     const {data: progressData, isLoading: isProgressLoading} = useUserProgressQuery({
         id: userData.id,
@@ -23,8 +22,7 @@ function WaterHistory() {
     return (
         <section className={classes.history}>
             <h1>Historia wpisów</h1>
-            <button onClick={() => navigate(-1)} className={classes.history__back}><IconChevronLeft
-                color={'#fff'} size={30}/></button>
+            <BackButton />
             <div>
                 {!isProgressLoading && (
                     <>

@@ -3,11 +3,12 @@ import {useNavigate} from "react-router-dom";
 import Card from "../../components/Card/Card";
 import {appRoutes} from "../../utils/routes";
 import classes from "../../sass/pages/diet-select.module.scss";
+import BackButton from "../../components/BackBtn/BackButton";
 function DietSelect() {
 	const navigate = useNavigate()
 	return (
 		<div className={classes['page-wrapper']}>
-			<button onClick={() => navigate(appRoutes.home)} className={classes['page-wrapper__back']}><IconChevronLeft color={'#fff'} size={30}/></button>
+			<BackButton/>
 			<h1 className={classes['page-wrapper__header']}>Która dieta spełnia Twoje oczekiwania?</h1>
 			<Card>
 				<div onClick={() => navigate(appRoutes.fixedDiets)} className={classes['page-wrapper__box']}>

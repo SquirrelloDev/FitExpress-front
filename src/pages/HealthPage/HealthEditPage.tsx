@@ -15,8 +15,8 @@ import HealthCardRadio from "../../components/HealthCardRadio/HealthCardRadio";
 import btnStyles from "../../sass/components/button.module.scss";
 import {TailSpin} from "react-loader-spinner";
 import {DevTool} from "@hookform/devtools";
-import {IconChevronLeft} from "@tabler/icons-react";
 import clsx from "clsx";
+import BackButton from "../../components/BackBtn/BackButton";
 
 export function HealthEditPage() {
     const navigate = useNavigate()
@@ -64,7 +64,7 @@ export function HealthEditPage() {
     return (
         <FormProvider {...methods}>
             <div className={clsx(classes.hcard, classes['hcard--app'])}>
-                <button onClick={() => navigate(-1)} className={classes.hcard__back}><IconChevronLeft/></button>
+                <BackButton />
                 <h1 className={classes.hcard__header}>Edycja karty zdrowia</h1>
                 {/*@ts-expect-error data are sent correctly*/}
                 <form className={classes.hcard__form} onSubmit={handleSubmit(onSubmit)}>

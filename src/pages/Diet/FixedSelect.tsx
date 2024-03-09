@@ -1,5 +1,5 @@
 import classes from "../../sass/pages/diet-select.module.scss";
-import {IconChevronLeft, IconPhotoOff} from "@tabler/icons-react";
+import {IconPhotoOff} from "@tabler/icons-react";
 import {useNavigate} from "react-router-dom";
 import useAuthStore from "../../stores/authStore";
 import useDietsListQuery from "../../queries/diets/listing";
@@ -7,6 +7,7 @@ import {Skeleton} from "@mantine/core";
 import Card from "../../components/Card/Card";
 import {appRoutes} from "../../utils/routes";
 import clsx from "clsx";
+import BackButton from "../../components/BackBtn/BackButton";
 
 function FixedSelect() {
     const navigate = useNavigate()
@@ -14,8 +15,7 @@ function FixedSelect() {
     const {data, isLoading} = useDietsListQuery({token: userData.token, pageIndex: 0, pageSize: 0, dietType: 'Fixed'})
     return (
         <div className={classes['page-wrapper']}>
-            <button onClick={() => navigate(-1)} className={classes['page-wrapper__back']}><IconChevronLeft
-                color={'#fff'} size={30}/></button>
+            <BackButton />
             <h1 className={classes['page-wrapper__header']}>Diety Fixed</h1>
             <p className={classes['page-wrapper__sub-header']}>Która dieta jest dla Ciebie?</p>
             {isLoading && <Skeleton height={80} radius='xl'/>}

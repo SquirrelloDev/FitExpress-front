@@ -18,7 +18,7 @@ function OrderEdit() {
             {(isLoading || isAddressLoading) && <Grid/>}
             {(isError || isAddressError) && (
                 <Alert variant={'light'} title={'Wystąpił błąd'} color={'red'} classNames={{root: alertStyles.alert,title: alertStyles.alert__title,message: alertStyles.alert__message}}>
-                    {error?.message}
+                    {(error as Error)?.message}
                 </Alert>
             )}
             {(isSuccess && isAddressSuccess) && (
