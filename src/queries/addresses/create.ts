@@ -9,7 +9,7 @@ import {appRoutes} from "../../utils/routes";
 
 export const addressSchema = z.object({
     street: z.string().min(1, errorMessages.required),
-    buildingNumber: z.coerce.number().min(1, errorMessages.required),
+    buildingNumber: z.string().min(1, errorMessages.required).max(8, 'Numer budynku jest za długi'),
     apartmentNumber: z.coerce.number().optional(),
     postal: z.string().regex(/^\d{2}-\d{3}$/, 'To nie wygląda jak kod pocztowy...'),
     city: z.string().min(1, errorMessages.required),
