@@ -1,4 +1,3 @@
-import {IconChevronLeft} from "@tabler/icons-react";
 import {useNavigate} from "react-router-dom";
 import Card from "../../components/Card/Card";
 import {appRoutes} from "../../utils/routes";

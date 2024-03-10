@@ -22,7 +22,7 @@ export default function PromocodePage() {
             toast.success('Skopiowano kod do schowka!')
         }
         catch (e){
-            console.error(e.message)
+            console.error(e)
         }
     }
     return (
