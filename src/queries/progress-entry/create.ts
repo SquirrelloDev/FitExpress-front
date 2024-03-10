@@ -2,8 +2,7 @@ import {OneAuthParams} from "../user/userOrders";
 import {MutationFunction, useMutation} from "@tanstack/react-query";
 import {ProgressError} from "./listing";
 import {z} from "zod";
-import {dateErrorMap} from "../orders/create";
-import errorMessages from "../../utils/errorMessages";
+import errorMessages, {dateErrorMap} from "../../utils/errorMessages";
 import {apiRoutes, FitExpressClient} from "../../utils/api";
 export const weightSchema = z.object({
     date: z.coerce.date({errorMap: dateErrorMap}),

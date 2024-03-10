@@ -54,10 +54,10 @@ function StandardLayout({orderData}: StandardLayoutProps) {
                                         <p>Postępy diety</p>
                                         <div className={classes.standard__progress__pill}>
                                             <p>{currentDate.toLocaleDateString()}</p></div>
-                                        <p>{currentOrderDay >= orderMaxDays ? 'Ukończono!' : `${currentOrderDay}/${orderMaxDays} dni`} </p>
+                                        <p>{currentOrderDay > 0 ? (currentOrderDay >= orderMaxDays ? 'Ukończono!' : `${currentOrderDay}/${orderMaxDays} dni`) : 'Plan się jeszcze nie zaczął'} </p>
                                         <div className={classes.standard__progress__bar}>
                                             <div className={classes.standard__progress__bar__fill}
-                                                 style={{width: percentValue >= 100 ? '100%' : `${percentValue}%`}}></div>
+                                                 style={{width: percentValue > 0 ? (percentValue >= 100 ? '100%' : `${percentValue}%`) : '0%'}}></div>
                                             <div className={classes.standard__progress__bar__dot}
                                                  style={{left: percentValue >= 100 ? '98%' : `${percentValue}%`}}>
                                                 <p>{percentValue >= 100 ? <IconCheck/> : `${percentValue}%`}</p></div>

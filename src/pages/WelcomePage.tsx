@@ -11,8 +11,8 @@ export function WelcomePage() {
     return (
         <div className={classes.welcome}>
             <div className={classes.welcome__carousel__wrapper}>
-                <Carousel slideSize={{base: "100%", sm: '50%', md: '80%'}} align={'center'} withIndicators
-                          withControls={false} className={classes.welcome__carousel}>
+                <Carousel slideSize={{base: "100%", sm: '50%', md: '80%'}} align={'center'} loop
+                         controlsOffset={'xl'} controlSize={35} className={classes.welcome__carousel}>
                     <Carousel.Slide>
                         <div className={classes.welcome__carousel__item}>
                             <img src={'welcome-1.svg'} alt={'test1'} className={classes.welcome__carousel__item__image}/>

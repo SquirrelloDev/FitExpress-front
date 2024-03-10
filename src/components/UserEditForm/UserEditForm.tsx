@@ -39,7 +39,7 @@ export default function UserEditForm({name, phone, email, id, token}:UserEditFor
 		<FormProvider {...methods}>
 			<form onSubmit={handleSubmit(onSubmit)} className={classes.details__form}>
 				<Input name={'name'} placeholder={'Imię i nazwisko'}/>
-				<Input type={"tel"} name={'phone'} placeholder={'Numer telefonu'}/>
+				<Input type={"tel"} name={'phone'} placeholder={'Numer telefonu'} maxLength={9}/>
 				<Input type={"email"} name={'email'} placeholder={'Adres e-mail'}/>
 				<button type={'submit'} className={btnStyles.btn} disabled={isLoading}>{isLoading ? <TailSpin /> : 'Aktualizuj'}</button>
 			</form>

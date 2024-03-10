@@ -1,18 +1,6 @@
 @use "../utils" as *;
 .menu{
   padding: 3em 1em 65px;
-  &__back{
-    position: fixed;
-    z-index: 10;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1em .25em;
-    background: none;
-    border: 1px solid transparent;
-  }
   &__controls{
     display: flex;
     justify-content: space-around;

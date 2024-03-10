@@ -1,6 +1,7 @@
 import {QueryFunction, useQuery} from "@tanstack/react-query";
 import {Order} from "../../types/dbtypes/Order";
 import {apiRoutes, FitExpressClient} from "../../utils/api";
+import {isAxiosError} from "axios";
 export type OneAuthParams = {
     token: string,
     id: string
@@ -13,6 +14,9 @@ type UserOrdersListKey = [typeof userOrdersPartialKey, OneAuthParams]
 const getUserOrders:QueryFunction<UserOrdersResponse, UserOrdersListKey> = async ({signal, queryKey}) =>{
     const [,{token, id}] = queryKey
     const res = await FitExpressClient.getInstance().get<UserOrdersResponse>(apiRoutes.GET_ORDERS_USER(id), {signal, headers: {Authorization: `Bearer ${token}`}})
+    if(isAxiosError(res) && res.response?.status === 404){
+        throw new Error('Brak zamówień')
+    }
     if(res.status && res.status !== 200){
         throw new Error('Coś poszło nie tak')
     }

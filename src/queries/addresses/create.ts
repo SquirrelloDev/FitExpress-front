@@ -1,19 +1,12 @@
 import {MutationFunction, useMutation} from "@tanstack/react-query";
 import {z, ZodString} from 'zod'
-import errorMessages from "../../utils/errorMessages";
+import errorMessages, {selectErrorMap} from "../../utils/errorMessages";
 import {AxiosError} from "axios";
 import {apiRoutes, FitExpressClient, queryClient} from "../../utils/api";
 import {toast} from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
 import {appRoutes} from "../../utils/routes";
 
-
-export const selectErrorMap: z.ZodErrorMap = (error) => {
-    if (error.code === z.ZodIssueCode.invalid_type) {
-        return { message: errorMessages.required }
-    }
-    return {message: ""}
-}
 export const addressSchema = z.object({
     street: z.string().min(1, errorMessages.required),
     buildingNumber: z.coerce.number().min(1, errorMessages.required),

@@ -2,6 +2,7 @@ import {QueryFunction, useQuery} from "@tanstack/react-query";
 import {apiRoutes, FitExpressClient} from "../../utils/api";
 import {Order} from "../../types/dbtypes/Order";
 import {AuthParams} from "../../types/queriesTypes/queriesTypes";
+import {isAxiosError} from "axios";
 
 interface paginationInfo {
     totalItems: number,
@@ -51,6 +52,12 @@ const listOneOrder: QueryFunction<OneOrderResponse, OneOrderListKey> = async ({s
             Authorization: `Bearer ${token}`
         }
     })
+    if(isAxiosError(res) && res.response?.status === 500){
+        throw new Error('Wystąpił problem z załadowaniem zamówienia')
+    }
+    if(isAxiosError(res) && res.response?.status === 404){
+        throw new Error('Z jakiegoś powodu zamówienie nie istnieje! Zgłoś to kontaktując się z nami adresem mailowym')
+    }
     return {order: res.data as unknown} as OneOrderResponse
 }
 

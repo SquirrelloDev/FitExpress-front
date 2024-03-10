@@ -7,6 +7,7 @@ import {appRoutes} from "../../../utils/routes";
 import btnStyles from '../../../sass/components/button.module.scss'
 import classes from "../../../sass/pages/report-page.module.scss";
 import clsx from "clsx";
+import {Grid} from "react-loader-spinner";
 
 export default function ReportsPage() {
 	const userData = useAuthStore(state => state.userData)
@@ -15,6 +16,7 @@ export default function ReportsPage() {
 		<section className={classes.reports}>
 			<BackButton />
 			<h1>Zgłoszenia</h1>
+			{isLoading && <Grid />}
 			{!isLoading &&
 				<div>
 					{data!.userReports.length === 0 && <p>Brak zgłoszeń do wyświetlenia</p>}

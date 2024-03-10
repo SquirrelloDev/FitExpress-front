@@ -1,15 +1,6 @@
 @use '../utils' as *;
 .page-wrapper{
-  padding: 1em;
-  padding-bottom: 65px;
-  &__back{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: .5em;
-    background: none;
-    border: 1px solid transparent;
-  }
+  padding: 2.5em 1em 65px;
   &__header{
     text-align: center;
   }

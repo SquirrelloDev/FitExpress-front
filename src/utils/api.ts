@@ -1,6 +1,7 @@
 import {isServer, QueryClient} from "@tanstack/react-query";
 import axios, {AxiosInstance} from "axios";
 import authStore from "../stores/authStore";
+import {toast} from "react-hot-toast";
 
 export const queryClient = new QueryClient({
     defaultOptions: {
@@ -30,6 +31,7 @@ export class FitExpressClient {
             return response
         }, (error) => {
             if(error.response.status === 401 || error.response.data.message === 'jwt expired'){
+                toast.error('Twoja sesja wygasła')
                 authStore.getState().logout()
             }
             return error

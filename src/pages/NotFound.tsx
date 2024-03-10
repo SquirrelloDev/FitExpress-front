@@ -1,5 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import {appRoutes} from "../utils/routes";
+import btnStyles from '../sass/components/button.module.scss'
+import classes from "../sass/pages/not-found.module.scss";
 
 function NotFound() {
 	const navigate = useNavigate()
@@ -7,11 +9,10 @@ function NotFound() {
 		navigate(appRoutes.login)
 	}
 	return (
-		<main>
-			<h1>Zawróć!</h1>
-			<p>Zawędrowałeś tam, gdzie diabeł idzie spać</p>
-			<p>Użyj przycisku poniżej, by szybko stąd uciec!</p>
-			<button onClick={returnToSafe}>Powrót</button>
+		<main className={classes.notfound}>
+			<h1>404</h1>
+			<p>Strona, której szukasz znajduje się gdzie indziej</p>
+			<button onClick={returnToSafe} className={btnStyles.btn}>Powrót</button>
 		</main>
 	)
 }
