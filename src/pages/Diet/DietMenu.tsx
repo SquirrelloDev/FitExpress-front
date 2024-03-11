@@ -12,6 +12,7 @@ import btnStyles from '../../sass/components/button.module.scss'
 import clsx from "clsx";
 import {parseIntoMidnight} from "../../utils/dates";
 import BackButton from "../../components/BackBtn/BackButton";
+import {addDays} from "date-fns";
 
 const daytimes = ['Śniadanie', 'Lunch', 'Obiad', 'Podwieczorek', 'Kolacja'];
 function DietMenu() {
@@ -20,7 +21,7 @@ function DietMenu() {
     const [searchParams] = useSearchParams()
     const userData = useAuthStore((state) => state.userData);
     const [page, setPage] = useState<number>(0)
-    const [dayData, setDayData] = useState<DayParams>({token: userData.token, date: parseIntoMidnight(new Date('2024-02-11'))})
+    const [dayData, setDayData] = useState<DayParams>({token: userData.token, date: parseIntoMidnight(new Date())})
     const {
         data: flexiData,
         isLoading: isFlexiLoading,
@@ -44,24 +45,24 @@ function DietMenu() {
     }, [navigate, refetchFixed, refetchFlexi, searchParams])
     const nextDay = () => {
         setPage(prevState => prevState + 1);
-        setDayData({token: userData.token, date: new Date(Date.now() + (page * (24 * 60 * 60 * 1000)))})
-        if (searchParams.get('type') === 'Fixed') {
-            refetchFixed()
-        }
-        if (searchParams.get('type') === 'Flexi') {
-            refetchFlexi()
-        }
+        setDayData(prevState => {
+           return {token: userData.token, date: new Date(addDays(prevState.date, 1).setHours(1, 0, 0, 0))}
+        })
     }
     const previousDay = () => {
         setPage(prevState => prevState - 1);
-        setDayData({token: userData.token, date: new Date(Date.now() + (page * (24 * 60 * 60 * 1000)))})
+        setDayData(prevState => {
+            return {token: userData.token, date: new Date(addDays(prevState.date, -1).setHours(1, 0, 0, 0))}
+        })
+    }
+    useEffect(() => {
         if (searchParams.get('type') === 'Fixed') {
             refetchFixed()
         }
         if (searchParams.get('type') === 'Flexi') {
             refetchFlexi()
         }
-    }
+    }, [dayData, refetchFixed, refetchFlexi, searchParams])
     const displayDate = () =>{
         if(searchParams.get('type') === 'Fixed' && !isFixedLoading){
             return new Date(fixedData!.day.date).toLocaleDateString()

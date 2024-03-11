@@ -37,6 +37,9 @@ function MealPage() {
                     <div className={classes.meal__info__tags}>
                         <h3>Typy posiłku</h3>
                         <div className={classes.meal__info__tags__grid}>
+                            {data?.meal.tags_id.length === 0 && (
+                                <p>Brak określonych typów</p>
+                            )}
                             {data?.meal.tags_id.map(tag => (
                                 <Card key={tag._id}>
                                     <div>
@@ -63,6 +66,9 @@ function MealPage() {
                     </div>
                     <div className={classes.meal__info__exclusions}>
                         <h3>Wykluczenia</h3>
+                        {data?.meal.exclusions.length === 0 && (
+                            <p>Brak wykluczeń, możesz jeść bez problemu</p>
+                        )}
                         <ul className={classes.meal__info__exclusions__list}>
                             {data?.meal.exclusions.map(excl => <li key={excl._id}>{excl.name}</li>)}
                         </ul>
