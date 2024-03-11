@@ -82,7 +82,6 @@ function HealthCardPage() {
                     <button type='submit' className={btnStyles.btn} disabled={isLoading}>{isLoading ? <TailSpin visible={true} color={"#fff"} height={20} width={20} /> : 'Oblicz zapotrzebowanie'}</button>
                 </form>
             </div>
-            <DevTool control={methods.control}/>
         </FormProvider>
 
     )

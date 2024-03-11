@@ -14,7 +14,6 @@ import {palActive, palPassive} from "../../utils/palTypes";
 import HealthCardRadio from "../../components/HealthCardRadio/HealthCardRadio";
 import btnStyles from "../../sass/components/button.module.scss";
 import {TailSpin} from "react-loader-spinner";
-import {DevTool} from "@hookform/devtools";
 import clsx from "clsx";
 import BackButton from "../../components/BackBtn/BackButton";
 
@@ -88,7 +87,6 @@ export function HealthEditPage() {
                                   width={20}/> : 'Aktualizuj'}</button>
                 </form>
             </div>
-            <DevTool control={methods.control}/>
         </FormProvider>
 
     )
