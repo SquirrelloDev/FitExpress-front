@@ -12,7 +12,6 @@ interface CartCtaProps {
 function CartCta({isReminder = false}:CartCtaProps) {
 	const cartItems = useCartStore(state => state.cartItems)
 	return (
-		<>
 			<section className={classes['no-orders__section']}>
 				<Card>
 					<div className={classes['no-orders__cta-box']}>
@@ -22,7 +21,6 @@ function CartCta({isReminder = false}:CartCtaProps) {
 					</div>
 				</Card>
 			</section>
-		</>
 	)
 }
 export default CartCta

@@ -4,6 +4,16 @@
   &__heading{
     padding: .5em;
   }
+  &__empty{
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    h3,p{
+      margin-bottom: .75em;
+    }
+  }
   &__tabs{
     margin-top: .5em;
     &__list{
