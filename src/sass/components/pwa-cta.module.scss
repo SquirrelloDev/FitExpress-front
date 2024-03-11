@@ -1,6 +1,7 @@
 .pwa {
   display: flex;
   flex-direction: column;
+  align-self: stretch;
 
   &__perks {
     display: flex;

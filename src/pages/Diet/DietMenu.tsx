@@ -107,7 +107,7 @@ function DietMenu() {
                         <Tabs.Tab value={'supper'}>Kolacja</Tabs.Tab>
                     </Tabs.List>
                         <Tabs.Panel value={'morning'}>{flexiData?.day.morning_meals.map((meal, idx) => (
-                            <Card key={meal._id}>
+                            <Card key={meal._id + idx}>
                                 <div className={classes.menu__meal}>
                                     <div className={classes.menu__meal__details__subsciption}>
                                         <h3>{`Posiłek ${idx + 1}`}</h3>
@@ -119,7 +119,7 @@ function DietMenu() {
                             </Card>
                         ))}</Tabs.Panel>
                         <Tabs.Panel value={'lunch'}>{flexiData?.day.lunch_meals.map((meal, idx) => (
-                            <Card key={meal._id}>
+                            <Card key={meal._id + idx}>
                                 <div className={classes.menu__meal}>
                                     <div className={classes.menu__meal__details__subsciption}>
                                         <h3>{`Posiłek ${idx + 1}`}</h3>
@@ -131,7 +131,7 @@ function DietMenu() {
                             </Card>
                         ))}</Tabs.Panel>
                         <Tabs.Panel value={'dinner'}>{flexiData?.day.dinner_meals.map((meal, idx) => (
-                            <Card key={meal._id}>
+                            <Card key={meal._id + idx}>
                                 <div className={classes.menu__meal}>
                                     <div className={classes.menu__meal__details__subsciption}>
                                         <h3>{`Posiłek ${idx + 1}`}</h3>
@@ -143,7 +143,7 @@ function DietMenu() {
                             </Card>
                         ))}</Tabs.Panel>
                         <Tabs.Panel value={'teatime'}>{flexiData?.day.teatime_meals.map((meal, idx) => (
-                            <Card key={meal._id}>
+                            <Card key={meal._id + idx}>
                                 <div className={classes.menu__meal}>
                                     <div className={classes.menu__meal__details__subsciption}>
                                         <h3>{`Posiłek ${idx + 1}`}</h3>
@@ -155,7 +155,7 @@ function DietMenu() {
                             </Card>
                         ))}</Tabs.Panel>
                         <Tabs.Panel value={'supper'}>{flexiData?.day.supper_meals.map((meal, idx) => (
-                            <Card key={meal._id}>
+                            <Card key={meal._id + idx}>
                                 <div className={classes.menu__meal}>
                                     <div className={classes.menu__meal__details__subsciption}>
                                     <h3>{`Posiłek ${idx + 1}`}</h3>

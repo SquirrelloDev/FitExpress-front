@@ -4,6 +4,7 @@ import {Dispatch, useEffect, useRef, useState} from "react";
 import {useNamePromoQuery} from "../../../queries/promocodes/listing";
 import classes from "../../../sass/pages/cart.module.scss";
 import useCartStore from "../../../stores/cartStore";
+import {toast} from "react-hot-toast";
 interface CartPromocodeProps {
 	token: string
 	setCurrentDiscount: Dispatch<number>
@@ -24,6 +25,7 @@ function CartPromocode({token, setCurrentDiscount, userId}:CartPromocodeProps) {
 		if(isSuccess){
 			applyPromocode(data!.promocode._id)
 			setCurrentDiscount(data!.promocode.discount)
+			toast.success('Zniżka zaaplikowana!')
 		}
 	}, [applyPromocode, data, isSuccess, setCurrentDiscount])
 	const applyPromo = () => {

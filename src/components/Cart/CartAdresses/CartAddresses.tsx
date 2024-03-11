@@ -63,7 +63,7 @@ function CartAddresses<T extends FieldValues>({addresses, control, name, isAddre
                 {errors[name] && (
                     <p className={cartClasses.cart__addresses__error}>{errors[name]!.message as string}</p>
                 )}
-                <button onClick={() => navigate(appRoutes.addresses)} className={btnStyles.btn}>Zarządzaj adresami
+                <button onClick={() => navigate('/profile/' + appRoutes.addresses)} className={btnStyles.btn}>Zarządzaj adresami
                 </button>
             </div>
         )
