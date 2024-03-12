@@ -121,6 +121,7 @@ export default function AddressEditForm({addressData, userData}:AddressEditFormP
             <BackButton/>
             <h2>Edytuj adres</h2>
             <FormProvider {...methods}>
+                {/*@ts-expect-error data are compatible*/}
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.page__form}>
                     <div className={classes.page__form__location}>
                         <Input name={'city'} placeholder={'Miasto'}/>

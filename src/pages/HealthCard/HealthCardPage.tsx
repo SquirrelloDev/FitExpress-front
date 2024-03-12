@@ -7,7 +7,6 @@ import btnStyles from '../../sass/components/button.module.scss'
 import classes from "../../sass/pages/health-card.module.scss";
 import HealthCardRadio from "../../components/HealthCardRadio/HealthCardRadio";
 import ControlledDatePicker from "../../components/Datepicker/ControlledDatePicker";
-import {DevTool} from "@hookform/devtools";
 import useAuthStore from "../../stores/authStore";
 import {calculateAge, calculateBMI, calculateDemands} from "../../utils/calculateUserData";
 import {TailSpin} from "react-loader-spinner";
