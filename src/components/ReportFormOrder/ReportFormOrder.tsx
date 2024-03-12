@@ -17,7 +17,7 @@ export function ReportFormOrders<T extends FieldValues>({name, control, orders}:
 	return (
 		<Controller name={name as Path<T>} control={control} render={({field: {onChange}}) => (
 			<div className={classes.create__form__orders}>
-				{orders.map((order, idx) => (
+				{orders.filter(order => order.is_active).map((order, idx) => (
 					<label htmlFor={order._id} key={order._id} className={clsx(classes.create__form__orders__item, activeRadio === idx && classes['create__form__orders__item--active'])}>
 						<input type={'radio'} id={order._id} name={'orders'} onClick={() => {
 							onChange(order._id)
