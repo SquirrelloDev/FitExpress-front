@@ -5,6 +5,10 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  &__pill{
+    background-color: $cta;
+    color: $text-color-primary;
+  }
   &__entry {
     padding: .5em;
     display: flex;
