@@ -31,7 +31,7 @@ function WaterPlot({waterArr, maxWater, id, token}: WaterPlotProps) {
                 <div className={classes.plot}>
                     <div className={classes.plot__header}>
                         <h2>Woda</h2>
-                        <p className={classes.plot__header__values}>{todayWater ? (todayWater / 1000).toFixed(3) : '0.000'} z {(maxWater / 1000).toFixed(3)}l</p>
+                        <p className={classes.plot__header__values}>{todayWater ? todayWater : '0'} z {maxWater}ml</p>
                     </div>
                     <div>
                         <Progress.Root size={'xxl'} radius={'lg'} classNames={{root: classes.plot__progress__root, section: classes.plot__progress__section}}>
@@ -45,7 +45,7 @@ function WaterPlot({waterArr, maxWater, id, token}: WaterPlotProps) {
                         <BarChart data={waterChartData} margin={{top: 30, right: 20, left: 0}}>
                             <CartesianGrid/>
                             <XAxis dataKey={'date'} />
-                            <YAxis/>
+                            <YAxis label={{value: 'ilość w ml', angle: -90, position: 'insideLeft'}}/>
                             <Bar dataKey={'water'} fill={'#228be6'}/>
                         </BarChart>
                         </ResponsiveContainer>

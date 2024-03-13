@@ -78,7 +78,7 @@ function WeightPlot({id, token, weightArr, firstWeight, plannedWeight, userHeigh
                             <LineChart data={weightChartData} margin={{top: 30, right: 20, left: 0}}>
                                 <CartesianGrid/>
                                 <XAxis dataKey={'date'}/>
-                                <YAxis/>
+                                <YAxis label={{value: 'Waga w kg', angle: -90, position: 'insideLeft', offset: 15}}/>
                                 <Line dataKey={'weight'}/>
                             </LineChart>
                         </ResponsiveContainer>
