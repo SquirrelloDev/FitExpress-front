@@ -21,6 +21,7 @@ export type PatchHealthData = {
     _id: string,
     token: string
     healthData: HealthData
+    birthDate: Date
 }
 export type HealthError = AxiosError<{ general: string }>
 export type HealthResponse = { message: string }

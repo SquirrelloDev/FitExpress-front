@@ -18,7 +18,8 @@ import {palActive, palPassive} from "../../utils/palTypes";
 function HealthCardPage() {
     const navigate = useNavigate()
     const methods = useForm({
-        resolver: zodResolver(healthCardSchema)
+        resolver: zodResolver(healthCardSchema),
+        mode: 'onTouched'
     });
     const {assignHealthStore} = useUserPrefs();
     const {mutate, isLoading} = useHealthPatch(() => {navigate(appRoutes.healthCardSummary)})
@@ -51,7 +52,8 @@ function HealthCardPage() {
                 water_demand: waterDemand,
                 bmi: currentBMI,
                 bmi_planned: plannedBMI,
-            }
+            },
+            birthDate: data.birth_date
         }
         mutate(healthData);
         assignHealthStore({calories: caloricDemand, user_goal: data.user_goal})
@@ -66,10 +68,10 @@ function HealthCardPage() {
                 <form className={classes.hcard__form} onSubmit={handleSubmit(onSubmit)}>
                     <ControlledSelect options={[{label: 'Mężczyzna', value: 'M'}, {label: 'Kobieta', value: 'F'}]}
                                       control={methods.control} name={'gender'} placeholder={'Płeć'} isRequired/>
-                    <Input name={'user_height'} type='number' min={120} max={250} placeholder={'Wzrost (w cm)'}/>
-                    <Input name={'user_weight_current'} type='number' min={40} max={500}
+                    <Input name={'user_height'} type='number' min={120} max={250} placeholder={'Wzrost (w cm)'} step={0.1}/>
+                    <Input name={'user_weight_current'} type='number' min={40} max={500} step={0.1}
                            placeholder={'Aktualna waga (w kg)'}/>
-                    <Input name={'user_weight_planned'} type='number' min={40} max={500}
+                    <Input name={'user_weight_planned'} type='number' min={40} max={500} step={0.1}
                            placeholder={'Planowana waga (w kg)'}/>
                     <ControlledDatePicker control={methods.control} name={'birth_date'}
                                           placeholderText={'Data urodzin'} locale={'pl'} minDate={new Date('1900-01-01')} maxDate={new Date(maxDate)}/>

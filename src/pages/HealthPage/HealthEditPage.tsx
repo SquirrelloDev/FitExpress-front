@@ -55,7 +55,8 @@ export function HealthEditPage() {
                 water_demand: waterDemand,
                 bmi: currentBMI,
                 bmi_planned: plannedBMI,
-            }
+            },
+            birthDate: data.birth_date
         }
         mutate(healthData);
         assignHealthStore({calories: caloricDemand, user_goal: data.user_goal})
