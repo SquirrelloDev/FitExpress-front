@@ -57,7 +57,7 @@ export default function AddressCreate() {
     } = useGeoCode({
         city: debounced[0],
         street: debounced[1],
-        buildingNumber: Number(debounced[2]),
+        buildingNumber: debounced[2],
         postal: debounced[3],
         voivodeship: debounced[4]
     })
