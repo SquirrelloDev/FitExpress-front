@@ -34,7 +34,7 @@ function PushCta() {
             }
             const subscription = await registration.pushManager.subscribe({
                 userVisibleOnly: true,
-                applicationServerKey: transformKey('BNhQhX4vzbpvl5nT9_qv67RpMD41ueZTsK3qDgRcbuYMU37vBYUyScYh_NBkaaSTdfapKuXlHv_Sdrkv1OF5vTw')
+                applicationServerKey: transformKey('BHARVYo3syZ6RcySchm8az0F6keXhzTVzU7Jityspedcr2MLd5sLIThR-67-f5kAHLGYoIdGiY3rV6f2rotPJq8')
             })
             const obj: WebPushCreateData = {
                 token: userData.token,
