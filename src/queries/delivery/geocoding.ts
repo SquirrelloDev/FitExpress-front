@@ -5,7 +5,7 @@ import {QueryFunction, useQuery} from "@tanstack/react-query";
 const partialGeocodeKey = 'Geocode-Address'
 export type GeocodeParams = {
     street: string,
-    buildingNumber: number,
+    buildingNumber: string,
     city: string,
     postal: string,
     voivodeship: string

@@ -15,7 +15,7 @@ function AddressEntry({address, setSelectedAddress, open}:AddressEntryProps) {
 		<Card>
 			<div className={classes.addresses__entry}>
 				<div>
-					<div>{address.is_weekend && <Pill>Weekendy</Pill>}</div>
+					<div>{address.is_weekend && <Pill size={'xl'} classNames={{root: classes.addresses__pill}}>Weekendy</Pill>}</div>
 					<p>{address.street} {address.building_no}{address.apartment_no ? `/${address.apartment_no}` : ''}</p>
 					<p>{address.postal}, {address.city}</p>
 					<p>Woj. {address.voivodeship}</p>

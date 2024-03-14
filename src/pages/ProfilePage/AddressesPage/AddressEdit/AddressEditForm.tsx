@@ -71,15 +71,14 @@ export default function AddressEditForm({addressData, userData}:AddressEditFormP
     } = useGeoCode({
         city: debounced[0],
         street: debounced[1],
-        buildingNumber: Number(debounced[2]),
+        buildingNumber: debounced[2],
         postal: debounced[3],
         voivodeship: debounced[4]
     })
     const logPosition = useReverseGeocode(useCallback((data) => {
         setValue('city', data.data.results[0].city)
         setValue('street', data.data.results[0].street)
-        // TODO: FIX BUILDING NUMBER TO STRING TYPE
-        // @ts-expect-error this will be fixed in fixes branch
+        // @ts-expect-error housenumber is string
         setValue('buildingNumber', data.data.results[0].housenumber)
         setValue('postal', data.data.results[0].postcode)
         setValue('voivodeship', voivodeships.find(voivodeship => (voivodeship.value as string).toLowerCase() === data.data.results[0].state.split(' ')[1])?.value as typeof addressData.voivodeship)
@@ -121,6 +120,7 @@ export default function AddressEditForm({addressData, userData}:AddressEditFormP
             <BackButton/>
             <h2>Edytuj adres</h2>
             <FormProvider {...methods}>
+                {/*@ts-expect-error data are compatible*/}
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.page__form}>
                     <div className={classes.page__form__location}>
                         <Input name={'city'} placeholder={'Miasto'}/>

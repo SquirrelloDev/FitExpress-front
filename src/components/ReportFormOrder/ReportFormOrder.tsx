@@ -15,9 +15,9 @@ export function ReportFormOrders<T extends FieldValues>({name, control, orders}:
 		<p>Musisz posiadać zamówienie, by móc wysłać zgłoszenie</p>
 	)
 	return (
-		<Controller name={name as Path<T>} control={control} render={({field: {onChange}}) => (
+		<Controller name={name as Path<T>} control={control} render={({field: {onChange}, fieldState: {error}}) => (
 			<div className={classes.create__form__orders}>
-				{orders.map((order, idx) => (
+				{orders.filter(order => order.is_active).map((order, idx) => (
 					<label htmlFor={order._id} key={order._id} className={clsx(classes.create__form__orders__item, activeRadio === idx && classes['create__form__orders__item--active'])}>
 						<input type={'radio'} id={order._id} name={'orders'} onClick={() => {
 							onChange(order._id)
@@ -35,6 +35,9 @@ export function ReportFormOrders<T extends FieldValues>({name, control, orders}:
 						{order.address_id && <p>{order.address_id.street} {order.address_id.building_no}{order.address_id.apartment_no ? `/${order.address_id.apartment_no}` : ''}, {order.address_id.postal} {order.address_id.city}</p>}
 					</label>
 				))}
+				{error && (
+					<p className={classes.create__form__error}>{error.message}</p>
+				)}
 			</div>
 		)}/>
 	)

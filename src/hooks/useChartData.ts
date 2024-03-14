@@ -6,7 +6,7 @@ function useChartData(data: {date: Date, water?: number, weight? :number}[]) {
         return data.filter((item, idx) => idx < 7).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).map(datum => (
             {
                 date: new Date(datum.date).toLocaleDateString(),
-                ...(datum.water && { water: (datum.water / 1000).toFixed(2)}),
+                ...(datum.water && { water: (datum.water).toFixed(2)}),
                 ...(datum.weight && { weight: datum.weight}),
             }))
     }, [data])
