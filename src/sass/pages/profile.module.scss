@@ -2,9 +2,23 @@
 .profile{
   padding: 1em 1em 65px;
   min-height: calc(100vh - 66px);
+  @include respond-to('l'){
+    padding-bottom: 0;
+  }
+  &__wrapper{
+    display: flex;
+    justify-content: center;
+  }
   &__nav{
     display: flex;
     flex-direction: column;
+      @include respond-to('l'){
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        width: 100%;
+        max-width: 1600px;
+      }
     &__item{
       display: flex;
       align-items: center;

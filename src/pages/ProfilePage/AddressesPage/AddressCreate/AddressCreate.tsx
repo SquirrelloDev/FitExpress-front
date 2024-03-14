@@ -20,6 +20,7 @@ import {TailSpin} from "react-loader-spinner";
 import {IconCurrentLocation} from "@tabler/icons-react";
 import {useMediaQuery} from "@mantine/hooks";
 import useReverseGeocode from "../../../../hooks/useReverseGeocode";
+
 const voivodeships: SelectOption[] = [
     {label: 'Zachodniopomorskie', value: 'Zachodniopomorskie'},
     {label: 'Pomorskie', value: 'Pomorskie'},
@@ -47,7 +48,7 @@ export default function AddressCreate() {
     })
     const {handleSubmit, control, setValue} = methods
     const watch = useWatch({control: control, name: ['city', 'street', 'buildingNumber', 'postal', 'voivodeship']})
-    const extraInfoWatch = useWatch({control: control, name:'extraInfo'})
+    const extraInfoWatch = useWatch({control: control, name: 'extraInfo'})
     const [debounced] = useDebouncedValue(watch as string[], 350)
     const matches = useMediaQuery('(display-mode: standalone)');
     const {
@@ -105,26 +106,37 @@ export default function AddressCreate() {
             <h2>Dodaj adres</h2>
             <FormProvider {...methods}>
                 {/*@ts-expect-error data are compatible*/}
+                <div className={classes.page__form__wrapper}>
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.page__form}>
-                    <div className={classes.page__form__location}>
-                        <Input name={'city'} placeholder={'Miasto'}/>
-                        {matches && <button onClick={logPosition} type={'button'} className={classes.page__form__location__btn}><IconCurrentLocation /></button>}
+                    <div className={classes.page__form__grid}>
+                            <div className={classes.page__form__location}>
+                                <Input name={'city'} placeholder={'Miasto'}/>
+                                {matches && <button onClick={logPosition} type={'button'}
+                                                    className={classes.page__form__location__btn}><IconCurrentLocation/>
+                                </button>}
+                            </div>
+                            <div className={classes.page__form__street}>
+                            <Input name={'street'} placeholder={'Ulica'}/>
+                            </div>
+
+                            <Input name={'buildingNumber'} placeholder={'Nr budynku'}/>
+                            <Input name={'apartmentNumber'} placeholder={'Nr lokalu'}/>
+                            <Input name={'postal'} placeholder={'Kod pocztowy'}/>
+                            <ControlledSelect options={voivodeships} control={methods.control} name={'voivodeship'}
+                                              placeholder={'Województwo'}/>
+
                     </div>
-                    <Input name={'street'} placeholder={'Ulica'}/>
-                    <div>
-                        <Input name={'buildingNumber'} placeholder={'Nr budynku'}/>
-                        <Input name={'apartmentNumber'} placeholder={'Nr lokalu'}/>
-                    </div>
-                    <Input name={'postal'} placeholder={'Kod pocztowy'}/>
-                    <ControlledSelect options={voivodeships} control={methods.control} name={'voivodeship'}
-                                      placeholder={'Województwo'}/>
                     <AddresAvailability debouncedArr={debounced} inRange={deliveryData?.inRange}/>
                     <TextArea name={'extraInfo'} placeholder={'Dodatkowe informacje dla kuriera'}/>
+                    <div className={classes.page__form__footer}>
                     <Checkbox name={'isWeekend'} placeholder={'Weekendy'} className={inputStyles.checkbox}/>
-
-                     <button type={'submit'} disabled={(isFetching || !deliveryData?.inRange || extraInfoWatch === '' || isLoading)} className={btnStyles.btn}>{isLoading ? <TailSpin /> : 'Zapisz'}</button>
+                    <button type={'submit'}
+                            disabled={(isFetching || !deliveryData?.inRange || extraInfoWatch === '' || isLoading)}
+                            className={btnStyles.btn}>{isLoading ? <TailSpin/> : 'Zapisz'}</button>
+                    </div>
 
                 </form>
+                </div>
             </FormProvider>
         </section>
     )

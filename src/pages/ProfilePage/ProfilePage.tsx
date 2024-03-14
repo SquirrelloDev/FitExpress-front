@@ -19,6 +19,7 @@ function ProfilePage() {
 	return (
 		<section className={classes.profile}>
 			<h1>Mój profil</h1>
+			<div className={classes.profile__wrapper}>
 			<div className={classes.profile__nav}>
 				{matches && <PushCta/>}
 				<Link to={appRoutes.profileDetails} className={clsx(btnStyles.btn, btnStyles['btn--dark'], classes.profile__nav__item)}><IconClipboardData/> Moje dane</Link>
@@ -26,6 +27,7 @@ function ProfilePage() {
 				<Link to={appRoutes.vouchers} className={clsx(btnStyles.btn, btnStyles['btn--dark'], classes.profile__nav__item)}><IconDiscount2/> Vouchery</Link>
 				<Link to={appRoutes.reports} className={clsx(btnStyles.btn, btnStyles['btn--dark'], classes.profile__nav__item)}><IconMessageReport />Zgłoszenia</Link>
 				<button onClick={logOut} className={clsx(btnStyles.btn, btnStyles['btn--outline'],  btnStyles['btn--outline--danger'], classes.profile__nav__item)}><IconLogout /> Wyloguj się</button>
+			</div>
 			</div>
 		</section>
 	)

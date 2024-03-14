@@ -34,7 +34,7 @@ function HealthPage() {
                 </Alert>
             )}
             {(isSuccess && isProgressSuccess) && (
-                <>
+                <div className={classes.wrapper}>
                     <div className={classes.health__stats}>
                     <UserHealthCard healthData={data!.user.health_data}/>
                         <WeightPlot token={userData.token} id={userData.id}
@@ -46,7 +46,7 @@ function HealthPage() {
                                    maxWater={data!.user.health_data.water_demand} id={userData.id}
                                    token={userData.token}/>
                     </div>
-                </>
+                </div>
             )}
 
         </section>

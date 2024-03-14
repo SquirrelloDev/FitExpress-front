@@ -22,11 +22,14 @@ export function AddressesPage() {
 		<section className={classes.addresses}>
 			<BackButton />
 			<h1>Moje adresy</h1>
-			<div>
+			<div className={classes.addresses__wrapper}>
 				{isLoading && <Grid />}
+				{!isLoading && data!.addresses.length === 0 && <div><p>Brak adresów 😥</p></div>}
+				<div className={classes.addresses__wrapper__grid}>
 				{!isLoading &&  data!.addresses.map(addr => (
 					<AddressEntry key={addr._id} address={addr} setSelectedAddress={setSelectedAddress} open={open} />
 				))}
+				</div>
 			</div>
 			<div className={classes.addresses__add}>
 			<Link to={appRoutes.newAddress} className={clsx(btnStyles.btn, btnStyles['btn--link'])}>Dodaj adres</Link>
