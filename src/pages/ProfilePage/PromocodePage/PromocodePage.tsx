@@ -34,7 +34,7 @@ export default function PromocodePage() {
                       classNames={{list: classes.promos__tabs__list, tab: classes.promos__tabs__tab}}>
                     <Tabs.List grow>
                         <Tabs.Tab value={'available'}>Dostępne</Tabs.Tab>
-                        <Tabs.Tab value={'expired'}>Wykorzystane</Tabs.Tab>
+                        <Tabs.Tab value={'expired'}>Niedostępne</Tabs.Tab>
                     </Tabs.List>
                     <Tabs.Panel value={'available'}>
                         <div className={classes.promos__panel}>
