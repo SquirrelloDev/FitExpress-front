@@ -1,8 +1,8 @@
 @use "../utils" as *;
 .main{
   min-height: 100vh;
-  //p{
-  //  margin: 1em 0;
-  //  font-size: 2rem;
-  //}
+  @include respond-to('l'){
+    display: flex;
+    justify-content: center;
+  }
 }

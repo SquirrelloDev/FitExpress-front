@@ -38,6 +38,7 @@ function HealthCardSummary() {
 
                     </div>
                 </div>
+                <div className={classes.container}>
                 <div className={clsx(classes['summary-wrapper__section__item'], classes['summary-wrapper__section__item__calories'])}>
                     <h4>Dzienne zapotrzebowanie</h4>
                     <p>{data?.user.health_data.calories_demand} kcal</p>
@@ -49,9 +50,11 @@ function HealthCardSummary() {
                     <p>Nie zapominaj o spożywaniu płynów; najlepiej wody mineralnej do dostarczenia niezbędnych
                         makroskładników</p>
                 </div>
+                </div>
             </div>
             <div>
                 <h3 className={classes['summary-wrapper__header']}>BMI</h3>
+                <div className={classes.container}>
                 <div className={clsx(classes['summary-wrapper__section__item'], classes['summary-wrapper__section__item__bmi'])}>
                     <h4>Aktualne BMI</h4>
                     {isSuccess && (
@@ -70,11 +73,12 @@ function HealthCardSummary() {
                     </div>
                     )}
                 </div>
+                </div>
             </div>
             <div className={classes['summary-wrapper__footer']}>
                 <p>Swój cel możesz zawsze zmienić w zakładce: <span>Zdrowie</span></p>
+                <button className={btnStyles.btn} onClick={() => navigate(appRoutes.home)}>Przejdź do aplikacji</button>
             </div>
-            <button className={btnStyles.btn} onClick={() => navigate(appRoutes.home)}>Przejdź do aplikacji</button>
         </div>
     )
 }

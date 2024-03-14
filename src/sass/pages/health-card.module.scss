@@ -4,6 +4,11 @@
   flex-direction: column;
   padding: 1.1em;
   align-items: center;
+  @include respond-to('l'){
+    align-items: start;
+    width: 100%;
+    max-width: 900px;
+  }
   &--app{
     padding-bottom: 65px;
   }
@@ -14,11 +19,20 @@
   }
   &__subtext{
     text-align: center;
+    @include respond-to('l'){
+      text-align: left;
+      width: 400px;
+    }
   }
   &__form{
     padding: .85em;
     display: flex;
     flex-direction: column;
+    @include respond-to('l'){
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+    }
   }
   &__alert{
     &__root{

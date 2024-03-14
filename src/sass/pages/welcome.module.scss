@@ -4,7 +4,9 @@
   flex-direction: column;
   justify-content: space-around;
   min-height: 100vh;
-
+  @include respond-to('l'){
+    max-width: 800px;
+  }
   &__carousel {
     &__wrapper {
       margin-top: 1em;

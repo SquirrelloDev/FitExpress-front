@@ -66,6 +66,7 @@ function HealthCardPage() {
                     więcej o Tobie, by wyliczyć odpowiednie zapotrzebowanie kaloryczne dla Ciebie</p>
                 {/*@ts-expect-error data are sent correctly*/}
                 <form className={classes.hcard__form} onSubmit={handleSubmit(onSubmit)}>
+                    <div>
                     <ControlledSelect options={[{label: 'Mężczyzna', value: 'M'}, {label: 'Kobieta', value: 'F'}]}
                                       control={methods.control} name={'gender'} placeholder={'Płeć'} isRequired/>
                     <Input name={'user_height'} type='number' min={120} max={250} placeholder={'Wzrost (w cm)'} step={0.1}/>
@@ -79,8 +80,11 @@ function HealthCardPage() {
                                       placeholder={'Aktywność treningowa w tygodniu'}/>
                     <ControlledSelect options={palPassive} control={methods.control} name={'pal_passive'}
                                       placeholder={'Aktywność pozatreningowa'}/>
+                    </div>
+                    <div>
                     <HealthCardRadio name={'user_goal'} control={methods.control}/>
                     <button type='submit' className={btnStyles.btn} disabled={isLoading}>{isLoading ? <TailSpin visible={true} color={"#fff"} height={20} width={20} /> : 'Oblicz zapotrzebowanie'}</button>
+                    </div>
                 </form>
             </div>
         </FormProvider>
