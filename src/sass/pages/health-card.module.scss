@@ -5,9 +5,8 @@
   padding: 1.1em;
   align-items: center;
   @include respond-to('l'){
-    align-items: start;
     width: 100%;
-    max-width: 900px;
+    max-width: 1200px;
   }
   &--app{
     padding-bottom: 65px;
@@ -19,10 +18,6 @@
   }
   &__subtext{
     text-align: center;
-    @include respond-to('l'){
-      text-align: left;
-      width: 400px;
-    }
   }
   &__form{
     padding: .85em;
@@ -31,7 +26,16 @@
     @include respond-to('l'){
       width: 100%;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: center;
+    }
+    & > div{
+      margin: 0 5em;
+    }
+    & > div:last-child{
+      @include respond-to('l'){
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
   &__alert{

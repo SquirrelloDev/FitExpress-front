@@ -27,6 +27,7 @@ function WaterHistory() {
                 {!isProgressLoading && (
                     <>
                         {progressData!.data.water_progress.length === 0 && <div className={classes.blank}><p>Brak wpisów</p></div>}
+                        <div className={classes.history__container}>
                         {progressData!.data.water_progress.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(waterItem => (
                             <Card clearPadding>
                                 <div className={classes.history__item}>
@@ -56,6 +57,7 @@ function WaterHistory() {
                                 </div>
                             </Card>
                         ))}
+                        </div>
                         <BottomActionSheet opened={opened} close={close} size={'xl'} withCloseButton={false}>
                             <WaterEditSheet id={userData.id} token={userData.token} close={close}
                                             dates={progressData!.data.water_progress.map(waterItem => new Date(waterItem.date))}
