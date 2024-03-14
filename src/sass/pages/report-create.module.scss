@@ -1,10 +1,18 @@
 @use '../utils' as *;
 .create{
   padding: 2.75em 1em 65px;
+  @include respond-to('l'){
+    padding-bottom: 0;
+  }
   &__form{
     display: flex;
     flex-direction: column;
     &__orders{
+      @include respond-to('l'){
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        gap: 2.5rem;
+      }
       &__item{
         display: flex;
         flex-direction: column;
@@ -16,6 +24,9 @@
         font-weight: $semi-bold;
         transition: border-color .2s;
         cursor: pointer;
+        p{
+          margin: .2em;
+        }
         &--active{
           border-color: $cta;
         }

@@ -32,7 +32,7 @@ export default function ReportEntry({reportData, token}: ReportEntryProps) {
                     </div>
                 </div>
                 <div>
-                    <button className={clsx(classes.reports__entry__delete, reportData.report_status !== 'new' && classes['reports__entry__delete--unavailable'])} onClick={open}><IconTrashX/></button>
+                    <button className={clsx(classes.reports__entry__delete, reportData.report_status !== 'new' && classes['reports__entry__delete--unavailable'])} disabled={reportData.report_status !== 'new'} onClick={open}><IconTrashX/></button>
                 </div>
             </div>
             {opened && (
