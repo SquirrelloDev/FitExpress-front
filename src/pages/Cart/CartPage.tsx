@@ -123,8 +123,8 @@ function CartPage() {
                                 <div className={classes.cart__grid}>
                                     <div className={classes['cart__grid__cart-items']}>
                                 {cartItemsFull?.map((cartItem, index) => (
-                                    <div className={classes.cart__item}>
-                                    <Card key={cartItem._id + index}>
+                                    <div className={classes.cart__item} key={cartItem._id + index}>
+                                    <Card>
                                         <h3>Dieta {index + 1}</h3>
                                         <Card clearPadding>
                                             <div className={classes.cart__item__diet}>
@@ -155,7 +155,7 @@ function CartPage() {
                                     </div>
                                 ))}
 
-                                <button className={clsx(btnStyles.btn, btnStyles['btn--outline'])}
+                                <button className={clsx(btnStyles.btn, btnStyles['btn--outline'], classes['cart__grid__cart-items__next'])}
                                         onClick={() => navigate(appRoutes.diets)}>Dodaj {cartItems.length > 0 ? 'kolejną' : 'pierwszą'} dietę
                                 </button>
                                     </div>

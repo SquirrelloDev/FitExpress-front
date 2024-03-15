@@ -32,7 +32,9 @@
       justify-content: center;
     }
     & > div{
+      @include respond-to('l'){
       margin: 0 5em;
+      }
     }
     & > div:last-child{
       @include respond-to('l'){
@@ -46,6 +48,9 @@
         grid-template-columns: repeat(2,1fr);
         column-gap: 2rem;
       }
+    }
+    button{
+      width: 100%;
     }
   }
   &__alert{

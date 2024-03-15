@@ -16,7 +16,6 @@ import {queryClient} from "./utils/api";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import {MantineProvider} from "@mantine/core";
-import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import HealthCardPage from "./pages/HealthCard/HealthCardPage";
 import HealthCardSummary from "./pages/HealthCard/HealthCardSummary";
 import DietSelect from "./pages/Diet/DietSelect";
@@ -147,7 +146,6 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools/>
             <MantineProvider>
             <RouterProvider router={router}/>
             </MantineProvider>

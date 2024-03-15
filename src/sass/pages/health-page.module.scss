@@ -1,12 +1,14 @@
 @use "../utils" as *;
-.health{
+
+.health {
   padding: 1em 1em 65px;
   width: 100%;
-  @include respond-to('l'){
+  @include respond-to('l') {
     padding-bottom: 0;
   }
-  &__stats{
-    @include respond-to('l'){
+
+  &__stats {
+    @include respond-to('l') {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       column-gap: 2rem;
@@ -15,7 +17,10 @@
     }
   }
 }
-.wrapper{
-  display: flex;
-  justify-content: center;
+
+.wrapper {
+  @include respond-to('l') {
+    display: flex;
+    justify-content: center;
+  }
 }

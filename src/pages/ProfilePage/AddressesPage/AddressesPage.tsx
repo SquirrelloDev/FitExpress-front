@@ -24,7 +24,7 @@ export function AddressesPage() {
 			<h1>Moje adresy</h1>
 			<div className={classes.addresses__wrapper}>
 				{isLoading && <Grid />}
-				{!isLoading && data!.addresses.length === 0 && <div><p>Brak adresów 😥</p></div>}
+				{!isLoading && data!.addresses.length === 0 && <div style={{display: 'flex', justifyContent: 'center'}}><p>Brak adresów 😥</p></div>}
 				<div className={classes.addresses__wrapper__grid}>
 				{!isLoading &&  data!.addresses.map(addr => (
 					<AddressEntry key={addr._id} address={addr} setSelectedAddress={setSelectedAddress} open={open} />

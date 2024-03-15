@@ -6,8 +6,10 @@
     padding-bottom: 0;
   }
   &__wrapper{
+    @include respond-to('l'){
     display: flex;
     justify-content: center;
+    }
   }
   &__nav{
     display: flex;
