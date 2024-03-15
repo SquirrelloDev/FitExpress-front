@@ -53,7 +53,7 @@ function WeightAddSheet({id, token, close, dates}: WeightAddSheetProps) {
 				<ControlledDatePicker control={methods.control} name={'date'} placeholderText={'Data'} maxDate={new Date()} filterDate={isDateDisabled}/>
 				<Input type={'number'} min={0} max={450} placeholder={'Waga w kg'} name={'weight'}/>
 
-				<button type={'submit'} disabled={isLoading} className={btnStyles.btn}>{isLoading ? <TailSpin/> : 'Zapisz'}</button>
+				<button type={'submit'} disabled={isLoading} className={btnStyles.btn}>{isLoading ? <TailSpin width={20} height={20}/> : 'Zapisz'}</button>
 			</form>
 		</FormProvider>
 	)

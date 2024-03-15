@@ -14,7 +14,7 @@ export default function AccountDeleteModal({closeModal, deleteMutation, isDeleti
 			<p>Wszystkie dane konta zostaną usunięte. Utracisz dostęp do korzystania z aplikacji</p>
 			<p>Otrzymasz zwrot pieniędzy na konto bankowe w ciągu 3 dni od skasowania konta w przypadku istniejącej aktywnej diety.</p>
 			<div className={classes['delete-modal__actions']}>
-			<button onClick={deleteMutation} disabled={isDeleting} className={clsx(btnStyles.btn, btnStyles['btn--outline'], btnStyles['btn--outline--danger'])}>{isDeleting ? <TailSpin/> : 'Usuń konto pernamentnie'}</button>
+			<button onClick={deleteMutation} disabled={isDeleting} className={clsx(btnStyles.btn, btnStyles['btn--outline'], btnStyles['btn--outline--danger'])}>{isDeleting ? <TailSpin width={20} height={20}/> : 'Usuń konto pernamentnie'}</button>
 			<button onClick={closeModal} disabled={isDeleting} className={btnStyles.btn}>Anuluj</button>
 			</div>
 		</div>

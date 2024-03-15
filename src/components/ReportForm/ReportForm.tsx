@@ -66,7 +66,7 @@ export default function ReportForm({orders, userData}:ReportFormProps) {
 					<>
 						<ControlledDatePicker control={control} name={'deliveryDate'} placeholderText={'Data dostawy'} minDate={minDate} maxDate={new Date()}/>
 						<TextArea name={'message'} placeholder={'Treść zgłoszenia'}/>
-						<button type={'submit'} disabled={(isLoading || orders.length === 0)} className={clsx(btnStyles.btn)}>{isLoading ? <TailSpin /> : 'Dodaj zgłoszenie'}</button>
+						<button type={'submit'} disabled={(isLoading || orders.length === 0)} className={clsx(btnStyles.btn)}>{isLoading ? <TailSpin width={20} height={20}/> : 'Dodaj zgłoszenie'}</button>
 					</>
 				)}
 			</form>

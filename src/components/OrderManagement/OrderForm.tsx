@@ -53,7 +53,7 @@ function OrderForm({order, addresses, userToken}: OrderFormProps) {
                                     name={'address'} isWeekend={order.with_weekends}/>
                     <button type={'submit'} disabled={isLoading}
                             className={clsx(btnStyles.btn, classes.form__button)}>{isLoading ?
-                        <TailSpin/> : 'Potwierdź zmiany'}</button>
+                        <TailSpin width={20} height={20}/> : 'Potwierdź zmiany'}</button>
                 </form>
             </div>
         </FormProvider>

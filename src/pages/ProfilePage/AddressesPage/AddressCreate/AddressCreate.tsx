@@ -132,7 +132,7 @@ export default function AddressCreate() {
                     <Checkbox name={'isWeekend'} placeholder={'Weekendy'} className={inputStyles.checkbox}/>
                     <button type={'submit'}
                             disabled={(isFetching || !deliveryData?.inRange || extraInfoWatch === '' || isLoading)}
-                            className={btnStyles.btn}>{isLoading ? <TailSpin/> : 'Zapisz'}</button>
+                            className={btnStyles.btn}>{isLoading ? <TailSpin width={20} height={20}/> : 'Zapisz'}</button>
                     </div>
 
                 </form>

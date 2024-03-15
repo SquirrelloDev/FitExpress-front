@@ -59,7 +59,7 @@ function WaterEditSheet({id, token, close, dates, defValue}: WaterEditSheetProps
             <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
                 <ControlledDatePicker control={methods.control} name={'date'} placeholderText={'Data'} maxDate={new Date()} filterDate={isDateDisabled}/>
                 <Input type={'number'} min={0} max={5000} placeholder={'Woda w ml'} name={'water'}/>
-                <button type={'submit'} disabled={isLoading} className={btnStyles.btn}>{isLoading ? <TailSpin/> : 'Zapisz'}</button>
+                <button type={'submit'} disabled={isLoading} className={btnStyles.btn}>{isLoading ? <TailSpin width={20} height={20}/> : 'Zapisz'}</button>
             </form>
         </FormProvider>
     )

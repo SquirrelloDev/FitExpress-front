@@ -25,7 +25,7 @@ function ViewDelete({closeModal, deleteMutation, isDeleting}:ViewDeleteProps) {
 				<p>Otrzymasz zwrot pieniędzy na konto bankowe w ciągu 3 dni od rezygnacji z planu.</p>
 			</div>
 				<div className={classes.view__buttons}>
-					<button className={clsx(btnStyles.btn,btnStyles['btn--outline'], btnStyles['btn--outline--danger'])} onClick={deleteFn}>{isDeleting ? <TailSpin /> : 'Zrezygnuj'}</button>
+					<button className={clsx(btnStyles.btn,btnStyles['btn--outline'], btnStyles['btn--outline--danger'])} onClick={deleteFn}>{isDeleting ? <TailSpin width={20} height={20}/> : 'Zrezygnuj'}</button>
 					<button className={clsx(btnStyles.btn)} onClick={() => closeModal(false)}>Anuluj</button>
 				</div>
 		</div>

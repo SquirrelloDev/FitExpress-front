@@ -27,7 +27,7 @@ function ReportDeleteSheet({close, reportId, token}:ReportDeleteSheetProps) {
 		<div className={classes.delete}>
 			<h3>Czy na pewno usunąć adres?</h3>
 			<div className={classes.delete__buttons}>
-			<button onClick={deleteEntry} className={clsx(btnStyles.btn, btnStyles['btn--danger'])}>{isLoading ? <TailSpin/> : 'Usuń'}</button>
+			<button onClick={deleteEntry} className={clsx(btnStyles.btn, btnStyles['btn--danger'])}>{isLoading ? <TailSpin width={20} height={20}/> : 'Usuń'}</button>
 			<button onClick={close} disabled={isLoading} className={clsx(btnStyles.btn, btnStyles['btn--outline'])}>Anuluj</button>
 			</div>
 		</div>

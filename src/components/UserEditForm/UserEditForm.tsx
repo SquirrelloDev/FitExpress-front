@@ -41,7 +41,7 @@ export default function UserEditForm({name, phone, email, id, token}:UserEditFor
 				<Input name={'name'} placeholder={'Imię i nazwisko'}/>
 				<Input type={"tel"} name={'phone'} placeholder={'Numer telefonu'} maxLength={9}/>
 				<Input type={"email"} name={'email'} placeholder={'Adres e-mail'}/>
-				<button type={'submit'} className={btnStyles.btn} disabled={isLoading}>{isLoading ? <TailSpin /> : 'Aktualizuj'}</button>
+				<button type={'submit'} className={btnStyles.btn} disabled={isLoading}>{isLoading ? <TailSpin width={20} height={20}/> : 'Aktualizuj'}</button>
 			</form>
 		</FormProvider>
 	)
