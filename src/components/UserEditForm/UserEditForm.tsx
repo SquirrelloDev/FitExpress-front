@@ -27,7 +27,7 @@ export default function UserEditForm({name, phone, email, id, token}:UserEditFor
 			user: {
 				name: data.name,
 				phone: data.phone,
-				email: data.email
+				email: (data.email).toLowerCase()
 			},
 			authInfo:{
 				token, id
