@@ -1,6 +1,6 @@
 import {MutationFunction, useMutation} from "@tanstack/react-query";
 import {AxiosError} from "axios";
-import {FitExpressClient} from "../../utils/api";
+import {apiRoutes, FitExpressClient} from "../../utils/api";
 import usePwaStore from "../../stores/pwaStore";
 
 type WebpushResponse = {
@@ -12,7 +12,7 @@ export type WebPushCreateData = {
     token: string
 }
 const addSubscription:MutationFunction<WebpushResponse, WebPushCreateData> = async ({subscription, token}) => {
-    const res = await FitExpressClient.getInstance().post(`http://localhost:3001/push/create`, JSON.stringify(subscription), {
+    const res = await FitExpressClient.getInstance().post(apiRoutes.CREATE_PUSH, JSON.stringify(subscription), {
         headers: {Authorization: `Bearer ${token}`}
     })
     return {message: res.data}
@@ -22,7 +22,7 @@ export type WebPushRemoveData = {
     token: string
 }
 const deleteSubscription:MutationFunction<WebpushResponse, WebPushRemoveData> = async ({endpoint, token}) => {
-    const res = await FitExpressClient.getInstance().post(`http://localhost:3001/push/remove`, {endpoint}, {
+    const res = await FitExpressClient.getInstance().post(apiRoutes.REMOVE_PUSH, {endpoint}, {
         headers: {Authorization: `Bearer ${token}`}
     })
     return {message: res.data}

@@ -143,5 +143,8 @@ export const apiRoutes = {
 //     GEOCODING
     GEOCODE: (address: string) => `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(address)}&apiKey=${geoapiKey}`,
     REVERSE_GEO: (lat: number, lng:number) => `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&format=json&lang=pl&apiKey=${geoapiKey}
-`
+`,
+//     PUSH
+    CREATE_PUSH: `https://fitexpress-back.onrender.com/push/create`,
+    REMOVE_PUSH: `https://fitexpress-back.onrender.com/push/remove`
 }
