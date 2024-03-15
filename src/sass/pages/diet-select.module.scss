@@ -53,9 +53,6 @@
       border-top-right-radius: 8px;
       border-bottom-right-radius: 8px;
       object-fit: cover;
-      @include respond-to('l'){
-
-      }
       &--blank{
         display: flex;
         justify-content: center;

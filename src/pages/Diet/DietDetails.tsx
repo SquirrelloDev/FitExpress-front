@@ -36,58 +36,63 @@ function DietDetails() {
             </div>
             <div className={classes.details__info}>
                 <h2>Szczegóły diety</h2>
-                <button onClick={() => {
-                    navigate(appRoutes.dietMenu + `?type=${data?.diet.diet_type}`)
-                }} className={clsx(btnStyles.btn, btnStyles['btn--outline'], classes['details__info__menu-btn'])}>Zobacz
-                    menu
-                </button>
-                {data?.diet.diet_type === 'Flexi' && <MealCount dietName={data.diet.name}/>}
-                <h2>Podstawowe informacje</h2>
-                <ul className={classes.details__info__basic}>
-                    {data?.diet.basic_info.map(info => <li key={info}>{info}</li>)}
-                </ul>
-                {
-                    data?.diet.macros.carbs && (
-                        <div className={classes.details__info__macros}>
-                            <h3>Makroskładniki</h3>
-                            <MacroItems carbs={data.diet.macros.carbs} fats={data.diet.macros.fats}
-                                        proteins={data.diet.macros.proteins}/>
+                <div className={classes.details__info__grid}>
+                    <div className={classes.details__info__menu}>
+                        <button onClick={() => {
+                            navigate(appRoutes.dietMenu + `?type=${data?.diet.diet_type}`)
+                        }}
+                                className={clsx(btnStyles.btn, btnStyles['btn--outline'], classes['details__info__menu-btn'])}>Zobacz
+                            menu
+                        </button>
+                        {data?.diet.diet_type === 'Flexi' && <MealCount dietName={data.diet.name}/>}
+                    </div>
+                    <h2>Podstawowe informacje</h2>
+                    <ul className={classes.details__info__basic}>
+                        {data?.diet.basic_info.map(info => <li key={info}>{info}</li>)}
+                    </ul>
+                    {
+                        data?.diet.macros.carbs && (
+                            <div className={classes.details__info__macros}>
+                                <h3>Makroskładniki</h3>
+                                <MacroItems carbs={data.diet.macros.carbs} fats={data.diet.macros.fats}
+                                            proteins={data.diet.macros.proteins}/>
+                            </div>
+                        )
+                    }
+                    {data?.diet.diet_type === 'Flexi' && (
+                        <div className={classes.details__info__tags}>
+                            <h3>Jakiego typu potrawy znajdziesz</h3>
+                            <div className={classes.details__info__tags__grid}>
+                                {data.diet.tags_id.map(tag => (
+                                    <Card key={tag._id}>
+                                        <h4>{tag.name}</h4>
+                                        <p>{tag.description}</p>
+                                    </Card>
+                                ))}
+                            </div>
                         </div>
-                    )
-                }
-                {data?.diet.diet_type === 'Flexi' && (
-                    <div className={classes.details__info__tags}>
-                        <h3>Jakiego typu potrawy znajdziesz</h3>
-                        <div className={classes.details__info__tags__grid}>
-                            {data.diet.tags_id.map(tag => (
-                                <Card key={tag._id}>
-                                    <h4>{tag.name}</h4>
-                                    <p>{tag.description}</p>
-                                </Card>
-                            ))}
+                    )}
+                    <div className={classes.details__info__exclusions__wrapper}>
+                        <h3>Wykluczenia</h3>
+                        <ul className={classes.details__info__exclusions}>
+                            {data?.diet.exclusions.map(excl => <li key={excl._id}>{excl.name}</li>)}
+                        </ul>
+                        <div className={classes.details__info__description}>
+                            <h3>Szczegółowy opis diety</h3>
+                            <p>{data?.diet.long_desc}</p>
                         </div>
                     </div>
-                )}
-                <div>
-                    <h3>Wykluczenia</h3>
-                    <ul className={classes.details__info__exclusions}>
-                        {data?.diet.exclusions.map(excl => <li key={excl._id}>{excl.name}</li>)}
-                    </ul>
+                    <div>
+                        <h3>Dostępne kaloryczności</h3>
+                        {!isLoading && <CaloriesPriceTags prices={data!.diet.prices}/>}
+                    </div>
+                    <button className={clsx(btnStyles.btn, classes.details__info__btn)} onClick={() => {
+                        addItem(data!.diet._id)
+                        navigate(appRoutes.cart)
+                    }
+                    }>Zamów dietę od {data?.diet.prices.kcal1500}zł/dzień
+                    </button>
                 </div>
-                <div className={classes.details__info__description}>
-                    <h3>Szczegółowy opis diety</h3>
-                    <p>{data?.diet.long_desc}</p>
-                </div>
-                <div>
-                    <h3>Dostępne kaloryczności</h3>
-                    {!isLoading && <CaloriesPriceTags prices={data!.diet.prices}/>}
-                </div>
-                <button className={btnStyles.btn} onClick={() => {
-                    addItem(data!.diet._id)
-                    navigate(appRoutes.cart)
-                }
-                }>Zamów dietę od {data?.diet.prices.kcal1500}zł/dzień
-                </button>
             </div>
         </div>
     )
