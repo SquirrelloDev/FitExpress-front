@@ -23,15 +23,9 @@ function StandardLayout({orderData}: StandardLayoutProps) {
     const appInstalled = usePwaStore(state => state.appInstalled)
     const matches = useMediaQuery('(display-mode: standalone)');
     const currentDate = new Date();
-    const intlDate = new Intl.DateTimeFormat("pl-PL", {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-    }).format(currentDate)
     const cartItems = useCartStore(state => state.cartItems)
     return (
         <>
-            <h4>Dzisiaj {intlDate}</h4>
             <section>
                 <Tabs defaultValue={orderData[0].name} classNames={{
                     root: classes.standard__tabs,
@@ -48,28 +42,33 @@ function StandardLayout({orderData}: StandardLayoutProps) {
                         const percentValue = percents(orderMaxDays, currentOrderDay)
                         return (
                             <Tabs.Panel key={item._id} value={item.name}>
-                               <HomeCalendar item={item} currentDate={currentDate} />
-                                <Card>
-                                    <div className={classes.standard__progress}>
-                                        <p>Postępy diety</p>
-                                        <div className={classes.standard__progress__pill}>
-                                            <p>{currentDate.toLocaleDateString()}</p></div>
-                                        <p>{currentOrderDay > 0 ? (currentOrderDay >= orderMaxDays ? 'Ukończono!' : `${currentOrderDay}/${orderMaxDays} dni`) : 'Plan się jeszcze nie zaczął'} </p>
-                                        <div className={classes.standard__progress__bar}>
-                                            <div className={classes.standard__progress__bar__fill}
-                                                 style={{width: percentValue > 0 ? (percentValue >= 100 ? '100%' : `${percentValue}%`) : '0%'}}></div>
-                                            <div className={classes.standard__progress__bar__dot}
-                                                 style={{left: percentValue >= 100 ? '98%' : `${percentValue}%`}}>
-                                                <p>{percentValue >= 100 ? <IconCheck/> : `${percentValue}%`}</p></div>
+                                <div className={classes.standard__wrapper}>
+                                    <HomeCalendar item={item} currentDate={currentDate}/>
+                                    <div className={classes.standard__wrapper__grid}>
+                                    <Card>
+                                        <div className={classes.standard__progress}>
+                                            <p>Postępy diety</p>
+                                            <div className={classes.standard__progress__pill}>
+                                                <p>{currentDate.toLocaleDateString()}</p></div>
+                                            <p>{currentOrderDay > 0 ? (currentOrderDay >= orderMaxDays ? 'Ukończono!' : `${currentOrderDay}/${orderMaxDays} dni`) : 'Plan się jeszcze nie zaczął'} </p>
+                                            <div className={classes.standard__progress__bar}>
+                                                <div className={classes.standard__progress__bar__fill}
+                                                     style={{width: percentValue > 0 ? (percentValue >= 100 ? '100%' : `${percentValue}%`) : '0%'}}></div>
+                                                <div className={classes.standard__progress__bar__dot}
+                                                     style={{left: percentValue >= 100 ? '98%' : `${percentValue}%`}}>
+                                                    <p>{percentValue >= 100 ? <IconCheck/> : `${percentValue}%`}</p>
+                                                </div>
+                                            </div>
+                                            <Link to={appRoutes.dietManagement}
+                                                  className={clsx(btnStyles.btn, btnStyles['btn--link'])}>Zarządzaj
+                                                dietą</Link>
                                         </div>
-                                        <Link to={appRoutes.dietManagement}
-                                              className={clsx(btnStyles.btn, btnStyles['btn--link'])}>Zarządzaj
-                                            dietą</Link>
+                                    </Card>
+                                    {cartItems.length > 0 && <CartCta isReminder/>}
+                                    <CartCta/>
+                                    {(!matches || !appInstalled) && <PwaCta/>}
                                     </div>
-                                </Card>
-                                {cartItems.length > 0 && <CartCta isReminder/>}
-                                {(!matches || !appInstalled) && <PwaCta/> }
-                                <CartCta/>
+                                </div>
                             </Tabs.Panel>)
                     })}
                 </Tabs>
