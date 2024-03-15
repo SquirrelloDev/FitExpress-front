@@ -54,10 +54,12 @@ function StandardLayout({orderData}: StandardLayoutProps) {
                                             <div className={classes.standard__progress__bar}>
                                                 <div className={classes.standard__progress__bar__fill}
                                                      style={{width: percentValue > 0 ? (percentValue >= 100 ? '100%' : `${percentValue}%`) : '0%'}}></div>
+                                                { percentValue >= 0 &&
                                                 <div className={classes.standard__progress__bar__dot}
                                                      style={{left: percentValue >= 100 ? '98%' : `${percentValue}%`}}>
                                                     <p>{percentValue >= 100 ? <IconCheck/> : `${percentValue}%`}</p>
                                                 </div>
+                                                }
                                             </div>
                                             <Link to={appRoutes.dietManagement}
                                                   className={clsx(btnStyles.btn, btnStyles['btn--link'])}>Zarządzaj
