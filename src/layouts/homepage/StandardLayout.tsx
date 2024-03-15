@@ -43,7 +43,7 @@ function StandardLayout({orderData}: StandardLayoutProps) {
                         return (
                             <Tabs.Panel key={item._id} value={item.name}>
                                 <div className={classes.standard__wrapper}>
-                                    <HomeCalendar item={item} currentDate={currentDate}/>
+                                    {item.is_active && <HomeCalendar item={item} currentDate={currentDate}/> }
                                     <div className={classes.standard__wrapper__grid}>
                                     <Card>
                                         <div className={classes.standard__progress}>
