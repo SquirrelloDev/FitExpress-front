@@ -20,7 +20,7 @@ export type LoginErrorType = AxiosError<{
 const loginUser: MutationFunction<LoginResponse, LoginFormDataSchema> = async (loginData) => {
     const res = await FitExpressClient.getInstance().post<LoginResponse>(
         apiRoutes.LOGIN,
-        {email: loginData.email, password: loginData.password}
+        {email: (loginData.email).toLowerCase(), password: loginData.password}
     )
     if(isAxiosError(res) && res.response?.status === 404){
         throw new Error('Użytkownik o podanych danych nie istnieje!')

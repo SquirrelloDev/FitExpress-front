@@ -22,7 +22,7 @@ export type LoginErrorType = AxiosError<{
 const registerUser: MutationFunction<RegisterResponse, RegisterFormDataSchema> = async (registerData) => {
     const res = await FitExpressClient.getInstance().post<RegisterResponse>(
         apiRoutes.REGISTER,
-        {name: registerData.name, email: registerData.email, phone: registerData.phone, password: registerData.password}
+        {name: registerData.name, email: (registerData.email).toLowerCase(), phone: registerData.phone, password: registerData.password}
     )
     if(isAxiosError(res) && res.response?.status === 409){
         throw new Error('Użytkownik o podanym adresie e-mail już istnieje!')
