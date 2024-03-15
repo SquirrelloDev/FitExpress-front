@@ -11,14 +11,14 @@ function DietSelect() {
             <BackButton/>
             <h1 className={classes['page-wrapper__header']}>Która dieta spełnia Twoje oczekiwania?</h1>
             <div className={classes['page-wrapper__boxes']}>
-                <Card>
+                <Card hover>
                     <div onClick={() => navigate(appRoutes.fixedDiets)} className={classes['page-wrapper__box']}>
                         <h2>Fixed</h2>
                         <p>Dieta typu Fixed zawiera jadłospisy przygotowane przez naszych specjalistów.
                             Każda dieta uwzględnia twoje potrzeby</p>
                     </div>
                 </Card>
-                <Card>
+                <Card hover>
                     <div onClick={() => navigate(appRoutes.flexiDiets)} className={classes['page-wrapper__box']}>
                         <h2>Flexi</h2>
                         <p>Dieta typu flexi jest przeznaczona dla osób, które chcą stworzyć swoją idealną dietę.</p>

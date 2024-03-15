@@ -21,7 +21,7 @@ function FixedSelect() {
             {isLoading && <Grid />}
             <div className={classes['page-wrapper__boxes']}>
             {!isLoading && data?.diets.map(diet => (
-                <Card key={diet._id} clearPadding>
+                <Card key={diet._id} clearPadding hover>
                     <div onClick={() => navigate(appRoutes.diets + `/${diet._id}`)}
                          className={classes['page-wrapper__diet']}>
                         <h2 className={classes['page-wrapper__diet__header']}>{diet.name}</h2>

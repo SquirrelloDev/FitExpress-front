@@ -5,10 +5,11 @@ import clsx from "clsx";
 interface CardProps {
 	children?: ReactNode
 	clearPadding?: boolean
+	hover?:boolean
 }
-function Card({children, clearPadding}:CardProps) {
+function Card({children, clearPadding, hover}:CardProps) {
 	return (
-		<div className={clsx(classes.card, clearPadding && classes['card--clear-padding'])}>
+		<div className={clsx(classes.card, clearPadding && classes['card--clear-padding'], hover && classes['card--hover'])}>
 			{children}
 		</div>
 	)

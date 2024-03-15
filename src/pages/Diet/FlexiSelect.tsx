@@ -24,7 +24,7 @@ function FlexiSelect() {
 			<p className={classes['page-wrapper__sub-header']}>Który plan jest dla Ciebie?</p>
 			{isLoading && <Grid />}
 			<div className={classes['page-wrapper__boxes']}>
-			{!isLoading && data?.diets.map((diet, idx) => (<Card key={diet._id}>
+			{!isLoading && data?.diets.map((diet, idx) => (<Card hover key={diet._id}>
 				<div onClick={() => navigate(appRoutes.diets + `/${diet._id}`)}>
 					<h2>{diet.name}</h2>
 					{textArr[idx]}
