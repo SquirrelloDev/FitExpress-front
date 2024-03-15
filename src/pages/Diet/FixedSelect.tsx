@@ -3,11 +3,11 @@ import {IconPhotoOff} from "@tabler/icons-react";
 import {useNavigate} from "react-router-dom";
 import useAuthStore from "../../stores/authStore";
 import useDietsListQuery from "../../queries/diets/listing";
-import {Skeleton} from "@mantine/core";
 import Card from "../../components/Card/Card";
 import {appRoutes} from "../../utils/routes";
 import clsx from "clsx";
 import BackButton from "../../components/BackBtn/BackButton";
+import {Grid} from "react-loader-spinner";
 
 function FixedSelect() {
     const navigate = useNavigate()
@@ -18,7 +18,8 @@ function FixedSelect() {
             <BackButton />
             <h1 className={classes['page-wrapper__header']}>Diety Fixed</h1>
             <p className={classes['page-wrapper__sub-header']}>Która dieta jest dla Ciebie?</p>
-            {isLoading && <Skeleton height={80} radius='xl'/>}
+            {isLoading && <Grid />}
+            <div className={classes['page-wrapper__boxes']}>
             {!isLoading && data?.diets.map(diet => (
                 <Card key={diet._id} clearPadding>
                     <div onClick={() => navigate(appRoutes.diets + `/${diet._id}`)}
@@ -31,6 +32,7 @@ function FixedSelect() {
                     </div>
                 </Card>
             ))}
+            </div>
         </div>
     )
 }
