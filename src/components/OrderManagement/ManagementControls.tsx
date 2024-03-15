@@ -1,6 +1,7 @@
 import Select from "react-select";
 import selectStyles from "../../sass/components/select.module.scss";
 import clsx from "clsx";
+import classes from "../../sass/pages/order-manage.module.scss";
 
 interface ManagementControlProps {
     filterFunction: (filterArg: string) => void
@@ -8,7 +9,7 @@ interface ManagementControlProps {
 
 function ManagementControl({filterFunction}: ManagementControlProps) {
     return (
-        <div>
+        <div className={classes.management__control}>
             <h4>Filtrowanie</h4>
             <div>
                 <Select options={[{label: 'Wszystkie', value: 'all'}, {

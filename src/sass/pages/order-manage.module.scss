@@ -11,8 +11,24 @@
       font-size: $big;
     }
   }
+  &__control{
+    @include respond-to('l'){
+      width: 30%;
+    }
+  }
   &__entry{
     padding: .5em;
+    &__container{
+      display: flex;
+      flex-direction: column;
+      @include respond-to('l'){
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-auto-rows: max-content;
+        grid-auto-flow: row dense;
+        gap: 2rem
+      }
+    }
     &__header{
       display: flex;
       justify-content: space-between;
