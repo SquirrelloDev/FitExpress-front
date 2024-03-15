@@ -1,17 +1,24 @@
+@use "../utils" as *;
 .meal{
   position: relative;
   padding-bottom: 65px;
-  &__back{
-    position: fixed;
-    z-index: 10;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1em .25em;
-    background: none;
-    border: 1px solid transparent;
+  //&__back{
+  //  position: fixed;
+  //  z-index: 10;
+  //  top: 0;
+  //  left: 0;
+  //  display: flex;
+  //  justify-content: center;
+  //  align-items: center;
+  //  margin: 1em .25em;
+  //  background: none;
+  //  border: 1px solid transparent;
+  //}
+  &__wrapper{
+    @include respond-to('l'){
+      display: flex;
+      justify-content: center;
+    }
   }
   &__image-box {
     &__image {
@@ -30,6 +37,10 @@
     padding: 1.25em;
     display: flex;
     flex-direction: column;
+    @include respond-to('l'){
+      width: 100%;
+      max-width: 1200px;
+    }
     h2:first-of-type{
       margin-bottom: .5em;
     }
