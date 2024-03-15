@@ -57,7 +57,7 @@ export default function FlexiSelection({dayPartMeals, dayPartIdx, dietId, orderI
 			{/*	@ts-expect-error data are compatible*/}
 			<form onSubmit={handleSubmit(onSubmit)} className={classes.selection}>
 				<FlexiMealSelectable control={control} name={'mealId'} dayPartMeals={dayPartMeals} flexiTier={flexiTier} />
-				{isToday(currentDateListing) && <button disabled={isLoading} className={btnStyles.btn} type={'submit'}>{isLoading ? <TailSpin/> : 'Potwierdź wybór'}</button>}
+				{!isToday(currentDateListing) && <button disabled={isLoading} className={btnStyles.btn} type={'submit'}>{isLoading ? <TailSpin width={20} height={20}/> : 'Potwierdź wybór'}</button>}
 			</form>
 			</FormProvider>
 		</div>

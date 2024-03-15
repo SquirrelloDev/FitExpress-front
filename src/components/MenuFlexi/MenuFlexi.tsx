@@ -40,14 +40,14 @@ function MenuFlexi({data, currentDateListing, orderId, dietId, token, flexiTier}
 						<button className={classes.menu__item__actions__check} onClick={() => {
 							setSelectedDayPart(helperArr[index])
 							open()
-						}}>{isToday(currentDateListing) ? 'Zmień' : 'Sprawdź'}</button>
+						}}>{!isToday(currentDateListing) ? 'Zmień' : 'Sprawdź'}</button>
 						</div>
 					</div>
 				</Card>
 			))}
 		</div>
 			<BottomActionSheet opened={opened} close={close} size={'100%'}>
-				{isToday(currentDateListing) ? <FlexiSelection orderId={orderId} flexiTier={flexiTier} dietId={dietId} currentDateListing={currentDateListing} closeSheet={close} dayPartMeals={mealInfo} dayPartIdx={helperArr.indexOf(selectedDayPart)} selectedMeals={initialMeals.map(meal => meal._id)}/> : <FlexiDetails dayPartMeals={mealInfo} flexiTier={flexiTier} />}
+				{!isToday(currentDateListing) ? <FlexiSelection orderId={orderId} flexiTier={flexiTier} dietId={dietId} currentDateListing={currentDateListing} closeSheet={close} dayPartMeals={mealInfo} dayPartIdx={helperArr.indexOf(selectedDayPart)} selectedMeals={initialMeals.map(meal => meal._id)}/> : <FlexiDetails dayPartMeals={mealInfo} flexiTier={flexiTier} />}
 			</BottomActionSheet>
 		</>
 	)
