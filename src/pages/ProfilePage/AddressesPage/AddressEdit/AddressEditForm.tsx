@@ -20,6 +20,7 @@ import btnStyles from "../../../../sass/components/button.module.scss";
 import {TailSpin} from "react-loader-spinner";
 import {IconCurrentLocation} from "@tabler/icons-react";
 import useReverseGeocode from "../../../../hooks/useReverseGeocode";
+import inputStyles from "../../../../sass/components/text-input.module.scss";
 
 const voivodeships: SelectOption[] = [
     {label: 'Zachodniopomorskie', value: 'Zachodniopomorskie'},
@@ -39,11 +40,13 @@ const voivodeships: SelectOption[] = [
     {label: 'Małopolskie', value: 'Małopolskie'},
     {label: 'Podkarpackie', value: 'Podkarpackie'},
 ]
+
 interface AddressEditFormProps {
     addressData: Address,
     userData: UserData,
 }
-export default function AddressEditForm({addressData, userData}:AddressEditFormProps) {
+
+export default function AddressEditForm({addressData, userData}: AddressEditFormProps) {
     const {mutate, isLoading} = useAddressEdit()
     const methods = useForm({
         resolver: zodResolver(addressSchema),
@@ -97,7 +100,7 @@ export default function AddressEditForm({addressData, userData}:AddressEditFormP
         }
     }, [geocodeAddress, debounced, isGeocodeSuccess, refetch])
     const onSubmit = (data: AddressSchema) => {
-        const address: AddressPostData & {id: string} = {
+        const address: AddressPostData & { id: string } = {
             address: {
                 street: data.street,
                 building_no: data.buildingNumber,
@@ -120,27 +123,38 @@ export default function AddressEditForm({addressData, userData}:AddressEditFormP
             <BackButton/>
             <h2>Edytuj adres</h2>
             <FormProvider {...methods}>
+                <div className={classes.page__form__wrapper}>
                 {/*@ts-expect-error data are compatible*/}
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.page__form}>
-                    <div className={classes.page__form__location}>
-                        <Input name={'city'} placeholder={'Miasto'}/>
-                        {matches && <button onClick={logPosition} type={'button'} className={classes.page__form__location__btn}><IconCurrentLocation /></button>}
-                    </div>
-                    <Input name={'street'} placeholder={'Ulica'}/>
-                    <div>
+                    <div className={classes.page__form__grid}>
+                        <div className={classes.page__form__location}>
+                            <Input name={'city'} placeholder={'Miasto'}/>
+                            {matches && <button onClick={logPosition} type={'button'}
+                                                className={classes.page__form__location__btn}><IconCurrentLocation/>
+                            </button>}
+                        </div>
+                        <div className={classes.page__form__street}>
+                            <Input name={'street'} placeholder={'Ulica'}/>
+                        </div>
+
                         <Input name={'buildingNumber'} placeholder={'Nr budynku'}/>
                         <Input name={'apartmentNumber'} placeholder={'Nr lokalu'}/>
+                        <Input name={'postal'} placeholder={'Kod pocztowy'}/>
+                        <ControlledSelect options={voivodeships} control={methods.control} name={'voivodeship'}
+                                          placeholder={'Województwo'}/>
+
                     </div>
-                    <Input name={'postal'} placeholder={'Kod pocztowy'}/>
-                    <ControlledSelect options={voivodeships} control={methods.control} name={'voivodeship'}
-                                      placeholder={'Województwo'}/>
                     <AddresAvailability debouncedArr={debounced} inRange={deliveryData?.inRange}/>
                     <TextArea name={'extraInfo'} placeholder={'Dodatkowe informacje dla kuriera'}/>
-                    <Checkbox name={'isWeekend'} placeholder={'Weekendy'}/>
-
-                    <button type={'submit'} disabled={(isFetching || !deliveryData?.inRange || extraInfoWatch === '' || isLoading)} className={btnStyles.btn}>{isLoading ? <TailSpin /> : 'Zapisz'}</button>
+                    <div className={classes.page__form__footer}>
+                    <Checkbox name={'isWeekend'} placeholder={'Weekendy'} className={inputStyles.checkbox}/>
+                    <button type={'submit'}
+                            disabled={(isFetching || !deliveryData?.inRange || extraInfoWatch === '' || isLoading)}
+                            className={btnStyles.btn}>{isLoading ? <TailSpin/> : 'Zapisz'}</button>
+                    </div>
 
                 </form>
+                </div>
             </FormProvider>
         </section>
     )

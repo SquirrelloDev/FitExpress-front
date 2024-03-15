@@ -10,19 +10,24 @@ import clsx from "clsx";
 import {Grid} from "react-loader-spinner";
 
 export default function ReportsPage() {
-	const userData = useAuthStore(state => state.userData)
-	const {data, isLoading} = useUserReportsQuery({id: userData.id, token: userData.token, pageSize: 0, pageIndex: 0})
-	return (
-		<section className={classes.reports}>
-			<BackButton />
-			<h1>Zgłoszenia</h1>
-			{isLoading && <Grid />}
-			{!isLoading &&
-				<div>
-					{data!.userReports.length === 0 && <p>Brak zgłoszeń do wyświetlenia</p>}
-					{data!.userReports.map(report => <ReportEntry key={report._id} reportData={report} token={userData.token}/>)}
-				</div>}
-			<Link to={appRoutes.newReport} className={clsx(btnStyles.btn, btnStyles['btn--link'], classes.reports__add)}>Dodaj zgłoszenie</Link>
-		</section>
-	)
+    const userData = useAuthStore(state => state.userData)
+    const {data, isLoading} = useUserReportsQuery({id: userData.id, token: userData.token, pageSize: 0, pageIndex: 0})
+    return (
+        <section className={classes.reports}>
+            <BackButton/>
+            <h1>Zgłoszenia</h1>
+            {isLoading && <Grid/>}
+            {!isLoading &&
+                <div className={classes.reports__wrapper}>
+                    <div className={classes.reports__grid}>
+                        {data!.userReports.length === 0 && <p>Brak zgłoszeń do wyświetlenia</p>}
+                        {data!.userReports.map(report => <ReportEntry key={report._id} reportData={report}
+                                                                      token={userData.token}/>)}
+                    </div>
+                </div>
+            }
+            <Link to={appRoutes.newReport}
+                  className={clsx(btnStyles.btn, btnStyles['btn--link'], classes.reports__add)}>Dodaj zgłoszenie</Link>
+        </section>
+    )
 }

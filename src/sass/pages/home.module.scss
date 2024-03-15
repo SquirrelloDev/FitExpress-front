@@ -3,13 +3,26 @@
   padding: 1em 1em 65px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   h1, h4{
     align-self: start;
   }
 }
 .no-orders{
+  &__wrapper{
+    @include respond-to('l'){
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    &__grid{
+      @include respond-to('l'){
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 2.5rem;
+      }
+    }
+  }
   &__main-header{
     margin: .5em 0;
     text-align: center;
@@ -38,6 +51,19 @@
   }
 }
 .standard{
+  &__wrapper{
+    @include respond-to('l'){
+      width: 100%;
+      max-width: 1200px;
+    }
+    &__grid{
+      @include respond-to('l'){
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 2.5rem;
+      }
+    }
+  }
   &__tabs{
     margin-top: .5em;
     &__list{
@@ -57,6 +83,10 @@
     }
     &__pannel{
       margin-top: 1em;
+      @include respond-to('l'){
+        display: flex;
+        justify-content: center;
+      }
     }
   }
   &__calendar{
@@ -84,6 +114,9 @@
       grid-area: 1 / 2 / 2 / 3;
       background-color: $cta;
       border-radius: 15px;
+      justify-self: end;
+      width: 100%;
+      max-width: 200px;
       p{
         text-align: center;
       }

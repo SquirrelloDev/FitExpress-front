@@ -28,7 +28,7 @@ function OrderEntry({order, index, openedItem, setOpenedItem, token}: OrderEntry
         setModalOpen(false)
     }, [deleteOrder, order._id, token])
     return (
-        <>
+        <div>
             <Card>
                 <div className={classes.management__entry} onClick={() => setOpenedItem(index)}>
                     <div className={classes.management__entry__header}>
@@ -70,7 +70,7 @@ function OrderEntry({order, index, openedItem, setOpenedItem, token}: OrderEntry
                 {modalOpen && <Modal><ViewDelete closeModal={setModalOpen}
                                                  deleteMutation={updateOrderStatus} isDeleting={isLoading}/></Modal>}
             </Card>
-        </>
+        </div>
     )
 }
 

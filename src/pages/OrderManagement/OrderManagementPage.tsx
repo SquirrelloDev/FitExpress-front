@@ -51,7 +51,9 @@ function OrderManagementPage() {
 					<>
 					<ManagementControl filterFunction={filterItems}/>
 						{filteredArr.length === 0 && <div className={clsx(classes.management__container,classes['management__container--empty'])}><p>Brak wyników</p></div>}
-					{filteredArr.map((order, idx) => <OrderEntry token={userData.token} order={order} index={idx} openedItem={openedItem} setOpenedItem={selectItem} key={order._id}/>)}
+						<div className={classes.management__entry__container}>
+						{filteredArr.map((order, idx) => <OrderEntry token={userData.token} order={order} index={idx} openedItem={openedItem} setOpenedItem={selectItem} key={order._id}/>)}
+						</div>
 					</>
 				) }
 			</div>

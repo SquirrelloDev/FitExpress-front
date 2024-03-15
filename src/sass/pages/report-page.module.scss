@@ -3,6 +3,20 @@
   padding: 2.75em 1em 125px;
   display: flex;
   flex-direction: column;
+  &__wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  &__grid{
+    @include respond-to('l'){
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 2rem;
+      width: 100%;
+      max-width: 1440px;
+    }
+  }
   &__entry{
     display: flex;
     align-items: center;
@@ -59,5 +73,11 @@
     width: 90%;
     transform: translateX(-50%);
     padding: .55em;
+    @include respond-to('l'){
+      bottom: unset;
+      top: 95px;
+      left: 90%;
+      width: 250px;
+    }
   }
 }

@@ -1,0 +1,12 @@
+@use "../utils" as *;
+.delete-modal{
+  &__actions{
+    display: flex;
+    flex-direction: column;
+    @include respond-to('l'){
+      flex-direction: row;
+      justify-content: space-around;
+      margin: 1em 0;
+    }
+  }
+}

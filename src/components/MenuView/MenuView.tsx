@@ -5,6 +5,7 @@ import {Order} from "../../types/dbtypes/Order";
 import MenuFixed from "../MenuFixed/MenuFixed";
 import {useFlexiByDayQuery} from "../../queries/flexi/listing";
 import MenuFlexi from "../MenuFlexi/MenuFlexi";
+import classes from "../../sass/components/menu-view.module.scss";
 
 
 interface MenuViewProps {
@@ -26,7 +27,7 @@ export function MenuView({order, token, currentDateListing}:MenuViewProps) {
 	return (
 		<>
 		<Tabs.Panel value={order.name}>
-			<div>
+			<div className={classes.view}>
 				{!isLoading && order.diet_id.diet_type === 'Fixed' && data?.day && <MenuFixed data={data!.day} dietId={order.diet_id._id} />}
 				{!isFlexiLoading && order.diet_id.diet_type === 'Flexi' && flexiData?.day && <MenuFlexi token={token} flexiTier={order.flexi_tier!} orderId={order._id} dietId={order.diet_id._id} currentDateListing={currentDateListing} data={flexiData!.day} />}
 			</div>

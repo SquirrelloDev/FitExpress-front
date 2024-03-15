@@ -120,7 +120,10 @@ function CartPage() {
                                         <p>Pora coś dodać!</p>
                                     </div>
                                 )}
+                                <div className={classes.cart__grid}>
+                                    <div className={classes['cart__grid__cart-items']}>
                                 {cartItemsFull?.map((cartItem, index) => (
+                                    <div className={classes.cart__item}>
                                     <Card key={cartItem._id + index}>
                                         <h3>Dieta {index + 1}</h3>
                                         <Card clearPadding>
@@ -149,10 +152,14 @@ function CartPage() {
                                         <CartSubDate name={`cart.${index}`} control={methods.control}
                                                      prices={cartItem.prices}/>
                                     </Card>
+                                    </div>
                                 ))}
+
                                 <button className={clsx(btnStyles.btn, btnStyles['btn--outline'])}
                                         onClick={() => navigate(appRoutes.diets)}>Dodaj {cartItems.length > 0 ? 'kolejną' : 'pierwszą'} dietę
                                 </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )}
@@ -165,6 +172,7 @@ function CartPage() {
                             </div>
                             <div className={classes.cart__wrapper}>
                                 <h3>Wybrane diety</h3>
+                                <div className={classes['cart__grid__cart-items']}>
                                 {cartItemsFull?.map((cartItem, index) => (
                                         <Card key={cartItem._id + index}>
                                             <div>
@@ -192,6 +200,7 @@ function CartPage() {
                                                addresses={userAddresses!.addresses}
                                                isAddressesLoading={isAddressesLoading}/>
                                 <CartPromocode token={userData.token} setCurrentDiscount={setCartDiscount} userId={userData.id}/>
+                                </div>
                             </div>
                         </>
                     )}

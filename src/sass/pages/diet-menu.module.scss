@@ -1,11 +1,25 @@
 @use "../utils" as *;
 .menu{
   padding: 3em 1em 65px;
+  @include respond-to('l'){
+    padding-bottom: 0;
+  }
   &__controls{
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin: 1em 0;
+    width: 100%;
+    @include respond-to('l'){
+      max-width: 800px;
+    }
+    &__wrapper{
+      width: 100%;
+      @include respond-to('l'){
+        display: flex;
+        justify-content: center;
+      }
+    }
     &__btns{
       display: flex;
       align-items: center;
@@ -28,6 +42,24 @@
         color: $cta;
         border-bottom: 2px solid $cta;
       }
+    }
+    &__panel{
+      @include respond-to('l'){
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+  &__fixed-wrapper{
+    @include respond-to('l'){
+      display: flex;
+      justify-content: center;
+    }
+  }
+  &__container{
+    @include respond-to('l'){
+      width: 100%;
+      max-width: 1200px;
     }
   }
   &__meal{

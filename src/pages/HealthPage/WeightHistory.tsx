@@ -27,6 +27,7 @@ function WeightHistory() {
                 {!isProgressLoading && (
                     <>
                         {progressData!.data.weight_progress.length === 0 && <div className={classes.blank}><p>Brak wpisów</p></div>}
+                        <div className={classes.history__container}>
                         {progressData!.data.weight_progress.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(weightItem => (
                             <Card clearPadding>
                                 <div className={classes.history__item}>
@@ -56,6 +57,7 @@ function WeightHistory() {
                                 </div>
                             </Card>
                         ))}
+                        </div>
                         <BottomActionSheet opened={opened} close={close} size={'xl'} withCloseButton={false}>
                             <WeightEditSheet id={userData.id} token={userData.token} close={close}
                                              dates={progressData!.data.weight_progress.map(waterItem => new Date(waterItem.date))}

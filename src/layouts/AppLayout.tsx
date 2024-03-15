@@ -6,6 +6,7 @@ import {useEffect} from "react";
 import useUserRole from "../hooks/useUserRole";
 import layoutStyles from '../sass/layouts/main.module.scss'
 import useOnlineStatus from "../hooks/useOnlineStatus";
+import DesktopNav from "../components/Nav/DesktopNav";
 interface AppLayoutProps {
 	minPermLevel: UserRole
 }
@@ -26,6 +27,7 @@ export function AppLayout({minPermLevel}:AppLayoutProps) {
 	}, [isAuthorized, isLoggedIn, navigate]);
 	return (
 		<main className={layoutStyles.app}>
+			<DesktopNav/>
 			<Outlet/>
 			<Navigation/>
 		</main>

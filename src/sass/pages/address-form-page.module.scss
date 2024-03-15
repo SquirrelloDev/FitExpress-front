@@ -1,12 +1,45 @@
 @use "../utils" as *;
-.page{
+
+.page {
   padding: 2.5em 1em 70px;
-  &__form{
+  @include respond-to('l'){
+    padding-bottom: 2em;
+  }
+  &__form {
     display: flex;
     flex-direction: column;
-    &__location{
+    width: 100%;
+    max-width: 1440px;
+    @include respond-to('l'){
+      margin-top: 1em;
+    }
+    &__wrapper{
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    &__grid {
+      @include respond-to('l') {
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 2rem;
+      }
+    }
+
+    &__row {
+      @include respond-to('l') {
+        display: flex;
+        justify-content: space-around;
+      }
+    }
+
+    &__location {
       position: relative;
-      &__btn{
+      @include respond-to('l'){
+        grid-area: 1/1/1/3;
+      }
+      &__btn {
         position: absolute;
         top: 57%;
         right: 10px;
@@ -20,12 +53,32 @@
         border: 1px solid transparent;
       }
     }
-    &__availability{
+    &__street{
+      @include respond-to('l'){
+        grid-area: 1/3/1/5;
+      }
+    }
+    &__availability {
       margin: .75em 0;
       align-self: center;
       display: flex;
-      svg{
+
+      svg {
         margin-right: .5em;
+      }
+    }
+    &__footer{
+      display: flex;
+      flex-direction: column;
+      @include respond-to('l'){
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      button{
+        @include respond-to('l'){
+          width: 300px;
+        }
       }
     }
   }

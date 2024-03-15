@@ -1,12 +1,34 @@
-.details{
+@use "../utils" as *;
+
+.details {
   padding: 2.5em 1em 70px;
-  &__form, &__delete{
+  @include respond-to('l') {
+    padding-bottom: 2em;
+  }
+  &__wrapper{
+    display: flex;
+    justify-content: center;
+  }
+  &__grid {
+    display: flex;
+    flex-direction: column;
+    @include respond-to('l') {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 2rem;
+      width: 100%;
+      max-width: 1600px;
+    }
+  }
+
+  &__form, &__delete {
     display: flex;
     flex-direction: column;
     margin: 1em 0;
   }
-  &__delete{
-    button{
+
+  &__delete {
+    button {
       margin-top: .5em;
     }
   }

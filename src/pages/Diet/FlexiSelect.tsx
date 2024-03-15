@@ -6,6 +6,7 @@ import useDietsListQuery from "../../queries/diets/listing";
 import useAuthStore from "../../stores/authStore";
 import {ReactNode} from "react";
 import BackButton from "../../components/BackBtn/BackButton";
+import {Grid} from "react-loader-spinner";
 
 const textArr: ReactNode[] = [
 	<p>Podstawowy pakiet <span className={classes['page-wrapper__diet__highlight']}>15 dań</span> do wyboru: od klasycznych po nieco bardziej egzotyczne smaki</p>,
@@ -21,12 +22,15 @@ function FlexiSelect() {
 			<BackButton />
 			<h1 className={classes['page-wrapper__header']}>Diety Flexi</h1>
 			<p className={classes['page-wrapper__sub-header']}>Który plan jest dla Ciebie?</p>
+			{isLoading && <Grid />}
+			<div className={classes['page-wrapper__boxes']}>
 			{!isLoading && data?.diets.map((diet, idx) => (<Card key={diet._id}>
 				<div onClick={() => navigate(appRoutes.diets + `/${diet._id}`)}>
 					<h2>{diet.name}</h2>
 					{textArr[idx]}
 				</div>
 			</Card>))}
+			</div>
 		</div>
 	)
 }

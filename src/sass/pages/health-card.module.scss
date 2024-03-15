@@ -4,6 +4,10 @@
   flex-direction: column;
   padding: 1.1em;
   align-items: center;
+  @include respond-to('l'){
+    width: 100%;
+    max-width: 1600px;
+  }
   &--app{
     padding-bottom: 65px;
   }
@@ -14,11 +18,35 @@
   }
   &__subtext{
     text-align: center;
+    @include respond-to('l'){
+      margin-bottom: 1em;
+    }
   }
   &__form{
     padding: .85em;
     display: flex;
     flex-direction: column;
+    @include respond-to('l'){
+      width: 100%;
+      flex-direction: row;
+      justify-content: center;
+    }
+    & > div{
+      margin: 0 5em;
+    }
+    & > div:last-child{
+      @include respond-to('l'){
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    &__grid{
+      @include respond-to('l'){
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        column-gap: 2rem;
+      }
+    }
   }
   &__alert{
     &__root{

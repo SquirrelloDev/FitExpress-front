@@ -1,22 +1,21 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import useAuthStore from "../stores/authStore";
 import {useOneMealListQuery} from "../queries/meal/listing";
 import classes from "../sass/pages/meal.module.scss";
-import {IconChevronLeft, IconPhotoOff} from "@tabler/icons-react";
+import {IconPhotoOff} from "@tabler/icons-react";
 import clsx from "clsx";
 import Card from "../components/Card/Card";
 import Nutrition from "../components/Nutrition/Nutrition";
 import {Grid} from "react-loader-spinner";
+import BackButton from "../components/BackBtn/BackButton";
 
 function MealPage() {
-    const navigate = useNavigate()
     const params = useParams();
     const userData = useAuthStore((state) => state.userData)
     const {data, isLoading} = useOneMealListQuery({id: params.id!, token: userData.token})
     return (
         <div className={classes.meal}>
-            <button onClick={() => navigate(-1)} className={classes.meal__back}><IconChevronLeft
-                color={'#fff'} size={30}/></button>
+            <BackButton/>
             <div className={classes['meal__image-box']}>
                 {data?.meal.imageBuffer ?
                     <img src={'data:;base64,' + data?.meal.imageBuffer} className={classes['meal__image-box__image']}
@@ -24,10 +23,12 @@ function MealPage() {
                     <div className={clsx(classes['meal__image-box__image'], classes['meal__image-box__image--blank'])}>
                         <IconPhotoOff size={80} color={'#404040FF'}/></div>}
             </div>
-            {isLoading ? <div className={classes.loading}>
+            {isLoading && <div className={classes.loading}>
                 <h1>Wczytywanie...</h1>
                 <Grid/>
-            </div> : (
+            </div>}
+            {!isLoading && (
+                <div className={classes.meal__wrapper}>
                 <div className={classes.meal__info}>
                     <h1>{data?.meal.name}</h1>
                     <div className={classes.meal__info__description}>
@@ -73,6 +74,7 @@ function MealPage() {
                             {data?.meal.exclusions.map(excl => <li key={excl._id}>{excl.name}</li>)}
                         </ul>
                     </div>
+                </div>
                 </div>
             )}
         </div>

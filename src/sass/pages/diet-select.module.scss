@@ -1,12 +1,27 @@
 @use '../utils' as *;
 .page-wrapper{
   padding: 2.5em 1em 65px;
+  @include respond-to('l'){
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   &__header{
     text-align: center;
   }
   &__sub-header{
     margin: .5em 0;
     text-align: center;
+  }
+  &__boxes{
+    @include respond-to('l'){
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      column-gap: 2.5rem;
+      width: 100%;
+      max-width: 1440px;
+    }
   }
   &__box{
     padding: 1em;
@@ -18,9 +33,15 @@
     position: relative;
     padding: .5em;
     width: 100%;
+    @include respond-to('l'){
+
+    }
     &__header, &__desc{
-      inline-size: 200px;
+      inline-size: 250px;
       overflow-wrap: break-word;
+      @include respond-to('l'){
+        inline-size: 250px;
+      }
     }
     &__image{
       position: absolute;

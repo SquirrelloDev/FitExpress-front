@@ -4,6 +4,19 @@
   position: relative;
   h1{
     margin-left: 1em;
+    @include respond-to('l'){
+      margin-top: .5em;
+      margin-left: 0;
+    }
+  }
+  &__container{
+    display: flex;
+    flex-direction: column;
+    @include respond-to('l'){
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
   }
   &__item{
     display: flex;

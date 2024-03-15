@@ -68,12 +68,13 @@ export function HealthEditPage() {
                 <h1 className={classes.hcard__header}>Edycja karty zdrowia</h1>
                 {/*@ts-expect-error data are sent correctly*/}
                 <form className={classes.hcard__form} onSubmit={handleSubmit(onSubmit)}>
+                    <div className={classes.hcard__form__grid}>
                     <ControlledSelect options={[{label: 'Mężczyzna', value: 'M'}, {label: 'Kobieta', value: 'F'}]}
                                       control={methods.control} name={'gender'} placeholder={'Płeć'} isRequired/>
-                    <Input name={'user_height'} type='number' min={120} max={250} placeholder={'Wzrost (w cm)'}/>
-                    <Input name={'user_weight_current'} type='number' min={40} max={500}
+                    <Input name={'user_height'} type='number' min={120} max={250} placeholder={'Wzrost (w cm)'} step={0.01}/>
+                    <Input name={'user_weight_current'} type='number' min={40} max={500} step={0.01}
                            placeholder={'Aktualna waga (w kg)'}/>
-                    <Input name={'user_weight_planned'} type='number' min={40} max={500}
+                    <Input name={'user_weight_planned'} type='number' min={40} max={500} step={0.01}
                            placeholder={'Planowana waga (w kg)'}/>
                     <ControlledDatePicker control={methods.control} name={'birth_date'}
                                           placeholderText={'Data urodzin'} locale={'pl'}
@@ -82,10 +83,13 @@ export function HealthEditPage() {
                                       placeholder={'Aktywność treningowa w tygodniu'}/>
                     <ControlledSelect options={palPassive} control={methods.control} name={'pal_passive'}
                                       placeholder={'Aktywność pozatreningowa'}/>
+                    </div>
+                    <div>
                     <HealthCardRadio name={'user_goal'} control={methods.control}/>
                     <button type='submit' className={btnStyles.btn} disabled={isLoading}>{isLoading ?
                         <TailSpin visible={true} color={"#fff"} height={20}
                                   width={20}/> : 'Aktualizuj'}</button>
+                    </div>
                 </form>
             </div>
         </FormProvider>
