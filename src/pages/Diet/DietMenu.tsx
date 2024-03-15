@@ -78,13 +78,16 @@ function DietMenu() {
         <div className={classes.menu}>
             <BackButton />
             <h2>Podgląd menu</h2>
+            <div className={classes.menu__controls__wrapper}>
             <div className={classes.menu__controls}>
                 <button disabled={page === 0} onClick={previousDay} className={clsx(btnStyles.btn, btnStyles['btn--dark'], classes.menu__controls__btns)}><IconArrowLeft/></button>
                 <h3>{displayDate()}</h3>
                 <button disabled={page === 6} onClick={nextDay} className={clsx(btnStyles.btn, btnStyles['btn--dark'], classes.menu__controls__btns)}><IconArrowRight/></button>
             </div>
+            </div>
             {(!isFixedLoading && searchParams.get('type') === 'Fixed') && (
-                <div>
+                <div className={classes['menu__fixed-wrapper']}>
+                <div className={classes.menu__container}>
                     {Object.values(fixedData!.day.diets.find(diet => diet.diet_id._id === params.diet)!.meals).map((meal, idx) => (
                         <Card key={meal._id}>
                             <div className={classes.menu__meal}>
@@ -95,10 +98,11 @@ function DietMenu() {
                         </Card>
                     ))}
                 </div>
+                </div>
             )}
             {(!isFlexiLoading && searchParams.get('type') === 'Flexi') && (
                 <div>
-                    <Tabs defaultValue={'morning'} classNames={{list: classes.menu__tabs__list, tab: classes.menu__tabs__tab}}>
+                    <Tabs defaultValue={'morning'} classNames={{list: classes.menu__tabs__list, tab: classes.menu__tabs__tab, panel: classes.menu__tabs__panel}}>
                     <Tabs.List grow>
                         <Tabs.Tab value={'morning'}>Śniadanie</Tabs.Tab>
                         <Tabs.Tab value={'lunch'}>Lunch</Tabs.Tab>
@@ -106,7 +110,9 @@ function DietMenu() {
                         <Tabs.Tab value={'teatime'}>Podwieczorek</Tabs.Tab>
                         <Tabs.Tab value={'supper'}>Kolacja</Tabs.Tab>
                     </Tabs.List>
-                        <Tabs.Panel value={'morning'}>{flexiData?.day.morning_meals.map((meal, idx) => (
+                        <Tabs.Panel value={'morning'}>
+                            <div className={classes.menu__container}>
+                            {flexiData?.day.morning_meals.map((meal, idx) => (
                             <Card key={meal._id + idx}>
                                 <div className={classes.menu__meal}>
                                     <div className={classes.menu__meal__details__subsciption}>
@@ -116,9 +122,12 @@ function DietMenu() {
                                     <p>{meal.name}</p>
                                     <button className={clsx(btnStyles.btn, classes.menu__meal__details)} onClick={() => navigate(appRoutes.meal + `/${meal._id}`)}>Szczegóły</button>
                                 </div>
-                            </Card>
-                        ))}</Tabs.Panel>
-                        <Tabs.Panel value={'lunch'}>{flexiData?.day.lunch_meals.map((meal, idx) => (
+                            </Card>))}
+                            </div>
+                        </Tabs.Panel>
+                        <Tabs.Panel value={'lunch'}>
+                            <div className={classes.menu__container}>
+                            {flexiData?.day.lunch_meals.map((meal, idx) => (
                             <Card key={meal._id + idx}>
                                 <div className={classes.menu__meal}>
                                     <div className={classes.menu__meal__details__subsciption}>
@@ -128,9 +137,12 @@ function DietMenu() {
                                     <p>{meal.name}</p>
                                     <button className={clsx(btnStyles.btn, classes.menu__meal__details)} onClick={() => navigate(appRoutes.meal + `/${meal._id}`)}>Szczegóły</button>
                                 </div>
-                            </Card>
-                        ))}</Tabs.Panel>
-                        <Tabs.Panel value={'dinner'}>{flexiData?.day.dinner_meals.map((meal, idx) => (
+                            </Card>))}
+                            </div>
+                        </Tabs.Panel>
+                        <Tabs.Panel value={'dinner'}>
+                            <div className={classes.menu__container}>
+                            {flexiData?.day.dinner_meals.map((meal, idx) => (
                             <Card key={meal._id + idx}>
                                 <div className={classes.menu__meal}>
                                     <div className={classes.menu__meal__details__subsciption}>
@@ -140,9 +152,12 @@ function DietMenu() {
                                     <p>{meal.name}</p>
                                     <button className={clsx(btnStyles.btn, classes.menu__meal__details)} onClick={() => navigate(appRoutes.meal + `/${meal._id}`)}>Szczegóły</button>
                                 </div>
-                            </Card>
-                        ))}</Tabs.Panel>
-                        <Tabs.Panel value={'teatime'}>{flexiData?.day.teatime_meals.map((meal, idx) => (
+                            </Card>))}
+                            </div>
+                        </Tabs.Panel>
+                        <Tabs.Panel value={'teatime'}>
+                            <div className={classes.menu__container}>
+                            {flexiData?.day.teatime_meals.map((meal, idx) => (
                             <Card key={meal._id + idx}>
                                 <div className={classes.menu__meal}>
                                     <div className={classes.menu__meal__details__subsciption}>
@@ -152,9 +167,12 @@ function DietMenu() {
                                     <p>{meal.name}</p>
                                     <button className={clsx(btnStyles.btn, classes.menu__meal__details)} onClick={() => navigate(appRoutes.meal + `/${meal._id}`)}>Szczegóły</button>
                                 </div>
-                            </Card>
-                        ))}</Tabs.Panel>
-                        <Tabs.Panel value={'supper'}>{flexiData?.day.supper_meals.map((meal, idx) => (
+                            </Card>))}
+                            </div>
+                        </Tabs.Panel>
+                        <Tabs.Panel value={'supper'}>
+                            <div className={classes.menu__container}>
+                            {flexiData?.day.supper_meals.map((meal, idx) => (
                             <Card key={meal._id + idx}>
                                 <div className={classes.menu__meal}>
                                     <div className={classes.menu__meal__details__subsciption}>
@@ -164,8 +182,9 @@ function DietMenu() {
                                     <p>{meal.name}</p>
                                     <button className={clsx(btnStyles.btn, classes.menu__meal__details)} onClick={() => navigate(appRoutes.meal + `/${meal._id}`)}>Szczegóły</button>
                                 </div>
-                            </Card>
-                        ))}</Tabs.Panel>
+                            </Card>))}
+                            </div>
+                        </Tabs.Panel>
                     </Tabs>
                 </div>
             )}
