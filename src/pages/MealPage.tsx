@@ -1,4 +1,4 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import useAuthStore from "../stores/authStore";
 import {useOneMealListQuery} from "../queries/meal/listing";
 import classes from "../sass/pages/meal.module.scss";

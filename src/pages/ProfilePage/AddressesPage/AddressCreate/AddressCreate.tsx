@@ -105,8 +105,8 @@ export default function AddressCreate() {
             <BackButton/>
             <h2>Dodaj adres</h2>
             <FormProvider {...methods}>
-                {/*@ts-expect-error data are compatible*/}
                 <div className={classes.page__form__wrapper}>
+                {/*@ts-expect-error data are compatible*/}
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.page__form}>
                     <div className={classes.page__form__grid}>
                             <div className={classes.page__form__location}>
