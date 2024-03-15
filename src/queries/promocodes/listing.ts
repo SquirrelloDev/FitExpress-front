@@ -13,11 +13,6 @@ interface paginationInfo {
     lastPage: number
 
 }
-
-type OneAuthParams = {
-    token: string,
-    id: string
-}
 const userPartialKey = 'PromosList'
 type PromosListKey = [typeof userPartialKey, AuthParams]
 
@@ -25,9 +20,6 @@ interface PromosResponse {
     promocodes: Promocode[]
     paginationInfo: paginationInfo
 }
-
-const onePromoPartialKey = 'PromoList'
-type OnePromoListKey = [typeof onePromoPartialKey, OneAuthParams]
 
 type NamePromoParams = {
     token: string,
@@ -53,16 +45,6 @@ const listPromos: QueryFunction<PromosResponse, PromosListKey> = async ({signal,
     })
     return res.data as PromosResponse
 }
-const listOnePromo: QueryFunction<OnePromoResponse, OnePromoListKey> = async ({signal, queryKey}) => {
-    const [, {token, id}] = queryKey;
-    const res = await FitExpressClient.getInstance().get<OnePromoResponse>(apiRoutes.GET_PROMOCODE_ID(id), {
-        signal, headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-        }
-    })
-    return {promocode: res.data as unknown} as OnePromoResponse
-}
 const getPromoByName: QueryFunction<OnePromoResponse, NamePromoListKey> = async ({signal, queryKey}) => {
     const [,{token, name, userId}] = queryKey;
     const res = await FitExpressClient.getInstance().get<OnePromoResponse>(apiRoutes.GET_PROMOCODE_NAME(name, userId), {
@@ -83,14 +65,6 @@ function usePromosListQuery(params: AuthParams) {
     const queryKey = ['PromosList', params] as PromosListKey
     const {data, error, isLoading, isSuccess, isError} = useQuery({
             queryKey, queryFn: listPromos, keepPreviousData: true
-        }
-    )
-    return {data, error, isError, isSuccess, isLoading}
-}
-export function useOnePromoListQuery(params: OneAuthParams){
-    const queryKey = ['PromoList', params] as OnePromoListKey
-    const {data, error, isLoading, isSuccess, isError} = useQuery({
-            queryKey, queryFn: listOnePromo
         }
     )
     return {data, error, isError, isSuccess, isLoading}

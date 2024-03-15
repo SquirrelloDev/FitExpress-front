@@ -14,10 +14,6 @@ interface paginationInfo {
 
 }
 
-type OneAuthParams = {
-    token: string,
-    id: string
-}
 const userPartialKey = 'FlexisList'
 type FlexiListKey = [typeof userPartialKey, AuthParams]
 const flexiByDatePartialKey = 'FlexiDay'
@@ -27,8 +23,6 @@ interface FlexiResponse {
     paginationInfo: paginationInfo
 }
 
-const oneFlexiPartialKey = 'FlexiList'
-type OneFlexiListKey = [typeof oneFlexiPartialKey, OneAuthParams]
 
 interface OneFlexiResponse {
     day: DayFlexi
@@ -44,16 +38,6 @@ const listFlexi: QueryFunction<FlexiResponse, FlexiListKey> = async ({signal, qu
         }
     })
     return res.data as FlexiResponse
-}
-const listOneFlexi: QueryFunction<OneFlexiResponse, OneFlexiListKey> = async ({signal, queryKey}) => {
-    const [, {token, id}] = queryKey;
-    const res = await FitExpressClient.getInstance().get<OneFlexiResponse>(apiRoutes.GET_FLEXI_ID(id), {
-        signal, headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-        }
-    })
-    return {day: res.data as unknown} as OneFlexiResponse
 }
 const listFlexiByDay: QueryFunction<OneFlexiResponse, OneFlexiByDateKey> = async ({signal, queryKey}) => {
     const [, {token, date}] = queryKey;
@@ -79,14 +63,6 @@ export function useFlexiByDayQuery(params: DayParams,  isEnabled = false){
         queryKey, queryFn: listFlexiByDay, enabled: isEnabled
     })
     return {data, error, isLoading, isSuccess, isError, refetch}
-}
-export function useOneFlexiListQuery(params: OneAuthParams){
-    const queryKey = ['FlexiList', params] as OneFlexiListKey
-    const {data, error, isLoading, isSuccess, isError, refetch} = useQuery({
-            queryKey, queryFn: listOneFlexi
-        }
-    )
-    return {data, error, isError, isSuccess, isLoading, refetch}
 }
 
 export default useFlexiListQuery
