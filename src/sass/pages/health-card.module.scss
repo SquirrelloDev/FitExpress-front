@@ -6,7 +6,7 @@
   align-items: center;
   @include respond-to('l'){
     width: 100%;
-    max-width: 1200px;
+    max-width: 1600px;
   }
   &--app{
     padding-bottom: 65px;
@@ -18,6 +18,9 @@
   }
   &__subtext{
     text-align: center;
+    @include respond-to('l'){
+      margin-bottom: 1em;
+    }
   }
   &__form{
     padding: .85em;
@@ -35,6 +38,13 @@
       @include respond-to('l'){
         display: flex;
         flex-direction: column;
+      }
+    }
+    &__grid{
+      @include respond-to('l'){
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        column-gap: 2rem;
       }
     }
   }

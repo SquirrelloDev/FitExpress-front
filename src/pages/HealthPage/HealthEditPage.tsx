@@ -68,7 +68,7 @@ export function HealthEditPage() {
                 <h1 className={classes.hcard__header}>Edycja karty zdrowia</h1>
                 {/*@ts-expect-error data are sent correctly*/}
                 <form className={classes.hcard__form} onSubmit={handleSubmit(onSubmit)}>
-                    <div>
+                    <div className={classes.hcard__form__grid}>
                     <ControlledSelect options={[{label: 'Mężczyzna', value: 'M'}, {label: 'Kobieta', value: 'F'}]}
                                       control={methods.control} name={'gender'} placeholder={'Płeć'} isRequired/>
                     <Input name={'user_height'} type='number' min={120} max={250} placeholder={'Wzrost (w cm)'} step={0.01}/>

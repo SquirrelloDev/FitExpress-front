@@ -1,6 +1,9 @@
 @use '../utils' as *;
 .hcard-radio{
   margin: 2em 0;
+  @include respond-to('l'){
+    margin: 0;
+  }
   &__group{
     display: flex;
     flex-direction: column;
