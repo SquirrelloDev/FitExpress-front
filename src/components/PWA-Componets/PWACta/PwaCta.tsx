@@ -14,7 +14,6 @@ function PwaCta() {
         setInstallPrompt(ev as BeforeInstallPromptEvent)
     }, [])
     const installApp = async () => {
-        console.log('siema')
         if (!installPrompt) {
             return;
         }
@@ -24,7 +23,6 @@ function PwaCta() {
         }
     }
     useEffect(() => {
-        console.log('siema useEffect')
         window.addEventListener('beforeinstallprompt', defferPrompt)
         return () => {
             window.removeEventListener('beforeinstallprompt', defferPrompt)
