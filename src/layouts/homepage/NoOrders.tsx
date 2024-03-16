@@ -13,7 +13,7 @@ function NoOrders() {
         <div className={classes['no-orders__wrapper']}>
             <h3 className={classes['no-orders__main-header']}>Brak aktywnych diet 😥</h3>
             <div className={classes['no-orders__wrapper__grid']}>
-            {!appInstalled || !matches && <PwaCta/>}
+            {(!appInstalled || !matches) && <PwaCta/>}
             {cartItems.length > 0 && <CartCta isReminder/>}
             <CartCta/>
             </div>

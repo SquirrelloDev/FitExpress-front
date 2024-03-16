@@ -1,5 +1,5 @@
 import Card from "../../Card/Card";
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import usePwaStore from "../../../stores/pwaStore";
 import btnStyles from "../../../sass/components/button.module.scss";
 import {IconCurrentLocation, IconMeat, IconScaleOutline} from "@tabler/icons-react";
@@ -8,11 +8,10 @@ import {BeforeInstallPromptEvent} from "../../../types/installprompt";
 
 function PwaCta() {
     const setAppInstalled = usePwaStore(state => state.setAppInstalled)
-    let installPrompt: BeforeInstallPromptEvent;
+    const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null)
     const defferPrompt = useCallback((ev: Event) => {
         ev.preventDefault()
-        installPrompt = ev as BeforeInstallPromptEvent
-        return false
+        setInstallPrompt(ev as BeforeInstallPromptEvent)
     }, [])
     const installApp = async () => {
         if (!installPrompt) {
