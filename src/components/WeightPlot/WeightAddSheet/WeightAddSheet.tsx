@@ -6,7 +6,7 @@ import ControlledDatePicker from "../../Datepicker/ControlledDatePicker";
 import Input from "../../Input/Input";
 import btnStyles from "../../../sass/components/button.module.scss";
 import {TailSpin} from "react-loader-spinner";
-import {startOfDay} from "date-fns";
+import {parseIntoMidnight} from "../../../utils/dates";
 
 interface WeightAddSheetProps {
 	id: string,
@@ -38,7 +38,7 @@ function WeightAddSheet({id, token, close, dates}: WeightAddSheetProps) {
 		const newEntry: ProgressData = {
 			kind: "weight",
 			data: {
-				date: startOfDay(data.date),
+				date: parseIntoMidnight(data.date),
 				weight: Number(data.weight)
 			},
 			token,

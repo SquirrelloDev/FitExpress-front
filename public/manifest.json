@@ -22,7 +22,7 @@
       "sizes": "192x192"
     },
     {
-      "src": "/icons/pwa-512x512.png",
+      "src": "/icons/maskable-icon-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }

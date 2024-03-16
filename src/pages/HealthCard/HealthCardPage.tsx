@@ -14,7 +14,7 @@ import useUserPrefs from "../../hooks/useUserPrefs";
 import {useNavigate} from "react-router-dom";
 import {appRoutes} from "../../utils/routes";
 import {palActive, palPassive} from "../../utils/palTypes";
-import {startOfDay} from "date-fns";
+import {parseIntoMidnight} from "../../utils/dates";
 
 function HealthCardPage() {
     const navigate = useNavigate()
@@ -54,7 +54,7 @@ function HealthCardPage() {
                 bmi: currentBMI,
                 bmi_planned: plannedBMI,
             },
-            birthDate: startOfDay(data.birth_date)
+            birthDate: parseIntoMidnight(data.birth_date)
         }
         mutate(healthData);
         assignHealthStore({calories: caloricDemand, user_goal: data.user_goal})

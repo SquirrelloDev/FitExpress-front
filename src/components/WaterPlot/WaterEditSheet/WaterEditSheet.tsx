@@ -8,7 +8,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {queryClient} from "../../../utils/api";
 import useProgressPatch from "../../../queries/progress-entry/edit";
 import classes from "../../../sass/components/entry-sheet.module.scss";
-import {startOfDay} from "date-fns";
+import {parseIntoMidnight} from "../../../utils/dates";
 
 interface WaterEditSheetProps {
     id: string,
@@ -46,7 +46,7 @@ function WaterEditSheet({id, token, close, dates, defValue}: WaterEditSheetProps
         const newEntry: ProgressData = {
             kind: "water",
             data: {
-                date: startOfDay(data.date),
+                date: parseIntoMidnight(data.date),
                 water: Number(data.water)
             },
             token,

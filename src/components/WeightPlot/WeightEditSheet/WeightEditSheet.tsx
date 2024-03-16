@@ -8,7 +8,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {queryClient} from "../../../utils/api";
 import useProgressPatch from "../../../queries/progress-entry/edit";
 import classes from "../../../sass/components/entry-sheet.module.scss";
-import {startOfDay} from "date-fns";
+import {parseIntoMidnight} from "../../../utils/dates";
 
 
 interface WeightEditSheetProps {
@@ -47,7 +47,7 @@ function WeightEditSheet({id, token, close, dates, defValue}: WeightEditSheetPro
         const newEntry: ProgressData = {
             kind: "weight",
             data: {
-                date: startOfDay(data.date),
+                date: parseIntoMidnight(data.date),
                 weight: Number(data.weight)
             },
             token,
