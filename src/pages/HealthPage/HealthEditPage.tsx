@@ -16,6 +16,7 @@ import btnStyles from "../../sass/components/button.module.scss";
 import {TailSpin} from "react-loader-spinner";
 import clsx from "clsx";
 import BackButton from "../../components/BackBtn/BackButton";
+import {startOfDay} from "date-fns";
 
 export function HealthEditPage() {
     const navigate = useNavigate()
@@ -56,7 +57,7 @@ export function HealthEditPage() {
                 bmi: currentBMI,
                 bmi_planned: plannedBMI,
             },
-            birthDate: data.birth_date
+            birthDate: startOfDay(data.birth_date)
         }
         mutate(healthData);
         assignHealthStore({calories: caloricDemand, user_goal: data.user_goal})

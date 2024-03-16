@@ -13,6 +13,7 @@ import {TailSpin} from "react-loader-spinner";
 import {SelectOption} from "../Select/types";
 import classes from "../../sass/pages/report-create.module.scss";
 import {useEffect, useState} from "react";
+import {startOfDay} from "date-fns";
 
 interface ReportFormProps {
 	orders: Order[],
@@ -47,7 +48,7 @@ export default function ReportForm({orders, userData}:ReportFormProps) {
 			report: {
 				orderId: data.orderId,
 				userId: userData.id,
-				deliveryDate: new Date(data.deliveryDate),
+				deliveryDate: startOfDay(new Date(data.deliveryDate)),
 				category: data.category,
 				message: data.message
 			},

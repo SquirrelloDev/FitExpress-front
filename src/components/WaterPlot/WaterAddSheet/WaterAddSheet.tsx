@@ -6,6 +6,7 @@ import {TailSpin} from "react-loader-spinner";
 import btnStyles from '../../../sass/components/button.module.scss'
 import {zodResolver} from "@hookform/resolvers/zod";
 import {queryClient} from "../../../utils/api";
+import {startOfDay} from "date-fns";
 
 interface WaterAddSheetProps {
     id: string,
@@ -38,7 +39,7 @@ function WaterAddSheet({id, token, close, dates}: WaterAddSheetProps) {
         const newEntry: ProgressData = {
             kind: "water",
             data: {
-                date: data.date,
+                date: startOfDay(data.date),
                 water: Number(data.water)
             },
             token,
