@@ -52,8 +52,6 @@ self.addEventListener('push', (event) => {
     }
     const options = {
         body: data.content,
-        // icon: '/icons/',
-        // badge: 'link/do/source'
     }
     event.waitUntil(
         self.registration.showNotification(data.title, options)

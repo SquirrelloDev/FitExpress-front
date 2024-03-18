@@ -20,8 +20,7 @@ interface StandardLayoutProps {
 }
 
 function StandardLayout({orderData}: StandardLayoutProps) {
-    const appInstalled = usePwaStore(state => state.appInstalled)
-    const matches = useMediaQuery('(display-mode: standalone)');
+    // const matches = useMediaQuery('(display-mode: standalone)');
     const currentDate = new Date();
     const cartItems = useCartStore(state => state.cartItems)
     return (
@@ -68,7 +67,7 @@ function StandardLayout({orderData}: StandardLayoutProps) {
                                     </Card>
                                     {cartItems.length > 0 && <CartCta isReminder/>}
                                     <CartCta/>
-                                    {(!matches || !appInstalled) && <PwaCta/>}
+                                    {/*{(!matches) && <PwaCta/>}*/}
                                     </div>
                                 </div>
                             </Tabs.Panel>)
