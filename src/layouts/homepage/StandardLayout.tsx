@@ -11,9 +11,9 @@ import {IconCheck} from "@tabler/icons-react";
 import HomeCalendar from "../../components/HomeCalendar/HomeCalendar";
 import useCartStore from "../../stores/cartStore";
 import CartCta from "../../components/Cart/CartCta/CartCta";
-import PwaCta from "../../components/PWA-Componets/PWACta/PwaCta";
-import {useMediaQuery} from "@mantine/hooks";
-import usePwaStore from "../../stores/pwaStore";
+// import PwaCta from "../../components/PWA-Componets/PWACta/PwaCta";
+// import {useMediaQuery} from "@mantine/hooks";
+// import usePwaStore from "../../stores/pwaStore";
 
 interface StandardLayoutProps {
     orderData: Order[]
