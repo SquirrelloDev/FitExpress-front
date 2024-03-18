@@ -56,8 +56,8 @@ function HealthCardPage() {
             },
             birthDate: parseIntoMidnight(data.birth_date)
         }
-        mutate(healthData);
         assignHealthStore({calories: caloricDemand, user_goal: data.user_goal})
+        mutate(healthData);
     }
     return (
         <FormProvider {...methods}>
