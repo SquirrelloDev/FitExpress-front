@@ -7,11 +7,11 @@ function useBMICategory() {
         {name: 'Otyłość II st.', min: 35, max: 39.99, color: 'red'},
     ];
     const currentCategory = (bmiCurrent: number): { name: string; min?: number; max?: number; color: string } => {
-        const foundCategory = categories.find(category => (bmiCurrent! > category.min && bmiCurrent! < category.max))
+        const foundCategory = categories.find(category => (bmiCurrent! >= category.min && bmiCurrent! <= category.max))
         return foundCategory ? foundCategory : {name: 'N/A', color: 'gray'}
     }
     const plannedCategory = (bmiPlanned: number): { name: string; min?: number; max?: number; color: string } | undefined => {
-        const foundCategory = categories.find(category => (bmiPlanned! > category.min && bmiPlanned! < category.max))
+        const foundCategory = categories.find(category => (bmiPlanned! >= category.min && bmiPlanned! <= category.max))
         return foundCategory ? foundCategory : {name: 'N/A', color: 'gray'}
     }
     return {currentCategory, plannedCategory}

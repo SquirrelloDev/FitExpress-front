@@ -10,7 +10,7 @@ interface AccountDeleteProps {
 export default function AccountDeleteModal({closeModal, deleteMutation, isDeleting}:AccountDeleteProps) {
 	return (
 		<div>
-			<h2>Roztajesz się z nami?</h2>
+			<h2>Rozstajesz się z nami?</h2>
 			<p>Wszystkie dane konta zostaną usunięte. Utracisz dostęp do korzystania z aplikacji</p>
 			<p>Otrzymasz zwrot pieniędzy na konto bankowe w ciągu 3 dni od skasowania konta w przypadku istniejącej aktywnej diety.</p>
 			<div className={classes['delete-modal__actions']}>
