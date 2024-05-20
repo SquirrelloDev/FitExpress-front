@@ -6,10 +6,10 @@ import {useFormContext} from "react-hook-form";
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((
 	{className,
 	placeholder,
-	error,
 	name,
 	...props
 	},
+	ref
 ) => {
 	const id = useId();
 	const {
@@ -22,6 +22,8 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>((
 				{placeholder}
 			</label>
 			<textarea id={id} className={className ? className : inputStyles['text-area']}
+				//@ts-expect-error the ref should be overwritten by the hook form lib
+				ref={ref}
 				{...register(`${name}`)}
 				{...props}
 			/>

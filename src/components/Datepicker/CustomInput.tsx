@@ -9,11 +9,10 @@ const CustomInput = forwardRef<HTMLInputElement, InputProps>(
       className,
       placeholder,
       type,
-      error,
-      placeholderClassName,
       name,
       ...props
-    }
+    },
+    ref
   ) => {
     const id = useId()
     const {
@@ -33,6 +32,8 @@ const CustomInput = forwardRef<HTMLInputElement, InputProps>(
           placeholder=" "
           type={type}
           className={className ? className : inputStyles.input}
+          //@ts-expect-error the ref should be overwritten by the hook form lib
+          ref={ref}
           {...register(`${name}`)}
           {...props}
         />

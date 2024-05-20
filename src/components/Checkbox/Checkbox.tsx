@@ -8,12 +8,10 @@ const Checkbox = forwardRef<HTMLInputElement, InputProps>(
     {
       className,
       placeholder,
-      error,
-      placeholderClassName,
       name,
       ...props
     },
-    // ref
+    ref
   ) => {
     const id = useId()
     const {
@@ -24,7 +22,8 @@ const Checkbox = forwardRef<HTMLInputElement, InputProps>(
       <div className={inputStyles.checkbox__wrapper}>
           <input
               id={id}
-              // ref={ref}
+              //@ts-expect-error the ref should be overwritten by the hook form lib
+              ref={ref}
               placeholder=" "
               type="checkbox"
               className={className ? className : inputStyles.input}
