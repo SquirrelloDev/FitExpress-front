@@ -14,6 +14,8 @@ Technologies and libraries used for building the app:
 - React hook form
 - React-select
 - React date-picker
+- React hot-toast
+- React loader spinner
 - Tanstack react query
 - Zustand
 - Stripe.js
@@ -21,6 +23,7 @@ Technologies and libraries used for building the app:
 - Date-fns
 - Recharts
 - TypeScript
+- zod
 - SCSS
 - VitePWA
 - PWA features: notifications, localization
@@ -59,7 +62,7 @@ To test the API in dev enviroment, replace the ```endpointURL.prod``` to ```endp
 ### Instruction
 1. Clone the the repository:
 ```shell
-git clone https://github.com/SquirrelloDev/FitExpress-front
+git clone https://github.com/SquirrelloDev/FitExpress-front.git
 ```
 2. Install dependencies
 ```shell
